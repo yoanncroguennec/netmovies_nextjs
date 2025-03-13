@@ -18,6 +18,30 @@ html, body {
   padding: 0;
 }
 
+/* STYLE SCROLLBAR */
+::-webkit-scrollbar {
+  width: 0.7em;
+}
+
+::-webkit-scrollbar-track {
+  background: #A9A9A9;
+  border-radius: 100vw;
+  margin-block: 15.5em;
+  margin-left: 10em;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #5D6D7E;
+  border: 0.25em solid #2980B9;
+  /* height: 1em!important; */
+  border-radius: 100vw;
+
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(120 100% 10% / 1);
+  border-radius: 100vw;
+}
+
 .content {
   max-height: 0;
   overflow: hidden;
