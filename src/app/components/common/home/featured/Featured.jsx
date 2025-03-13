@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
 import { Typography, useTheme, useMediaQuery, Box } from "@mui/material";
-import { Link } from "react-router-dom";
 // LAYOUTS
 import { GlobalModauxFeatured } from "@/app/components/layouts";
 // UTILS ASSETS DATAS
@@ -27,6 +26,7 @@ import {
   StylesThreeBtns,
   TypoNameMovieRandom,
 } from "./StylesFeatured";
+import Link from "next/link";
 
 const sizeIconDesktop = 35;
 const sizeIconMobile = 20;
@@ -137,7 +137,7 @@ export default function Featured() {
                     ({ textCategory, urlCategory, index }) => (
                       <Link
                         key={index}
-                        to={urlCategory}
+                        href={urlCategory}
                         state={{
                           movieCategory: `${textCategory}`,
                         }}
