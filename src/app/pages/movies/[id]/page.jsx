@@ -26,7 +26,8 @@ import {
 } from "./StylesMovie_By_ID";
 
 
-export default function Movie_By_ID({ token = true, id_Of_ConnectedUser }) {
+export default function Movie_By_ID({  }) {
+    const [token] = useState(true)
   const params = useParams();
   //   const { id } = params;
 
