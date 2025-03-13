@@ -11,6 +11,7 @@ import {
   BsChevronDoubleUp,
 } from "react-icons/bs";
 import { LiaEyeSolid, LiaEyeSlash } from "react-icons/lia";
+import { MdOutlineNavigateNext } from "react-icons/md";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { SlArrowDown } from "react-icons/sl";
 
@@ -26,6 +27,7 @@ export {
   BsChevronDoubleUp,
   LiaEyeSolid,
   LiaEyeSlash,
+  MdOutlineNavigateNext,
   RiDeleteBin2Fill,
   SlArrowDown,
 };

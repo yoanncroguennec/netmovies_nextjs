@@ -2,11 +2,11 @@
 // import AppLayout from "./AppLayout";
 // import AdminLayout from "./AdminLayout";
 // import Movie_ID_Layout from "./Movie_ID_Layout";
-// // MODAUX
-// import GlobalModauxFeatured from "./modaux/featured/GlobalModauxFeatured";
-// import ModalInfosMovie from "./modaux/featured/ModalInfosMovie";
-// import ModalPlayerTrailer from "./modaux/featured/ModalPlayerTrailer";
-// import ModalTheWholeFilm from "./modaux/featured/ModalTheWholeFilm";
+// MODAUX
+import GlobalModauxFeatured from "./customs/modaux/home/GlobalModauxFeatured";
+import ModalInfosMovie from "./customs/modaux/home/modalInfosMovie/ModalInfosMovie";
+import ModalPlayerTrailer from "./customs/modaux/home/modalPlayerTrailer/ModalPlayerTrailer";
+import ModalTheWholeFilm from "./customs/modaux/home/modalTheWholeFilm/ModalTheWholeFilm";
 // // NAVBAR
 // import Navbar from "./navbar/Navbar";
 // // DRAWER
@@ -30,10 +30,10 @@ export {
 //   DropdownMenu,
 //   NavItem,
 //   DrawerNavigationAdmin,
-//   GlobalModauxFeatured,
-//   ModalInfosMovie,
-//   ModalPlayerTrailer,
-//   ModalTheWholeFilm,
+  GlobalModauxFeatured,
+  ModalInfosMovie,
+  ModalPlayerTrailer,
+  ModalTheWholeFilm,
 //   PopupAboutUs,
 //   PopupConfidentiality_DropdownNavbar,
   WelcomePopupAnnouncingTheLatestfilmsAndSeries,

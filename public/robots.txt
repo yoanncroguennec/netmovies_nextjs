@@ -1,4 +1,9 @@
+# *
 User-agent: *
-Disallow: /api/
 Allow: /
-Sitemap: https://ton-site.com/sitemap.xml
+
+# Host
+Host: https://www.net-movie.fr
+
+# Sitemaps
+Sitemap: https://www.net-movie.fr/sitemap.xml

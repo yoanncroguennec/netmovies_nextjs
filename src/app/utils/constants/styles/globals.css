@@ -1,60 +1,24 @@
-@tailwind base;
+
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* GOOGLE FONTS */
+@font-face {
+  font-family: alex_brush;
+  src: url(/assets/fonts/alex_brush/AlexBrush-Regular.ttf);
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@font-face {
+  font-family: sacramento;
+  src: url(/assets/fonts/sacramento/Sacramento-Regular.ttf);
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+html, body {
+  margin: 0;
+  padding: 0;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
-
-
-
-.wrapper {
-  /* align-items: center;
-  display: flex;
-  height: 100vh;
-  justify-content: center;
-  width: 100vw; */
-}
-.accordion {
-  width: 500px;
-}
-.item {
-  background: #F0EBE1;
-  margin-bottom: 5px;
-  padding: 10px 20px;
-}
-.title {
-  align-items: center;
-  color: #85662B;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-}
 .content {
-  /* color: #8B7F75;
-    max-height: 9999;
-    transition: all 0.5s cubic-bezier(1, 0, 1, 0); */
-  color: #8B7F75;
   max-height: 0;
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0, 1, 0, 1);
@@ -62,5 +26,6 @@ body {
 .content.show {
   height: auto;
   max-height: 9999px;
+  padding: 25px 0;
   transition: all 0.5s cubic-bezier(1, 0, 1, 0);
 }
