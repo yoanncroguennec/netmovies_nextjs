@@ -5,7 +5,7 @@ import { Box, Typography } from "@mui/material";
 import axios from "axios";
 import Image from "next/image";
 import Test from "./Test";
-import Container_GlobalApp from "@/app/components/layouts/container/container_GlobalApp/Container_GlobalApp";
+import Container_GlobalApp from "@/app/components/layouts/containers/container_GlobalApp/Container_GlobalApp";
 import { LoaderSpinner } from "@/app/components/utils";
 
 export default function TV_ProgrammePage() {
