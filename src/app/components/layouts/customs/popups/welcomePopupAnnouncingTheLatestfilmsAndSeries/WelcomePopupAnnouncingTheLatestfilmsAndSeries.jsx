@@ -83,7 +83,7 @@ const accordionData = [
               button
               // ATTENTION ! Laisser "component='a'", sinon le lien ne marche pas
               component='a'
-              href={`movies/${_id}`}
+              href={`/pages/movies/${_id}`}
               sx={{ background: ""}}
             >
               <img src={img} alt={name} style={styleImgMovie} />

@@ -7,6 +7,8 @@ import {
   Featured,
   ListSliderCategoryListMovies,
 } from "@/app/components/common";
+//
+import Container_GlobalApp from "@/app/components/layouts/containers/container_GlobalApp/Container_GlobalApp"
 
 export default function HomePage() {
   const [categoryListMovie, setCategoryListMovie] = useState([]);
@@ -28,11 +30,13 @@ export default function HomePage() {
   }, []);
 
   return (
-    <Box sx={{ background: "#000", overflow: "hidden" }}>
-      <Featured />
-      {categoryListMovie.map((list, index) => (
-        <ListSliderCategoryListMovies key={index} list={list} />
-      ))}
-    </Box>
+    <Container_GlobalApp>
+      <Box sx={{ background: "#000", overflow: "hidden" }}>
+        <Featured />
+        {categoryListMovie.map((list, index) => (
+          <ListSliderCategoryListMovies key={index} list={list} />
+        ))}
+      </Box>
+    </Container_GlobalApp>
   );
 }

@@ -16,7 +16,7 @@ export default function BreadcrumbsMovie({ _id, name }) {
   const dataBreadcrumbsMovie = [
     {
       text: "Accueil",
-      url: "/",
+      url: "/pages/home",
     },
     {
       text: "Catalogue de fims",

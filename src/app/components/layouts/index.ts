@@ -2,13 +2,15 @@
 // import AppLayout from "./AppLayout";
 // import AdminLayout from "./AdminLayout";
 // import Movie_ID_Layout from "./Movie_ID_Layout";
+// BTNS
+import GlobalBtns from "./customs/btns/globalBtns/GlobalBtns"
 // MODAUX
 import GlobalModauxFeatured from "./customs/modaux/home/GlobalModauxFeatured";
 import ModalInfosMovie from "./customs/modaux/home/modalInfosMovie/ModalInfosMovie";
 import ModalPlayerTrailer from "./customs/modaux/home/modalPlayerTrailer/ModalPlayerTrailer";
 import ModalTheWholeFilm from "./customs/modaux/home/modalTheWholeFilm/ModalTheWholeFilm";
-// // NAVBAR
-// import Navbar from "./navbar/Navbar";
+// NAVBAR
+import Navbar from "./customs/navbar/Navbar";
 // // DRAWER
 // import DrawerNavigationAdmin from "./drawer/DrawerNavigationAdmin";
 // // DROPDOWN
@@ -25,7 +27,8 @@ export {
 //   AppLayout,
 //   AdminLayout,
 //   Movie_ID_Layout,
-//   Navbar,
+GlobalBtns,
+  Navbar,
 //   DropdownNavbar,
 //   DropdownMenu,
 //   NavItem,

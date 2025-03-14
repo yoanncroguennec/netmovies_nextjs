@@ -32,7 +32,7 @@ const sizeIconDesktop = 35;
 const sizeIconMobile = 20;
 
 export default function Featured() {
-  //////////////////// DROPDOWN CATEGORIES ////////////////////
+  // DROPDOWN CATEGORIES
   const type = "movie";
   const [selected, setSelected] = useState("");
   const [isActive, setIsActive] = useState(false);
@@ -60,11 +60,11 @@ export default function Featured() {
     return str.length > 10 ? str.substring(0, 150) + "..." : str;
   }
 
-  //////////////////// RESPONSIVE ////////////////////
+  // RESPONSIVE
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
 
-  //////////////////// OPEN MODAL PLAYER TRAILER////////////////////
+  // OPEN MODAL PLAYER TRAILER
   const [openModalTrailer, setOpenModalTrailer] = useState(false);
   const [showPlayerTrailer, setShowPlayerTrailer] = useState(false);
 
@@ -78,14 +78,14 @@ export default function Featured() {
     setShowPlayerTrailer(false);
   }
 
-  //////////////////// OPEN MODAL INFOS MOVIE ////////////////////
+  // OPEN MODAL INFOS MOVIE
   const [openModalInfosMovie, setOpenModalInfosMovie] = useState(false);
 
   function CloseModalInfosMovie() {
     setOpenModalInfosMovie(!openModalInfosMovie);
   }
 
-  //////////////////// OPEN MODAL THE WHOLE MOVIE ////////////////////
+  // OPEN MODAL THE WHOLE MOVIE
   const [modalTheWholeMovie, setModalTheWholeMovie] = useState(false);
 
   function OpenModalTheWholeFilm() {
@@ -95,7 +95,7 @@ export default function Featured() {
     setModalTheWholeMovie(false);
   }
 
-  //////////////////// DATA THREE BTNS ////////////////////
+  // DATA THREE BTNS
   const dataThreeBtns = [
     {
       onClickAction: OpenModalTrailer,
@@ -118,7 +118,7 @@ export default function Featured() {
     },
   ];
 
-  //////////////////// RETURN ////////////////////
+  // RETURN
   return (
     <RootFeatured img={img}>
       <BoxFeatured>
