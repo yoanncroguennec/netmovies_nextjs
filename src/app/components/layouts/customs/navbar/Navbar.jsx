@@ -24,10 +24,10 @@ export default function Navbar() {
 
   const [isScrolled, setIsScrolled] = useState(false);
 
-  window.onscroll = () => {
-    setIsScrolled(window.pageYOffset === 0 ? false : true);
-    return () => (window.onscroll = null);
-  };
+  // window.onscroll = () => {
+  //   setIsScrolled(window.pageYOffset === 0 ? false : true);
+  //   return () => (window.onscroll = null);
+  // };
 
   return (
     <RootNavbar isScrolled={isScrolled} matches={matches}>
@@ -58,9 +58,23 @@ export default function Navbar() {
           color: "#FFF",
           padding: "10px 30px",
         }}
-        variant="text"
+        variant='text'
       >
         <Typography variant='h6'>Tous les films</Typography>
+      </Button>
+
+      <Button
+        href='/pages/televisionProgramme'
+        sx={{
+          border: "2px solid red",
+          borderRadius: "25px",
+          cursor: "pointer",
+          color: "#FFF",
+          padding: "10px 30px",
+        }}
+        variant='text'
+      >
+        <Typography variant='h6'>Programmes Télé</Typography>
       </Button>
 
       {/* <UserLocationIP_AddressAndLocalTimeDate
