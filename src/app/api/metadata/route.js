@@ -1,5 +1,5 @@
 import axios from "axios";
-import cheerio from "cheerio";
+import * as cheerio from "cheerio";
 
 export default async function handler(req, res) {
   const RADIO_URL = "https://generations.fr/radio/webradio/22/generations-2000";
