@@ -129,7 +129,19 @@ export default function ListSliderCategoryListMovies({
               ))}
           </BoxListMovies>
           <BiChevronRight
-            style={styleBiChevronRight}
+            style={{
+              bottom: 0,
+              backgroundColor: "rgb(22, 22, 22, 0.5)",
+              color: "white",
+              cursor: "pointer",
+              height: "100%",
+              margin: "auto",
+              position: "absolute",
+              right: 0,
+              top: 0,
+              width: "50px",
+              zIndex: 150,
+            }}
             onClick={() => handleClick_Btns_Slider_CategoryListMovies("right")}
           />
         </BoxRowIndividually>

@@ -43,17 +43,17 @@ export const BoxListMovies = styled(Box)(({ }) => ({
 }));
 
 export const styleBiChevronRight = {
-  bottom: 0,
-  backgroundColor: "rgb(22, 22, 22, 0.5)",
-  color: "white",
-  cursor: "pointer",
-  height: "100%",
-  margin: "auto",
-  position: "absolute",
-  right: 0,
-  top: 0,
-  width: "50px",
-  zIndex: 150,
+  // bottom: 0,
+  // backgroundColor: "rgb(22, 22, 22, 0.5)",
+  // color: "white",
+  // cursor: "pointer",
+  // height: "100%",
+  // margin: "auto",
+  // position: "absolute",
+  // right: 0,
+  // top: 0,
+  // width: "50px",
+  // zIndex: 150,
 };
 
 export const RootItemListSliderCategoryListMovies = styled(Box)(
