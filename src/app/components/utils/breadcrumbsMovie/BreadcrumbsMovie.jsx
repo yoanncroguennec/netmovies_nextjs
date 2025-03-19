@@ -2,16 +2,11 @@ import {
   Typography,
   Breadcrumbs,
   Link,
-  useTheme,
-  useMediaQuery,
 } from "@mui/material";
 // ICONS
 import { MdOutlineNavigateNext } from "@/app/utils/constants/icons/index";
 
 export default function BreadcrumbsMovie({ _id, name }) {
-  /// RESPONSIVE
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("md"));
 
   const dataBreadcrumbsMovie = [
     {
@@ -29,7 +24,7 @@ export default function BreadcrumbsMovie({ _id, name }) {
       aria-label='breadcrumbs'
       maxItems={3}
       separator={
-        <MdOutlineNavigateNext color='#000' size={matches ? 15 : 45} />
+        <MdOutlineNavigateNext color='#000' size={45} />
       }
       style={{
         textShadow:
@@ -47,7 +42,7 @@ export default function BreadcrumbsMovie({ _id, name }) {
             underline: "hover",
           }}
         >
-          <Typography variant={matches ? "body2 " : "h4"}>{text}</Typography>
+          <Typography variant="h4">{text}</Typography>
         </Link>
       ))}
       {name ? (
@@ -60,7 +55,7 @@ export default function BreadcrumbsMovie({ _id, name }) {
             underline: "hover",
           }}
         >
-          <Typography variant={matches ? "body2 " : "h4"}>
+          <Typography variant="h4">
             Film : {name}
           </Typography>
         </Link>

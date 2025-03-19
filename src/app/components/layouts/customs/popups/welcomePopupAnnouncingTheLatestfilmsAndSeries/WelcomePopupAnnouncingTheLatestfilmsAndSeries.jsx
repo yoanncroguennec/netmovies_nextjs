@@ -1,3 +1,5 @@
+"use client";
+
 import React, { forwardRef, useEffect, useState } from "react";
 import {
   Typography,
@@ -6,12 +8,11 @@ import {
   Slide,
   ListItem,
   ListItemText,
-  useTheme,
-  useMediaQuery,
   Tooltip,
   Box,
 } from "@mui/material";
-import axios from "axios";
+// API
+import fetchApiRequest from "@/app/utils/requets/axios";
 // STYLES
 import {
   RootDialog,
@@ -19,19 +20,17 @@ import {
   BtnCloseDialog,
   TypoBtnCloseDialog,
 } from "./StylesWelcomePopupAnnouncingTheLatestfilmsAndSeries.jsx";
+import appRequest from "@/app/utils/requets/appRequest";
 
 export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
-  // RESPONSIVE
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("md"));
-
   // Styles
   const styleImgMovie = {
     border: "4px solid #000",
-    boxShadow: "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
-    height: `${matches ? "100px" : "130px"}`,
-    marginRight: `${matches ? "10px" : "50px"}`,
-    width: `${matches ? "100px" : "230px"}`,
+    boxShadow:
+      "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
+    height: "130px",
+    marginRight: "50px",
+    width: "230px",
   };
 
   const [selected, setSelected] = useState(null);
@@ -50,31 +49,30 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
   });
 
   // GET API Display Latest Movies In BDD
-  const [displayLatestMoviesInBDD, setdisplayLatestMoviesInBDD] = useState([]);
+  const [newMovies, setNewMovies] = useState([]);
 
   useEffect(() => {
-    async function getAllDisplayLatestMoviesInBDD() {
+    async function fetchMovies() {
       try {
-        const url =
-          "https://project44-reactjs-crud-auth-netmovie-mongodb.vercel.app/api/movies/displayLatestMoviesInBDD";
-        // const url = `${process.env.REACT_APP_API_URL}/movies/displayLatestMoviesInBDD`;
-        const { data } = await axios.get(url);
-        // console.log("displayLatestMoviesInBDD :", data.movies);
-        setdisplayLatestMoviesInBDD(data.movies);
-      } catch (err) {
-        console.log(err);
+        const res = await fetchApiRequest(appRequest.fetch_New_Movies);
+        setNewMovies(res.movies);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching movies:", error);
       }
     }
 
-    getAllDisplayLatestMoviesInBDD();
-  }, [displayLatestMoviesInBDD]);
+    if (appRequest.fetch_New_Movies) {
+      fetchMovies();
+    }
+  }, [appRequest.fetch_New_Movies]);
 
-const accordionData = [
+  const accordionData = [
     {
       index: "01",
       bgColorIndex: "#3C8CE7, #00EAFF",
       question: "Derniers Films",
-      answer: displayLatestMoviesInBDD
+      answer: newMovies
         // sortByAlphabeticalOrder
         .sort((a, b) => a.name > b.name)
         .map(({ _id, name, img, actors }) => (
@@ -84,13 +82,13 @@ const accordionData = [
               // ATTENTION ! Laisser "component='a'", sinon le lien ne marche pas
               component='a'
               href={`/pages/movies/${_id}`}
-              sx={{ background: ""}}
+              sx={{ background: "" }}
             >
               <img src={img} alt={name} style={styleImgMovie} />
               <ListItemText primary={name} secondary={actors} />
             </ListItem>
           </Tooltip>
-        ))
+        )),
     },
     {
       index: "02",
@@ -113,54 +111,52 @@ const accordionData = [
         >
           {"Derniers films & séries ajoutés :"}
         </DialogTitle>
-            {accordionData.map((item, i) => (
-              <Box sx={{ padding: "8px 0" }}>
-                <Box onClick={() => toggle(i)}>
-                  <Box
-                    style={{
-                      alignItems: "center",
-                      background: `linear-gradient(135deg, ${item.bgColorIndex})`,
-                      borderRadius: "15px",
-                      display: "flex",
-                      flexWrap: "nowrap",
-                           marginLeft: `${matches ? "" : "115px"}`,
-                      marginRight: `${matches ? "10px" : "25px"}`,
-                      padding: "10px",
-                      position: "relative",
-                    }}
-                  >
-                    <Typography
-                      sx={{ fontWeight: "bold", padding: "0 20px" }}
-                      variant={matches ? "h6" : "h4"}
-                    >
-                     {item.index}
-                    </Typography>
-                    <Typography
-                      sx={{ fontWeight: "bold" }}
-                      variant={matches ? "h6" : "h5"}
-                    >
-                    {item.question}
-                    </Typography>
-                    <Typography
-                      sx={{ fontWeight: "bold", position: "absolute", right: "50px" }}
-                      variant={matches ? "h6" : "h3"}
-                    >
-                    {selected === i ? "-" : "+"}
-                    </Typography>
-                  </Box>
-                </Box>
-
-                <Box className={selected === i ? "content show" : "content"}>
-                  {item.answer}
-                </Box>
+        {accordionData.map((item, i) => (
+          <Box sx={{ padding: "8px 0" }}>
+            <Box onClick={() => toggle(i)}>
+              <Box
+                style={{
+                  alignItems: "center",
+                  background: `linear-gradient(135deg, ${item.bgColorIndex})`,
+                  borderRadius: "15px",
+                  display: "flex",
+                  flexWrap: "nowrap",
+                  marginLeft: "115px",
+                  marginRight: "25px",
+                  padding: "10px",
+                  position: "relative",
+                }}
+              >
+                <Typography
+                  sx={{ fontWeight: "bold", padding: "0 20px" }}
+                  variant='h4'
+                >
+                  {item.index}
+                </Typography>
+                <Typography sx={{ fontWeight: "bold" }} variant='h5'>
+                  {item.question}
+                </Typography>
+                <Typography
+                  sx={{
+                    fontWeight: "bold",
+                    position: "absolute",
+                    right: "50px",
+                  }}
+                  variant='h3'
+                >
+                  {selected === i ? "-" : "+"}
+                </Typography>
               </Box>
-            ))}
+            </Box>
+
+            <Box className={selected === i ? "content show" : "content"}>
+              {item.answer}
+            </Box>
+          </Box>
+        ))}
 
         <DialogActionsBtnCloseDialog align='center' sx={{}}>
-          <BtnCloseDialog
-            href={`/pages/home`}
-            variant='contained'
-          >
+          <BtnCloseDialog href={`/pages/home`} variant='contained'>
             <TypoBtnCloseDialog>Accèdez aux films</TypoBtnCloseDialog>
           </BtnCloseDialog>
         </DialogActionsBtnCloseDialog>

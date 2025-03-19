@@ -5,20 +5,19 @@ export const RootRow = styled(Container)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {},
 }));
 
-export const BoxRow = styled(Box)(({ theme }) => ({
+export const BoxRow = styled(Box)(({  }) => ({
   marginTop: "10px",
   width: "100%",
-  [theme.breakpoints.down("sm")]: {},
 }));
 
 export const TypoTitleListSliderCategoryListMovies = styled(Typography)(
-  ({ theme }) => ({
+  ({ }) => ({
     color: "red",
     margin: "30px",
   })
 );
 
-export const BoxRowIndividually = styled(Box)(({ theme }) => ({
+export const BoxRowIndividually = styled(Box)(({ }) => ({
   position: "relative",
 }));
 
@@ -36,11 +35,10 @@ export const styleBiChevronLeft = {
   zIndex: 150,
 };
 
-export const BoxListMovies = styled(Box)(({ theme }) => ({
+export const BoxListMovies = styled(Box)(({ }) => ({
   alignItems: "center",
   display: "flex",
   height: "100%",
-  // marginLeft: "2px",
   overflow: "hidden",
 }));
 
@@ -57,3 +55,26 @@ export const styleBiChevronRight = {
   width: "50px",
   zIndex: 150,
 };
+
+export const RootItemListSliderCategoryListMovies = styled(Box)(
+  ({  }) => ({
+    gridColumnEnd: 2,
+    gridColumnStart: 1,
+    gridRowEnd: 2,
+    gridRowStart: 1,
+    position: "relative",
+    textAlgin: "center",
+  })
+);
+
+export const NameMovieItem = styled(Typography)(({ theme }) => ({
+  // background: "rgba(0, 0, 0, 0.3)",
+  fontWeight: "bold",
+  position: "absolute",
+  top: "0px",
+  color: "#FFF",
+  height: "30px",
+  textAlign: "center",
+  width: "100%",
+}));
+

@@ -1,41 +1,31 @@
+import { Button, Modal, Typography } from "@mui/material";
 import {
-  Button,
-  Modal,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
-import { AiOutlineClose, BsFillPlayFill } from "../../../../../../utils/constants/icons/index";
+  AiOutlineClose,
+  BsFillPlayFill,
+} from "../../../../../../utils/constants/icons/index";
 // STYLES
 import {
-  BoxModalInfosMovie,
+  BoxModalPlayerTrailer,
   StylesTypoDesc,
   TypoMovie,
 } from "./StylesModalInfosMovie";
 const sizeIcon = 35;
 
-//////////////////// EXPORT FUNCTION ////////////////////
 export default function ModalInfosMovie({
   // Props
+  openModalInfosMovie,
+  OpenModalTrailer,
   name,
   desc,
-  openModalInfosMovie,
   // Functions
   CloseModalInfosMovie,
-  OpenModalTrailer,
 }) {
-  //////////////////// RESPONSIVE ////////////////////
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("md"));
-
   return (
-    <Modal
-      open={openModalInfosMovie}
-      onClose={CloseModalInfosMovie}
-      aria-labelledby='modal-modal-title'
-      aria-describedby='modal-modal-description'
-    >
-      <BoxModalInfosMovie>
+    <Modal open={openModalInfosMovie} onClose={CloseModalInfosMovie}>
+      <BoxModalPlayerTrailer>
+        <Typography align='center' variant='h4'>
+          Bande-Annonce
+        </Typography>
         <AiOutlineClose
           color='#FF0000'
           onClick={CloseModalInfosMovie}
@@ -47,7 +37,7 @@ export default function ModalInfosMovie({
             },
           }}
         />
-        <TypoMovie variant={matches ? "h6" : "h2"}>{name}</TypoMovie>
+        <TypoMovie variant='h2'>{name}</TypoMovie>
         <div
           dangerouslySetInnerHTML={{
             __html: `${desc}`,
@@ -62,7 +52,7 @@ export default function ModalInfosMovie({
             </Button>
           </div>
         </div>
-      </BoxModalInfosMovie>
+      </BoxModalPlayerTrailer>
     </Modal>
   );
 }

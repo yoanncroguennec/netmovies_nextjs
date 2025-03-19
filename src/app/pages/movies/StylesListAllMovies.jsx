@@ -44,9 +44,49 @@ export const TypoTitle = styled(Typography)(({ theme }) => ({
   textAlign: "center",
 }));
 
+export const Dropdown = styled(Box)(({ theme }) => ({
+  background: "#000",
+  border: "1px solid #FFF",
+  height: "30px",
+  margin: "100px auto",
+  position: "relative",
+  userSelect: "none",
+  width: "200px",
+  zIndex: "999",
+}));
+
 export const BoxNoDescription = styled(Box)(({ theme }) => ({
   alignItems: "center",
   display: "flex",
   justifyContent: "center",
   margin: "25px",
+}));
+
+export const DropdownBtn = styled(Box)(({ theme }) => ({
+  alignItems: "center",
+  background: "#000",
+  boxShadow: "3px 3px 10px 6px rgba(0, 0, 0, 0.06)",
+  color: "#FFF",
+  display: "flex",
+  fontWeight: "bold",
+  height: "15px",
+  justifyContent: "space-between",
+  padding: "15px 20px",
+}));
+
+export const BoxActiveDropdown = styled(Box)(({ theme }) => ({
+  border: "1px dotted black",
+  height: "350px",
+  overflowY: "scroll",
+  zIndex: 999,
+}));
+
+export const DropdownItem = styled(Box)(({ theme }) => ({
+  background: "#000",
+  cursor: "pointer",
+  padding: "10px",
+  transition: "all 0.2s",
+  "&:hover": {
+    background: "#333",
+  },
 }));

@@ -1,22 +1,14 @@
+"use client"
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useMediaQuery, useTheme } from "@mui/material";
 import {
   RootSlide_BG_Mobie,
-  BoxListMovies,
-  TypoTitle,
-  BoxNoDescription,
-  StylesTrailer,
-  BoxTrailer_MovieLink,
   BoxSlideTrackImgs,
   SlideImgs,
 } from "./StylesContainer_movieID";
 
 export default function Container_movieID({ children }) {
-  // RESPONSIVE
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("md"));
-
   // GET API All MOVIES
   const [allMovies, setAllMovies] = useState([]);
 
@@ -48,7 +40,7 @@ export default function Container_movieID({ children }) {
               // slice = limit
               // .slice(4, 9)
               .map(({ img }) => (
-                <SlideImgs matches={matches}>
+                <SlideImgs>
                   <img
                     src={img}
                     style={{
@@ -66,7 +58,7 @@ export default function Container_movieID({ children }) {
               // slice = limit
               // .slice(4, 9)
               .map(({ img }) => (
-                <SlideImgs matches={matches}>
+                <SlideImgs>
                   <img
                     src={img}
                     style={{
@@ -83,7 +75,7 @@ export default function Container_movieID({ children }) {
               // slice = limit
               .slice(9)
               .map(({ img }) => (
-                <SlideImgs matches={matches}>
+                <SlideImgs>
                   <img
                     src={img}
                     style={{

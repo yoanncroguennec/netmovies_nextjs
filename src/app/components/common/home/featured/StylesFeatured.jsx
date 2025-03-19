@@ -91,7 +91,7 @@ export const BoxThreeBtns = styled(Box)(({ theme }) => ({
 }));
 
 export const BoxIconBtn = styled(Box)(({ matches }) => ({
-  marginRight: `${matches ? "5px" : "15px"}`,
+  marginRight: "15px",
 }));
 
 export const StylesThreeBtns = {

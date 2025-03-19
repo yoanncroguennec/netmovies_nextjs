@@ -1,6 +1,8 @@
+"use client"
+
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Typography} from "@mui/material";
 import moment from "moment";
 import "moment/locale/fr";
 import { FormatLocalTime } from "@/app/utils/functions";
@@ -9,9 +11,6 @@ var now = moment();
 export default function UserLocationIP_AddressAndLocalTimeDate({
   id_Of_ConnectedUser,
 }) {
-  //////////////////// RESPONSIVE ////////////////////
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("md"));
 
   const [
     dataInformationLocationConnectedUser,
@@ -80,12 +79,12 @@ export default function UserLocationIP_AddressAndLocalTimeDate({
 
       <Typography
         sx={{ fontWeight: "bold" }}
-        variant={matches ? "body2" : "h6"}
+        variant="h6"
       >
         {/* CONDITION RESPONSIVE DATE */}
-        {matches
+        {/* {matches
           ? `${moment(now).format("L")}`
-          : `${moment(now).format("dddd DD MMMM YYYY")}`}
+          : `${moment(now).format("dddd DD MMMM YYYY")}`} */}
         {/* SUITE DU CODE APRES LA SORTIE DE LA CONDITION DATE */}/{" "}
         {FormatLocalTime(currentDate)}
       </Typography>

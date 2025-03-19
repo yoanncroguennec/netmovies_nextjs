@@ -1,7 +1,8 @@
+"use client"
+
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { motion } from "framer-motion";
-import { Typography, useTheme, useMediaQuery, Box } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 // LAYOUTS
 import { GlobalModauxFeatured } from "@/app/components/layouts";
 // UTILS ASSETS DATAS
@@ -15,7 +16,6 @@ import {
 // STYLES
 import {
   BoxActiveDropdown,
-  BoxBGTitleDescBtnsMovieRandom,
   BoxFeatured,
   BoxIconBtn,
   BoxThreeBtns,
@@ -27,6 +27,8 @@ import {
   TypoNameMovieRandom,
 } from "./StylesFeatured";
 import Link from "next/link";
+import fetchApiRequest from "@/app/utils/requets/axios";
+import appRequest from "@/app/utils/requets/appRequest";
 
 const sizeIconDesktop = 35;
 const sizeIconMobile = 20;
@@ -38,31 +40,30 @@ export default function Featured() {
   const [isActive, setIsActive] = useState(false);
 
   const [randomMovie, setRandomMovie] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const getRandomMovie = async () => {
+    async function fetchMovies() {
       try {
-        const url = `https://project44-reactjs-crud-auth-netmovie-mongodb.vercel.app/api/movies/randomMovie`;
-        const { data } = await axios.get(url);
-        console.log("randomMovie :", data.randomMovie);
-        setRandomMovie(data.randomMovie);
-      } catch (err) {
-        console.log(err);
+        const res = await fetchApiRequest(appRequest.fetchRandomAMovie);
+        setRandomMovie(res.randomMovie);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching movies:", error);
       }
-    };
+    }
 
-    getRandomMovie();
-  }, []);
+    if (appRequest.fetchRandomAMovie) {
+      fetchMovies();
+    }
+  }, [appRequest.fetchRandomAMovie]);
+
 
   const { img, name, desc } = randomMovie;
 
   function truncateDesc(str) {
     return str.length > 10 ? str.substring(0, 150) + "..." : str;
   }
-
-  // RESPONSIVE
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("md"));
 
   // OPEN MODAL PLAYER TRAILER
   const [openModalTrailer, setOpenModalTrailer] = useState(false);
@@ -81,6 +82,10 @@ export default function Featured() {
   // OPEN MODAL INFOS MOVIE
   const [openModalInfosMovie, setOpenModalInfosMovie] = useState(false);
 
+  function OpenModalInfosMovie() {
+    setOpenModalInfosMovie(!openModalInfosMovie);
+  }
+  
   function CloseModalInfosMovie() {
     setOpenModalInfosMovie(!openModalInfosMovie);
   }
@@ -100,19 +105,19 @@ export default function Featured() {
     {
       onClickAction: OpenModalTrailer,
       icon: (
-        <BsFillPlayFill size={matches ? sizeIconMobile : sizeIconDesktop} />
+        <BsFillPlayFill size={sizeIconDesktop} />
       ),
       title: "Bande-Annonce",
     },
     {
-      onClickAction: CloseModalInfosMovie,
-      icon: <BsInfoCircle size={matches ? sizeIconMobile : sizeIconDesktop} />,
+      onClickAction: OpenModalInfosMovie,
+      icon: <BsInfoCircle size={sizeIconDesktop} />,
       title: "Infos",
     },
     {
       onClickAction: OpenModalTheWholeFilm,
       icon: (
-        <BsFillPlayFill size={matches ? sizeIconMobile : sizeIconDesktop} />
+        <BsFillPlayFill size={sizeIconDesktop} />
       ),
       title: "Voir le film",
     },
@@ -137,9 +142,9 @@ export default function Featured() {
                     ({ textCategory, urlCategory, index }) => (
                       <Link
                         key={index}
-                        href={urlCategory}
-                        state={{
-                          movieCategory: `${textCategory}`,
+                        href={{
+                          pathname: urlCategory,
+                          query: {  movieCategory: `${textCategory}` },
                         }}
                         onClick={(e) => setSelected(e.target.textContent)}
                       >
@@ -158,12 +163,12 @@ export default function Featured() {
           sx={{
             background: "rgba(0, 0, 0, 0.4)",
             borderRadius: "25px",
-            marginLeft: `${matches ? "5px" : "45px"}`,
-            padding: `${matches ? "25px" : "50px"}`,
-            width: `${matches ? "350px" : "700px"}`,
+            marginLeft: "45px",
+            padding: "50px",
+            width: "700px",
           }}
         >
-          <TypoNameMovieRandom variant={matches ? "h6" : "h4"}>
+          <TypoNameMovieRandom variant="h4">
             {name}
           </TypoNameMovieRandom>
 
@@ -178,8 +183,8 @@ export default function Featured() {
                   onClick={onClickAction}
                   style={StylesThreeBtns}
                 >
-                  <BoxIconBtn matches={matches}>{icon}</BoxIconBtn>
-                  <Typography variant={matches ? "caption" : "body2"}>
+                  <BoxIconBtn>{icon}</BoxIconBtn>
+                  <Typography variant="body2">
                     {title}
                   </Typography>
                 </motion.div>

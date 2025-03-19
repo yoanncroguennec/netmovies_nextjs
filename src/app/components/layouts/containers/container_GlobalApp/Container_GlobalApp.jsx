@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
-import React from "react";
-import { Navbar } from "../..";
+import Navbar from "../../customs/navbar/Navbar";
+
 
 export default function Container_GlobalApp({ children }) {
   return (

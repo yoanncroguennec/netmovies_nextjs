@@ -22,6 +22,7 @@ export default function GlobalModauxFeatured({
 }) {
   const { name, desc, trailer, movieLink } = randomMovie;
 
+
   return (
     <div>
       {/* MODAL PLAYER TRAILER */}
@@ -34,10 +35,12 @@ export default function GlobalModauxFeatured({
 
       {/* MODAL INFOS MOVIES */}
       <ModalInfosMovie
+        openModalTrailer={openModalTrailer}
+        CloseModalTrailer={CloseModalTrailer}
         name={name}
         desc={desc}
         openModalInfosMovie={openModalInfosMovie}
-        setOpenModalInfosMovie={setOpenModalInfosMovie}
+        // setOpenModalInfosMovie={setOpenModalInfosMovie}
         CloseModalInfosMovie={CloseModalInfosMovie}
         OpenModalTrailer={OpenModalTrailer}
       />

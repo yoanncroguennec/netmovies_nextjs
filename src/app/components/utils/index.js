@@ -3,7 +3,7 @@ import LoaderSpinner from "./loaderSpinner/LoaderSpinner";
 import BooleanIfMovieViewed_Rating from "./booleanIfMovieViewed_Rating/BooleanIfMovieViewed_Rating";
 import BreadcrumbsMovie from "./breadcrumbsMovie/BreadcrumbsMovie";
 import Pagination from "./pagination/Pagination";
-// import ScrollIndicatorProgressBar from "./scrollIndicatorProgressBar/ScrollIndicatorProgressBar";
+import ScrollIndicatorProgressBar from "./scrollIndicatorProgressBar/ScrollIndicatorProgressBar";
 // import BackToTop from "./backToTop/BackToTop";
 
 export {
@@ -13,5 +13,5 @@ export {
   BooleanIfMovieViewed_Rating,
   //   BackToTop,
     Pagination,
-  //   ScrollIndicatorProgressBar,
+    ScrollIndicatorProgressBar,
 };

@@ -1,0 +1,16 @@
+.container {
+    background-color: #F00;
+    padding: 20px;
+}
+
+.selectBox {
+    width: 28rem;
+}
+
+.selectedOption {
+    background: "#F00";
+    border: none;
+    border-radius: 25;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+}

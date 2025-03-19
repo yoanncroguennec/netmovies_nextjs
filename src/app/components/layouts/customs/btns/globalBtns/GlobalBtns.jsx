@@ -1,4 +1,4 @@
-import { Tooltip, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Tooltip, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
@@ -11,9 +11,6 @@ export default function GlobalBtns({
   iconBtn,
   textBtn,
 }) {
-  // RESPONSIVE
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
     <Link href='' style={{ textDecoration: "none" }}>
@@ -27,16 +24,14 @@ export default function GlobalBtns({
         <motion.div
           onClick={onClickAction}
           style={{
-            boxShadow: "20px 20px 40px -6px rgba(0, 0, 0, .2)",
-            border: "2px solid #F00",
-            display: "flex",
-            flexWrap: "nowrap",
-            justifyContent: "center",
-            margin: `${matches ? "2px 5px" : "5px 0"}`,
-            alignItems: "center",
-            padding: `${matches ? "5px 0" : "5px 25px"}`,
-            borderRadius: "50px",
-            cursor: "pointer",
+            // boxShadow: "20px 20px 40px -6px rgba(0, 0, 0, .2)",
+            // border: "2px solid #F00",
+            // display: "flex",
+            // flexWrap: "nowrap",
+            // justifyContent: "center",
+            // alignItems: "center",
+            // borderRadius: "50px",
+            // cursor: "pointer",
           }}
           whileHover={{ scale: 1.1 }}
           transition={{ type: "spring", stiffness: 400, damping: 10 }}
@@ -45,7 +40,7 @@ export default function GlobalBtns({
             style={{
               // color: "#FFF",
               color: `${colorIconBtn}`,
-              marginRight: `${matches ? "5px" : { marginRightIconBtn }}`,
+              marginRight: marginRightIconBtn,
             }}
           >
             {iconBtn}

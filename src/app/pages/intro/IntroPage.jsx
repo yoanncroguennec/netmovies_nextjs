@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { WelcomePopupAnnouncingTheLatestfilmsAndSeries } from "../../components/layouts";
 import {
   BoxNetflix,
@@ -17,7 +17,7 @@ export default function IntroPage({}) {
     // Gestion des erreurs : Si la lecture est bloquée, on attend une interaction (clic ou touche du clavier).
     // Une seule interaction nécessaire : Dès qu'un clic ou une touche est détectée, le son est joué
     const playSound = () => {
-      const audio = new Audio("/audio/Netflix.mp3");
+      const audio = new Audio("/audios/Netflix.mp3");
       audio.volume = 0.5; // Ajuste le volume pour éviter que ce soit trop fort
       const playPromise = audio.play();
 
@@ -47,17 +47,7 @@ export default function IntroPage({}) {
       window.removeEventListener("keydown", enableSoundOnInteraction);
     };
   }, [hasInteracted]);
-
-  // const audioRef = useRef(null);
-
-  // useEffect(() => {
-  //   audioRef.current = new Audio("/audio/Netflix.mp3");
-  //   audioRef.current
-  //     .play()
-  //     .catch((err) => console.log("Lecture bloquée :", err));
-  // }, []);
-
-  //
+  
   const [openModal, setOpenModal] = useState(false);
   const delay = 5;
 

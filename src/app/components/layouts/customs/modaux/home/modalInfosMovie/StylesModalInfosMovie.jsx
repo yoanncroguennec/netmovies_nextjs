@@ -1,19 +1,20 @@
-import { Box, styled, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import { styled } from "@mui/system";
 
-export const BoxModalInfosMovie = styled(Box)(({ theme }) => ({
-  background: "rgba(0, 0, 0, 0.9)",
+export const BoxModalPlayerTrailer = styled(Box)(({ theme }) => ({
+  background: "rgba(0, 0, 0, 0.8)",
   border: "2px solid #000",
   borderRadius: "25px",
   boxShadow: 24,
   color: "#FFF",
   left: "50%",
-  padding: "55px",
+  height: 500,
+  p: 4,
   position: "absolute",
   top: "50%",
   transform: "translate(-50%, -50%)",
   width: 1000,
   [theme.breakpoints.down("sm")]: {
-    padding: "0",
     width: 350,
   },
 }));
