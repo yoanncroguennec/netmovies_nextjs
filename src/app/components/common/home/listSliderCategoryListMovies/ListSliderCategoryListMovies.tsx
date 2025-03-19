@@ -29,7 +29,8 @@ export default function ListSliderCategoryListMovies({
 }) {
   const [isMoved, setIsMoved] = useState(false);
 
-  const rowRef = useRef(null);
+  // const rowRef = useRef(null);
+  const rowRef = useRef<HTMLDivElement | null>(null); // ✅ Explicitly type the ref
 
   const handleClick_Btns_Slider_CategoryListMovies = (direction: string) => {
     setIsMoved(true);
@@ -52,7 +53,7 @@ export default function ListSliderCategoryListMovies({
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     async function fetchMovies() {
       try {
         const res = await fetchApiRequest(endPointUrl);
@@ -67,6 +68,8 @@ export default function ListSliderCategoryListMovies({
       fetchMovies();
     }
   }, [endPointUrl]);
+
+  const display = !isMoved ? "none" : undefined; // or any other value you want when isMoved is true
 
   return loading ? (
     <Custom_Loading loading={loading} />
@@ -86,7 +89,8 @@ export default function ListSliderCategoryListMovies({
                 backgroundColor: "rgb(22, 22, 22, 0.5)",
                 color: "white",
                 cursor: "pointer",
-                display: !isMoved && "none",
+                // display: !isMoved && "none",
+                display: display,
                 height: "100%",
                 left: 0,
                 margin: "auto",
