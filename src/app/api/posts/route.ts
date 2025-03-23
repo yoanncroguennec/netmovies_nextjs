@@ -1,74 +1,67 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-// Handler for GET, POST, PUT, DELETE requests
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  const { method } = req;
+// GET - Fetch all posts
+export async function GET() {
+  try {
+    const posts = await prisma.post.findMany();
+    return NextResponse.json(posts);
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Failed to fetch posts" },
+      { status: 500 }
+    );
+  }
+}
 
-  switch (method) {
-    // Get all posts
-    case "GET":
-      try {
-        const posts = await prisma.post.findMany();
-        res.status(200).json(posts);
-      } catch (error) {
-        res.status(500).json({ error: "Failed to fetch posts" });
-      }
-      break;
+// POST - Create a new post
+export async function POST(request: Request) {
+  try {
+    const { title, content } = await request.json();
+    const post = await prisma.post.create({
+      data: { title, content },
+    });
+    return NextResponse.json(post, { status: 201 });
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Failed to create post" },
+      { status: 500 }
+    );
+  }
+}
 
-    // Create a new post
-    case "POST":
-      try {
-        const { title, content } = req.body;
-        const post = await prisma.post.create({
-          data: {
-            title,
-            content,
-          },
-        });
-        res.status(201).json(post);
-      } catch (error) {
-        res.status(500).json({ error: "Failed to create post" });
-      }
-      break;
+// PUT - Update an existing post
+export async function PUT(request: Request) {
+  try {
+    const { id, title, content } = await request.json();
+    const post = await prisma.post.update({
+      where: { id },
+      data: { title, content },
+    });
+    return NextResponse.json(post);
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Failed to update post" },
+      { status: 500 }
+    );
+  }
+}
 
-    // Update an existing post
-    case "PUT":
-      try {
-        const { id, title, content } = req.body;
-        const post = await prisma.post.update({
-          where: { id },
-          data: {
-            title,
-            content,
-          },
-        });
-        res.status(200).json(post);
-      } catch (error) {
-        res.status(500).json({ error: "Failed to update post" });
-      }
-      break;
-
-    // Delete a post
-    case "DELETE":
-      try {
-        const { id } = req.body;
-        await prisma.post.delete({
-          where: { id },
-        });
-        res.status(204).end();
-      } catch (error) {
-        res.status(500).json({ error: "Failed to delete post" });
-      }
-      break;
-
-    default:
-      res.status(405).json({ error: "Method Not Allowed" });
+// DELETE - Delete a post
+export async function DELETE(request: Request) {
+  try {
+    const { id } = await request.json();
+    await prisma.post.delete({
+      where: { id },
+    });
+    return NextResponse.json(null, { status: 204 });
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Failed to delete post" },
+      { status: 500 }
+    );
   }
 }
 
