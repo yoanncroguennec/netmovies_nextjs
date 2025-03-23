@@ -1,8 +1,9 @@
 // http://localhost:3000/api/movies
 import { NextResponse } from "next/server"; // API NextResponsepermet de renvoyer une réponse JSON dans une API route Next.js.
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/app/libs/prismadb"
+// import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
 export async function GET(req: Request) {
   try {
