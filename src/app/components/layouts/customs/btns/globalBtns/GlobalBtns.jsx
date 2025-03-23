@@ -13,7 +13,7 @@ export default function GlobalBtns({
 }) {
 
   return (
-    <Link href='' style={{ textDecoration: "none" }}>
+    <Link href={urlBtn} style={{ textDecoration: "none" }}>
       <Tooltip
         title={
           titleTooltipBtn && (

@@ -4,6 +4,7 @@ async function fetchApiRequest(url: string) {
   try {
     const response = await fetch(
       "https://project44-crud-auth-net-movie-mongodb.vercel.app/api/movies" +
+        // "https://project44-crud-auth-net-movie-mongodb.vercel.app/api/movies" +
         url,
       {
         method: "GET",

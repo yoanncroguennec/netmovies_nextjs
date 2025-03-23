@@ -19,6 +19,17 @@ import {
 import Link from "next/link";
 import { GlobalBtns } from "../..";
 
+const dataLogo = [
+  { component: Typo_FirstLetter_Logo, letter: "N" },
+  { component: Typo_SecondLetter_Logo, letter: "E" },
+  { component: Typo_ThirdLetter_Logo, letter: "T" },
+  { component: Typo_FourthLetter_Logo, letter: "M" },
+  { component: Typo_FifthLetter_Logo, letter: "O" },
+  { component: Typo_SixthLetter_Logo, letter: "V" },
+  { component: Typo_SeventhLetter_Logo, letter: "I" },
+  { component: Typo_EighthLetter_Logo, letter: "E" },
+];
+
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -93,7 +104,7 @@ export default function Navbar() {
         id_Of_ConnectedUser={id_Of_ConnectedUser}
       /> */}
 
-      <GlobalBtns urlBtn='admin/dashboard' textBtn='Admin' />
+      <GlobalBtns urlBtn='/pages/admin/dashboard' textBtn='Admin' />
 
       <GiHamburgerMenu color='red' size={30} />
       {/* <DropdownNavbar

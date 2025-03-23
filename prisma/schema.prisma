@@ -1,0 +1,41 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Post {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  content   String
+  createdAt DateTime @default(now())
+}
+
+model Movie {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId// L'identifiant unique du film, stocké sous forme de ObjectIddans MongoDB.
+  name String?
+  realisators String[]
+  actors String[]
+  desc String?
+  trailer String?
+  favorite Boolean?
+  watch Boolean?
+  country String[]
+  productionCompany String?
+  movieLink String?
+  img String?
+  year Int
+  genre String[]
+  rating String?
+  createdAt DateTime @default(now()) // L'horodatage de la création du film (par défaut, l'heure actuelle).
+  updateAt DateTime @updatedAt // Horodatage mis à jour automatiquement pour la dernière fois que l'enregistrement du film a été modifié.
+}

@@ -6,7 +6,7 @@ import {
 // LAYOUTS
 import Container_GlobalApp from "@/app/components/layouts/containers/container_GlobalApp/Container_GlobalApp";
 // DTAS
-import data_HorizontalMovieList from "@/app/utils/constants/data/components/screens/home/data_HorizontalMovieList";
+import data_HorizontalMovieList from "@/app/utils/constants/data/screens/home/data_HorizontalMovieList";
 
 export default function HomePage() {
 

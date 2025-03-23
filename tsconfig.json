@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/components/layouts/customs/loading/Loading.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/components/layouts/customs/loading/Loading.jsx", "src/app/api/movies/route.ts", "src/app/api/movies/[id]/route.js", "src/app/utils/constants/data/components/layouts/admin/admin_dataDrawerNavAdmin.js"],
   "exclude": ["node_modules"]
 }
