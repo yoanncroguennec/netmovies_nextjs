@@ -21,7 +21,7 @@ export default function AboutPage() {
         A propos du site internet
       </Typography>
       <Typography variant='h6'>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit,
+        Lorem ipsum dolor sit amhhet consectetur adipisicing elit. Reprehenderit,
         blanditiis dolorum dicta architecto excepturi id! Delectus voluptatibus
         neque fugiat adipisci velit quaerat nobis nesciunt, quidem rerum
         similique prokkkkvident, dignissimos expedita inventore? Sequi reprehenderit
