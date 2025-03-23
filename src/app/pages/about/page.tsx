@@ -24,7 +24,7 @@ export default function AboutPage() {
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit,
         blanditiis dolorum dicta architecto excepturi id! Delectus voluptatibus
         neque fugiat adipisci velit quaerat nobis nesciunt, quidem rerum
-        similique provident, dignissimos expedita inventore? Sequi reprehenderit
+        similique prokkkkvident, dignissimos expedita inventore? Sequi reprehenderit
         numquam eos id esse Repellendus, illum impedit nesciunt quisquam, eum
         veniam earum delectus laborum velit quos quod minima corporis placeat
         architecto facilis, omnis itaque. Quibusdam inventore incidunt rem
