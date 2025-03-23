@@ -74,15 +74,15 @@ export async function PATCH(request, {params}) {
   }
 }
 
-// DELETE
-export async function GET({ params }) {
-  try {
-    const { id } = params;
+// // DELETE
+// export async function GET({ params }) {
+//   try {
+//     const { id } = params;
 
-    await prisma.movie.delete({ where: { id } });
+//     await prisma.movie.delete({ where: { id } });
 
-    return NextResponse.json("Movie has been deleted");
-  } catch (error) {
-    return NextResponse.json({ error: "DELETE serveur" }, { status: 500 });
-  }
-}
+//     return NextResponse.json("Movie has been deleted");
+//   } catch (error) {
+//     return NextResponse.json({ error: "DELETE serveur" }, { status: 500 });
+//   }
+// }
