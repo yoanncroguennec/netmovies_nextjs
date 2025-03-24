@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -45,19 +45,37 @@ export default function Featured() {
   useEffect(() => {
     async function fetchMovies() {
       try {
-        const res = await fetchApiRequest(appRequest.fetchRandomAMovie);
-        setRandomMovie(res.randomMovie);
+        const url = `https://www.net-movie.fr/api/movies?type=randomMovie`;
+        const res = await axios.get(url);
+        console.log('====================================');
+        console.log(res.data);
+        console.log('====================================');
+        setRandomMovie(res.data.movies);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching movies:", error);
       }
     }
 
-    if (appRequest.fetchRandomAMovie) {
-      fetchMovies();
-    }
-  }, [appRequest.fetchRandomAMovie]);
+    fetchMovies();
+  }, []);
 
+  // useEffect(() => {
+
+  //   async function fetchMovies() {
+  //     try {
+  //       const res = await fetchApiRequest(appRequest.fetchRandomAMovie);
+  //       setRandomMovie(res.randomMovie);
+  //       setLoading(false);
+  //     } catch (error) {
+  //       console.error("Error fetching movies:", error);
+  //     }
+  //   }
+
+  //   if (appRequest.fetchRandomAMovie) {
+  //     fetchMovies();
+  //   }
+  // }, [appRequest.fetchRandomAMovie]);
 
   const { img, name, desc } = randomMovie;
 
@@ -85,7 +103,7 @@ export default function Featured() {
   function OpenModalInfosMovie() {
     setOpenModalInfosMovie(!openModalInfosMovie);
   }
-  
+
   function CloseModalInfosMovie() {
     setOpenModalInfosMovie(!openModalInfosMovie);
   }
@@ -104,9 +122,7 @@ export default function Featured() {
   const dataThreeBtns = [
     {
       onClickAction: OpenModalTrailer,
-      icon: (
-        <BsFillPlayFill size={sizeIconDesktop} />
-      ),
+      icon: <BsFillPlayFill size={sizeIconDesktop} />,
       title: "Bande-Annonce",
     },
     {
@@ -116,9 +132,7 @@ export default function Featured() {
     },
     {
       onClickAction: OpenModalTheWholeFilm,
-      icon: (
-        <BsFillPlayFill size={sizeIconDesktop} />
-      ),
+      icon: <BsFillPlayFill size={sizeIconDesktop} />,
       title: "Voir le film",
     },
   ];
@@ -144,7 +158,7 @@ export default function Featured() {
                         key={index}
                         href={{
                           pathname: urlCategory,
-                          query: {  movieCategory: `${textCategory}` },
+                          query: { movieCategory: `${textCategory}` },
                         }}
                         onClick={(e) => setSelected(e.target.textContent)}
                       >
@@ -168,9 +182,7 @@ export default function Featured() {
             width: "700px",
           }}
         >
-          <TypoNameMovieRandom variant="h4">
-            {name}
-          </TypoNameMovieRandom>
+          <TypoNameMovieRandom variant='h4'>{name}</TypoNameMovieRandom>
 
           <Typography>{truncateDesc(`${randomMovie.desc}`)}</Typography>
 
@@ -184,9 +196,7 @@ export default function Featured() {
                   style={StylesThreeBtns}
                 >
                   <BoxIconBtn>{icon}</BoxIconBtn>
-                  <Typography variant="body2">
-                    {title}
-                  </Typography>
+                  <Typography variant='body2'>{title}</Typography>
                 </motion.div>
               </>
             ))}
