@@ -30,8 +30,13 @@ export async function GET(req: Request) {
     ////////////////////////////
     // http://localhost:3000/api/movies?type=allMovies
     if (type === "allMovies") {
-      const movies = await prisma.movie.findMany();
-      return NextResponse.json(movies, { status: 200, headers });
+      const allMovies = await prisma.movie.findMany();
+
+      const response = {
+        allMovies
+      }
+      
+      return NextResponse.json(response, { status: 200, headers });
 
       ////////////////////////////
       // http://localhost:3000/api/movies?type=allMoviesByGenre&genre=Action

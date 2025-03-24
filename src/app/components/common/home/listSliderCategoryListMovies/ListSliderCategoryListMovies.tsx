@@ -48,7 +48,6 @@ export default function ListSliderCategoryListMovies({
   const [loading, setLoading] = useState(false);
   const [allMoviesbyGenre, setAllMoviesbyGenre] = useState([])
 
-
     useEffect(() => {
       async function fetchMovies() {
         try {
