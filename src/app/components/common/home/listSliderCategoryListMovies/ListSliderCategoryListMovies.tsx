@@ -103,17 +103,17 @@ export default function ListSliderCategoryListMovies({
               //   0,
               //   5
               // )
-              .map((item, index) => (
-                <Link key={item._id} href={`/pages/movies/${item._id}`}>
+              .map(({_id, name, img}) => (
+                <Link key={_id} href={`/pages/movies/${_id}`}>
                   <RootItemListSliderCategoryListMovies>
                     <Box
                       sx={{ background: "rgba(0, 0, 0, 0.3)", width: "100%" }}
                     >
-                      <NameMovieItem variant='h5'>{item.name}</NameMovieItem>
+                      <NameMovieItem variant='h5'>{name}</NameMovieItem>
                     </Box>
                     <img
-                      alt={item.name}
-                      src={item.img}
+                      alt={name}
+                      src={img}
                       style={{
                         height: "200px",
                         width: "350px",
