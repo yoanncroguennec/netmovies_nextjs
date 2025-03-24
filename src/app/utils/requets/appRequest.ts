@@ -10,7 +10,7 @@ const appRequest = {
   nowPlaying:
     "now_playing?api_key=0a943c2bdd152dd01f9c97421d519284&language=en-US&page=1",
   ///////
-  fetch_New_Movies: "?type=randomMovie",
+  fetch_New_Movies: "?type=allMovies",
   fetchUpcoming: "",
   fetchRandomAMovie: "/randomMovie",
   fetchAllMovies: "/",

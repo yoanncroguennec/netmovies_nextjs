@@ -21,6 +21,7 @@ import {
   TypoBtnCloseDialog,
 } from "./StylesWelcomePopupAnnouncingTheLatestfilmsAndSeries.jsx";
 import appRequest from "@/app/utils/requets/appRequest";
+import axios from "axios"
 
 export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
   // Styles
@@ -51,10 +52,59 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
   // GET API Display Latest Movies In BDD
   const [newMovies, setNewMovies] = useState([]);
 
+    useEffect(() => {
+
+      const getAllMovies = async () => {
+        try {
+          const response = await axios.get(
+            "https://www.net-movie.fr/api/movies?type=allMovies"
+          );
+          console.log(response.data);
+        } catch (error) {
+          if (error.response) {
+            // Server responded with a status code other than 2xx
+            console.error(
+              "Response error:",
+              error.response.status,
+              error.response.data
+            );
+          } else if (error.request) {
+            // Request was made but no response received
+            console.error("No response received:", error.request);
+          } else {
+            // Something else went wrong
+            console.error("Axios error:", error.message);
+          }
+        }
+      };
+
+      getAllMovies();
+      // const getAllMovies = async () => {
+      //   try {
+      //     const url = `https://www.net-movie.fr/api/movies?type=allMovies`;
+      //     // const url = `https://project44-reactjs-crud-auth-netmovie-mongodb.vercel.app/api/movies`;
+      //     // const url = `${process.env.REACT_APP_API_URL}/movies`;
+      //     const { data } = await axios.get(url);
+      //     console.log('====================================');
+      //     console.log(data);
+      //     console.log('====================================');
+      //     // setAllMovies(data.movies);
+      //   } catch (err) {
+      //     console.log(err);
+      //   }
+      // };
+
+      // getAllMovies();
+    }, []);
+
+
   useEffect(() => {
     async function fetchMovies() {
       try {
         const res = await fetchApiRequest(appRequest.fetch_New_Movies);
+        console.log('====================================');
+        console.log(res.data);
+        console.log('====================================');
         setNewMovies(res.movies);
         setLoading(false);
       } catch (error) {

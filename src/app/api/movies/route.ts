@@ -14,9 +14,16 @@ import prisma from "@/app/libs/prismadb"
 // }
 
 export async function GET(req: Request) {
+  // Set CORS headers
+  const headers = new Headers({
+    "Access-Control-Allow-Origin": "*", // Change "*" to your frontend domain for security
+    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+  });
+
   try {
-    // req.url contient l'URL de la requête, Exemple : http://localhost:3000/api/movies?type=randomMovie.
-    // new URL(req.url).searchParamspermet d'extraire les paramètres de requête ( type=randomMovie).
+    // req.url contient l'URL de la requête, Exemple : http://localhost:3000/api/movies?type=allMovies
+    // new URL(req.url).searchParamspermet d'extraire les paramètres de requête (type=allMovies).
     const { searchParams } = new URL(req.url);
     const type = searchParams.get("type"); // searchParams.get("type")récupérer la valeur du paramètre type.
 
@@ -24,7 +31,7 @@ export async function GET(req: Request) {
     // http://localhost:3000/api/movies?type=allMovies
     if (type === "allMovies") {
       const movies = await prisma.movie.findMany();
-      return NextResponse.json(movies, { status: 200 });
+      return NextResponse.json(movies, { status: 200, headers });
 
       ////////////////////////////
       // http://localhost:3000/api/movies?type=allMoviesByGenre&genre=Action
