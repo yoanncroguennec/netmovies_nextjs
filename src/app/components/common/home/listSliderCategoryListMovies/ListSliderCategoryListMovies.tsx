@@ -21,10 +21,8 @@ import { Custom_Loading } from "@/app/components/layouts";
 
 export default function ListSliderCategoryListMovies({
   titleSection,
-  endPointUrl,
 }: {
   titleSection: String;
-  endPointUrl?: any;
 }) {
   const [isMoved, setIsMoved] = useState(false);
 
@@ -46,20 +44,17 @@ export default function ListSliderCategoryListMovies({
     }
   };
 
-  //  const { title, content } = list;
-
   const [movies, setMovies] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+  const [allMoviesbyGenre, setAllMoviesbyGenre] = useState([])
+
 
     useEffect(() => {
       async function fetchMovies() {
         try {
-          const url = `https://www.net-movie.fr/api/movies?type=randomMovie`;
+          const url = `https://www.net-movie.fr/api/movies?type=allMoviesByGenre&genre=${titleSection}`;
           const res = await axios.get(url);
-          console.log("====================================");
-          console.log(res.data.randomMovie);
-          console.log("====================================");
-          setMovies(res.data.randomMovie);
+          setAllMoviesbyGenre(res.data.allMoviesbyGenre);
           setLoading(false);
         } catch (error) {
           console.error("Error fetching movies:", error);
@@ -68,23 +63,6 @@ export default function ListSliderCategoryListMovies({
 
       fetchMovies();
     }, []);
-
-  // useEffect(() => {
-  //   setLoading(true);
-  //   async function fetchMovies() {
-  //     try {
-  //       const res = await fetchApiRequest(endPointUrl);
-  //       setMovies(res.movies);
-  //       setLoading(false);
-  //     } catch (error) {
-  //       console.error("Error fetching movies:", error);
-  //     }
-  //   }
-
-  //   if (endPointUrl) {
-  //     fetchMovies();
-  //   }
-  // }, [endPointUrl]);
 
   const display = !isMoved ? "none" : undefined; // or any other value you want when isMoved is true
 
@@ -120,7 +98,7 @@ export default function ListSliderCategoryListMovies({
             onClick={() => handleClick_Btns_Slider_CategoryListMovies("left")}
           />
           <BoxListMovies ref={rowRef}>
-            {movies
+            {allMoviesbyGenre
               // .slice(
               //   0,
               //   5
