@@ -57,7 +57,7 @@ export async function GET(req: Request) {
         },
       });
 
-      return NextResponse.json(movies, { status: 200 });
+      return NextResponse.json(movies, { status: 200, headers });
 
       ////////////////////////////
       // http://localhost:3000/api/movies?type=randomMovie
@@ -87,7 +87,7 @@ export async function GET(req: Request) {
       // Si randomIndex = 4, Prisma saute 4 films et retourne le 5ème .
 
       // NextResponse.json(randomMovie, { status: 200 }) retourne le film sous format JSON avec un code 200 OK .
-      return NextResponse.json(randomMovie, { status: 200 });
+      return NextResponse.json(randomMovie, { status: 200, headers });
       ////////////////////////////
       // http://localhost:3000/api/movies?type=newAllMovies
     } else if (type === "newAllMovies") {
@@ -109,7 +109,7 @@ export async function GET(req: Request) {
         movies,
       };
       
-      return NextResponse.json(response, { status: 200 });
+      return NextResponse.json(response, { status: 200, headers });
     } catch (error) {
      return NextResponse.json(
        { message: "GET ERROR" },

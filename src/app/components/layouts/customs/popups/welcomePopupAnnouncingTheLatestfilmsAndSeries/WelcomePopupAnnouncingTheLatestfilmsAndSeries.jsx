@@ -55,7 +55,7 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
     useEffect(() => {
       const getAllMovies = async () => {
         try {
-          const url = `https://www.net-movie.fr/api/movies?type=allMovies`;
+          const url = `https://www.net-movie.fr/api/movies?type=newAllMovies`;
           // const url = `https://project44-reactjs-crud-auth-netmovie-mongodb.vercel.app/api/movies`;
           // const url = `${process.env.REACT_APP_API_URL}/movies`;
           const data = await axios.get(url);
@@ -72,24 +72,24 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
     }, []);
 
 
-  useEffect(() => {
-    async function fetchMovies() {
-      try {
-        const res = await fetchApiRequest(appRequest.fetch_New_Movies);
-        console.log('====================================');
-        console.log(res.data);
-        console.log('====================================');
-        setNewMovies(res.movies);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching movies:", error);
-      }
-    }
+  // useEffect(() => {
+  //   async function fetchMovies() {
+  //     try {
+  //       const res = await fetchApiRequest(appRequest.fetch_New_Movies);
+  //       console.log('====================================');
+  //       console.log(res.data);
+  //       console.log('====================================');
+  //       setNewMovies(res.movies);
+  //       setLoading(false);
+  //     } catch (error) {
+  //       console.error("Error fetching movies:", error);
+  //     }
+  //   }
 
-    if (appRequest.fetch_New_Movies) {
-      fetchMovies();
-    }
-  }, [appRequest.fetch_New_Movies]);
+  //   if (appRequest.fetch_New_Movies) {
+  //     fetchMovies();
+  //   }
+  // }, [appRequest.fetch_New_Movies]);
 
   // const accordionData = [
   //   {
@@ -197,12 +197,12 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
           </Box>
         ))} */}
 
-        {newMovies.map((item) => {
+        {/* {newMovies.map((item) => {
           console.log('====================================');
           console.log(item);
           console.log('====================================');
           return (<></>)
-        })}
+        })} */}
 
         <DialogActionsBtnCloseDialog align='center' sx={{}}>
           <BtnCloseDialog href={`/pages/home`} variant='contained'>
