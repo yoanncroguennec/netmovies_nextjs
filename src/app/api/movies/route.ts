@@ -49,7 +49,7 @@ export async function GET(req: Request) {
       }
 
       // Rechercher les films avec le genre donné
-      const movies = await prisma.movie.findMany({
+      const allMoviesbyGenre = await prisma.movie.findMany({
         where: {
           genre: {
             has: genre, // Vérifie si le tableau "genre" contient la valeur
@@ -57,7 +57,9 @@ export async function GET(req: Request) {
         },
       });
 
-      return NextResponse.json(movies, { status: 200, headers });
+      const response = { allMoviesbyGenre };
+
+      return NextResponse.json(response, { status: 200, headers });
 
       ////////////////////////////
       // http://localhost:3000/api/movies?type=randomMovie

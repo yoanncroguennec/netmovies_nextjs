@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-// API
-import fetchApiRequest from "@/app/utils/requets/axios";
+import Link from "next/link";
+import axios from "axios";
 // STYLES
 import {
   RootRow,
@@ -16,7 +16,6 @@ import {
 } from "./StylesListSliderCategoryListMovies";
 // ICONS
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
-import Link from "next/link";
 import { Box } from "@mui/material";
 import { Custom_Loading } from "@/app/components/layouts";
 
@@ -52,22 +51,40 @@ export default function ListSliderCategoryListMovies({
   const [movies, setMovies] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setLoading(true);
-    async function fetchMovies() {
-      try {
-        const res = await fetchApiRequest(endPointUrl);
-        setMovies(res.movies);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching movies:", error);
+    useEffect(() => {
+      async function fetchMovies() {
+        try {
+          const url = `https://www.net-movie.fr/api/movies?type=randomMovie`;
+          const res = await axios.get(url);
+          console.log("====================================");
+          console.log(res.data.randomMovie);
+          console.log("====================================");
+          setMovies(res.data.randomMovie);
+          setLoading(false);
+        } catch (error) {
+          console.error("Error fetching movies:", error);
+        }
       }
-    }
 
-    if (endPointUrl) {
       fetchMovies();
-    }
-  }, [endPointUrl]);
+    }, []);
+
+  // useEffect(() => {
+  //   setLoading(true);
+  //   async function fetchMovies() {
+  //     try {
+  //       const res = await fetchApiRequest(endPointUrl);
+  //       setMovies(res.movies);
+  //       setLoading(false);
+  //     } catch (error) {
+  //       console.error("Error fetching movies:", error);
+  //     }
+  //   }
+
+  //   if (endPointUrl) {
+  //     fetchMovies();
+  //   }
+  // }, [endPointUrl]);
 
   const display = !isMoved ? "none" : undefined; // or any other value you want when isMoved is true
 

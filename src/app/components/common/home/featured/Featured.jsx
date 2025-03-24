@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Typography, Box } from "@mui/material";
+import Link from "next/link";
+import axios from "axios";
 // LAYOUTS
 import { GlobalModauxFeatured } from "@/app/components/layouts";
 // UTILS ASSETS DATAS
@@ -26,9 +28,6 @@ import {
   StylesThreeBtns,
   TypoNameMovieRandom,
 } from "./StylesFeatured";
-import Link from "next/link";
-import fetchApiRequest from "@/app/utils/requets/axios";
-import appRequest from "@/app/utils/requets/appRequest";
 
 const sizeIconDesktop = 35;
 const sizeIconMobile = 20;
@@ -47,10 +46,7 @@ export default function Featured() {
       try {
         const url = `https://www.net-movie.fr/api/movies?type=randomMovie`;
         const res = await axios.get(url);
-        console.log('====================================');
-        console.log(res.data);
-        console.log('====================================');
-        setRandomMovie(res.data.movies);
+        setRandomMovie(res.data.randomMovie);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching movies:", error);
@@ -59,23 +55,6 @@ export default function Featured() {
 
     fetchMovies();
   }, []);
-
-  // useEffect(() => {
-
-  //   async function fetchMovies() {
-  //     try {
-  //       const res = await fetchApiRequest(appRequest.fetchRandomAMovie);
-  //       setRandomMovie(res.randomMovie);
-  //       setLoading(false);
-  //     } catch (error) {
-  //       console.error("Error fetching movies:", error);
-  //     }
-  //   }
-
-  //   if (appRequest.fetchRandomAMovie) {
-  //     fetchMovies();
-  //   }
-  // }, [appRequest.fetchRandomAMovie]);
 
   const { img, name, desc } = randomMovie;
 
