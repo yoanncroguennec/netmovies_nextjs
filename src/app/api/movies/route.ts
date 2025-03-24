@@ -91,25 +91,31 @@ export async function GET(req: Request) {
       ////////////////////////////
       // http://localhost:3000/api/movies?type=newAllMovies
     } else if (type === "newAllMovies") {
-      try {
-        const limit = 10;
+    try {
+      const limit = 10;
+      // Fetch the latest 10 movies sorted by ID in descending order
+      const movies = await prisma.movie.findMany({
+        orderBy: {
+          id: "desc",
+        },
+        take: limit,
+      });
 
-        const movies = await prisma.movie.findMany({
-          take: limit,
-          orderBy: {
-            createdAt: "desc", // Sort movies by release date (newest first)
-          },
-        });
+      // Count the total number of movies in the database
+      const total = await prisma.movie.count();
 
-        const total = await prisma.movie.count(); // Get total number of movies
-
-        return NextResponse.json({ total, movies }, { status: 200 });
-      } catch (error) {
-        return NextResponse.json(
-          { message: "Ne trouve pas les derniers films ajoutés dans la BDD" },
-          { status: 400 }
-        );
-      }
+      const response = {
+        total,
+        movies,
+      };
+      
+      return NextResponse.json(response, { status: 200 });
+    } catch (error) {
+     return NextResponse.json(
+       { message: "GET ERROR" },
+       { status: 500 }
+     );
+    }
       ////////////////////////////
       ////////////////////////////
     } else {

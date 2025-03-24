@@ -53,48 +53,22 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
   const [newMovies, setNewMovies] = useState([]);
 
     useEffect(() => {
-
       const getAllMovies = async () => {
         try {
-          const response = await axios.get(
-            "https://www.net-movie.fr/api/movies?type=allMovies"
-          );
-          console.log(response.data);
-        } catch (error) {
-          if (error.response) {
-            // Server responded with a status code other than 2xx
-            console.error(
-              "Response error:",
-              error.response.status,
-              error.response.data
-            );
-          } else if (error.request) {
-            // Request was made but no response received
-            console.error("No response received:", error.request);
-          } else {
-            // Something else went wrong
-            console.error("Axios error:", error.message);
-          }
+          const url = `https://www.net-movie.fr/api/movies?type=allMovies`;
+          // const url = `https://project44-reactjs-crud-auth-netmovie-mongodb.vercel.app/api/movies`;
+          // const url = `${process.env.REACT_APP_API_URL}/movies`;
+          const data = await axios.get(url);
+          console.log('====================================');
+          console.log(data.data);
+          console.log('====================================');
+          setAllMovies(data.data);
+        } catch (err) {
+          console.log(err);
         }
       };
 
       getAllMovies();
-      // const getAllMovies = async () => {
-      //   try {
-      //     const url = `https://www.net-movie.fr/api/movies?type=allMovies`;
-      //     // const url = `https://project44-reactjs-crud-auth-netmovie-mongodb.vercel.app/api/movies`;
-      //     // const url = `${process.env.REACT_APP_API_URL}/movies`;
-      //     const { data } = await axios.get(url);
-      //     console.log('====================================');
-      //     console.log(data);
-      //     console.log('====================================');
-      //     // setAllMovies(data.movies);
-      //   } catch (err) {
-      //     console.log(err);
-      //   }
-      // };
-
-      // getAllMovies();
     }, []);
 
 
@@ -117,36 +91,54 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
     }
   }, [appRequest.fetch_New_Movies]);
 
-  const accordionData = [
-    {
-      index: "01",
-      bgColorIndex: "#3C8CE7, #00EAFF",
-      question: "Derniers Films",
-      answer: newMovies
-        // sortByAlphabeticalOrder
-        .sort((a, b) => a.name > b.name)
-        .map(({ _id, name, img, actors }) => (
-          <Tooltip title={`Accèdez au film "${name}"`}>
-            <ListItem
-              button
-              // ATTENTION ! Laisser "component='a'", sinon le lien ne marche pas
-              component='a'
-              href={`/pages/movies/${_id}`}
-              sx={{ background: "" }}
-            >
-              <img src={img} alt={name} style={styleImgMovie} />
-              <ListItemText primary={name} secondary={actors} />
-            </ListItem>
-          </Tooltip>
-        )),
-    },
-    {
-      index: "02",
-      bgColorIndex: "#70F570, #49C628",
-      question: "Dernières Séries",
-      answer: "Désolé, aucunes séries pour le moment. 😥",
-    },
-  ];
+  // const accordionData = [
+  //   {
+  //     index: "01",
+  //     bgColorIndex: "#3C8CE7, #00EAFF",
+  //     question: "Derniers Films",
+  //     answer: newMovies
+  //       // sortByAlphabeticalOrder
+  //       // .sort((a, b) => a.name > b.name)
+  //       .map(({ _id, name, img, actors }) => (
+  //         <Tooltip title={`Accèdez au film "${name}"`}>
+  //           <ListItem
+  //             button
+  //             // ATTENTION ! Laisser "component='a'", sinon le lien ne marche pas
+  //             component='a'
+  //             href={`/pages/movies/${_id}`}
+  //             sx={{ background: "" }}
+  //           >
+  //             <img src={img} alt={name} style={styleImgMovie} />
+  //             <ListItemText primary={name} secondary={actors} />
+  //           </ListItem>
+  //         </Tooltip>
+  //       )),
+  //   },
+  //   {
+  //     index: "02",
+  //     bgColorIndex: "#70F570, #49C628",
+  //     question: "Dernières Séries",
+  //     answer: "Désolé, aucunes séries pour le moment. 😥",
+  //   },
+  // ];
+
+//  getDisplayLatestMoviesInBDD: async (req, res, next) => {
+//     try {
+//       const limit = 10;
+//       const movies = await MovieModel.find().sort({ _id: -1 }).limit(limit);
+//       const total = await MovieModel.countDocuments({});
+
+//       const response = {
+//         total,
+//         movies,
+//       };
+
+//       res.status(200).json(response);
+//     } catch (error) {
+//       res.status(400).json({ message: error.message });
+//     }
+//   },
+
 
   return (
     <RootDialog open={open}>
@@ -161,7 +153,7 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
         >
           {"Derniers films & séries ajoutés :"}
         </DialogTitle>
-        {accordionData.map((item, i) => (
+        {/* {accordionData.map((item, i) => (
           <Box sx={{ padding: "8px 0" }}>
             <Box onClick={() => toggle(i)}>
               <Box
@@ -203,7 +195,14 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
               {item.answer}
             </Box>
           </Box>
-        ))}
+        ))} */}
+
+        {newMovies.map((item) => {
+          console.log('====================================');
+          console.log(item);
+          console.log('====================================');
+          return (<></>)
+        })}
 
         <DialogActionsBtnCloseDialog align='center' sx={{}}>
           <BtnCloseDialog href={`/pages/home`} variant='contained'>
