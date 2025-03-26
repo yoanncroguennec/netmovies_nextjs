@@ -160,7 +160,7 @@ export async function GET(req: Request) {
 // }
 
 // CREATE ON A MOVIE
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: Request, res: NextApiResponse) {
   // Manually set CORS headers
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader("Access-Control-Allow-Origin", "*"); // Adjust for production
