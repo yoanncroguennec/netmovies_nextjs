@@ -54,7 +54,7 @@ export default function NewWebRadioPage() {
     toast.info("Champ de réalisateur ajouté !");
   }
 
-  function handleChangeRealisators(index, value) {
+  function handleChangeRealisators(index: number, value: string) {
     setFormData((prev) => {
       const newRealisators = [...prev.realisators];
       newRealisators[index] = value;
@@ -62,7 +62,7 @@ export default function NewWebRadioPage() {
     });
   }
 
-  function handleDeleteFieldRealisators(index) {
+  function handleDeleteFieldRealisators(index: number) {
     setFormData((prev) => ({
       ...prev,
       realisators: prev.realisators.filter((_, i) => i !== index),
@@ -79,7 +79,7 @@ export default function NewWebRadioPage() {
     toast.info("Champ d'acteur ajouté !");
   }
 
-  function handleChangeActors(index, value) {
+  function handleChangeActors(index: number, value: string) {
     setFormData((prev) => {
       const newActors = [...prev.actors];
       newActors[index] = value;
@@ -87,7 +87,7 @@ export default function NewWebRadioPage() {
     });
   }
 
-  function handleDeleteFieldActors(index) {
+  function handleDeleteFieldActors(index: number) {
     setFormData((prev) => ({
       ...prev,
       actors: prev.actors.filter((_, i) => i !== index),
