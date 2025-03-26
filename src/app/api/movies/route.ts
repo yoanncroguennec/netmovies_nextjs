@@ -189,7 +189,7 @@ export async function POST(req: Request, res: NextApiResponse) {
         genre,
         rating,
         year,
-      } = await req.body();
+      } = await req.json();
 
       const newPost = await prisma.movie.create({
         data: {
