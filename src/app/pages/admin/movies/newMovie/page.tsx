@@ -149,13 +149,13 @@ export default function NewWebRadioPage() {
           trailer: "",
           favorite: false,
           watch: false,
-          country: ["", "", ""],
+          country: [""],
           productionCompany: "",
           movieLink: "",
           img: "",
           year: 1998,
-          genre: ["", ""],
-          rating: 4,
+          genre: [""],
+          rating: ""
         });
 
         // setTimeout(() => {
