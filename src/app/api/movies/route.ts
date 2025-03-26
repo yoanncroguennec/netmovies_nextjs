@@ -174,48 +174,63 @@ export async function POST(req: Request, res: NextApiResponse) {
 
   if (req.method === "POST") {
     try {
-      const {
-        name,
-        realisators,
-        actors,
-        desc,
-        trailer,
-        favorite,
-        watch,
-        country,
-        productionCompany,
-        movieLink,
-        img,
-        genre,
-        rating,
-        year,
-      } = await req.json();
+      const data = await req.json(); // ✅ Correct extraction of body
 
-      const newPost = await prisma.movie.create({
-        data: {
-          name,
-          realisators,
-          actors,
-          desc,
-          trailer,
-          favorite,
-          watch,
-          country,
-          productionCompany,
-          movieLink,
-          img,
-          genre,
-          rating,
-          year,
-        },
+      const newMovie = await prisma.movie.create({
+        data,
       });
 
-      return NextResponse.json(newPost);
+      return NextResponse.json(newMovie, { status: 201 });
     } catch (error) {
-      return res
-        .status(500)
-        .json({ error: "Failed to create movie", details: error });
+      console.error("Erreur lors de la création du film :", error);
+      return NextResponse.json(
+        { error: "Failed to create movie", details: error },
+        { status: 500 }
+      );
     }
+    // try {
+    //   const {
+    //     name,
+    //     realisators,
+    //     actors,
+    //     desc,
+    //     trailer,
+    //     favorite,
+    //     watch,
+    //     country,
+    //     productionCompany,
+    //     movieLink,
+    //     img,
+    //     genre,
+    //     rating,
+    //     year,
+    //   } = await req.json();
+
+    //   const newPost = await prisma.movie.create({
+    //     data: {
+    //       name,
+    //       realisators,
+    //       actors,
+    //       desc,
+    //       trailer,
+    //       favorite,
+    //       watch,
+    //       country,
+    //       productionCompany,
+    //       movieLink,
+    //       img,
+    //       genre,
+    //       rating,
+    //       year,
+    //     },
+    //   });
+
+    //   return NextResponse.json(newPost);
+    // } catch (error) {
+    //   return res
+    //     .status(500)
+    //     .json({ error: "Failed to create movie", details: error });
+    // }
   }
 
   return res.status(405).json({ error: "Method Not Allowed" });
