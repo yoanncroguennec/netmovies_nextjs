@@ -5,15 +5,13 @@ import { AiOutlineUser } from 'react-icons/ai';
 
 export default function DashboardWidgets({ type }) {
   const [userList, setuserList] = useState(5);
-  const [countAllUsers] = useState(5);
-  const [allMovies, setAllMovies] = useState(88);
-  const [countAllMovies] = useState(88);
+  const [allMovies, setAllMovies] = useState(90);
 
   let data;
   const [first] = useState(`${allMovies.length}`);
 
-  const percentageTotalUsers = (countAllUsers * 100) / 1000;
-  const percentageTotalMovies = (countAllMovies * 100) / 1000;
+  const percentageTotalUsers = (userList.length * 100) / 5000;
+  const percentageTotalMovies = (allMovies.length * 100) / 5000;
 
   switch (type) {
     case "user":
@@ -66,6 +64,7 @@ export default function DashboardWidgets({ type }) {
   }
 
   const { title, percentage, url, link, icon } = data;
+
   return (
     <div
       className='widget'
@@ -98,7 +97,7 @@ export default function DashboardWidgets({ type }) {
             fontSize: "34px",
           }}
         >
-          {title}
+          {title}{allMovies.length}x
         </span>
         <span className='link'>{link}</span>
       </div>
@@ -112,7 +111,7 @@ export default function DashboardWidgets({ type }) {
       >
         <div className='percentage positive'>
           {/* <KeyboardArrowUpIcon /> */}
-          {percentage} % / 1000
+          {percentage} %
         </div>
         {icon}
       </div>

@@ -4,10 +4,10 @@ import React, { useEffect, useState } from "react";
 import Container_Admin from "../../../components/layouts/containers/container_Admin/Container_Admin";
 import { Box, Paper, Rating, Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import axios from "axios";
 import dayjs from "dayjs"; // "dayjs" pour formater les dates (ou moment.js)
 import { RiDeleteBin2Line } from "react-icons/ri";
 import { LuPenLine } from "react-icons/lu";
+import {fetchMovies} from "@/app/utils/api/fetchMovies"
 
 const columns = [
   // { field: "id", headerName: "ID", width: 70 },
@@ -220,19 +220,7 @@ export default function MoviePageAdmin() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    async function fetchMovies() {
-      try {
-        const res = await axios.get("http://localhost:3000/api/movies");
-        console.log("res", res);
-        console.log("res data", res.data);
-        setMovies(res.data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching movies:", error);
-      }
-    }
-
-    fetchMovies();
+    fetchMovies(setMovies, setLoading); // Call the fetchMovies function on component mount
   }, []);
 
   const paginationModel = { page: 0, pageSize: 20 };

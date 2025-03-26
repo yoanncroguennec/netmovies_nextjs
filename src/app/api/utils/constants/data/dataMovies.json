@@ -796,7 +796,7 @@
     "trailer": "https://www.youtube.com/watch?v=RA72VK29tk8",
     "favorite": true,
     "watch": true,
-    "country": ["États-Unis, Inde"],
+    "country": ["États-Unis", "Inde"],
     "productionCompany": "",
     "movieLink": "https://uqload.io/embed-1h6s7afqbylk.html",
     "img": "https://thumb.canalplus.pro/http/unsafe/1824x1026/filters:quality(80)/img-hapi.canalplus.pro:80/ServiceImage/ImageID/105210176",
@@ -1470,7 +1470,7 @@
     "name": "Le plus beau métier du monde",
     "realisators": ["Gérard Lauzier"],
     "actors": [
-      "Gérard Depardieu, Michèle Laroque, Souad Amidou, Ticky Holgado, Guy Marchand"
+      "Gérard Depardieu", "Michèle Laroque", "Souad Amidou", "Ticky Holgado", "Guy Marchand"
     ],
     "desc": "Pour se rapprocher de ses enfants a la suite de son divorce, Laurent Monier, professeur d'histoire-geographie dans un paisible lycee de province, accepte un poste dans un college sensible de la banlieue parisienne. On lui attribue la classe la plus dure, la quatrieme techno, et il trouve un appartement a la cite des Muriers, un quartier particulierement difficile.",
     "trailer": "https://www.youtube.com/watch?v=3ROpdtryNh4",
@@ -1745,7 +1745,7 @@
     "movieLink": "https://uqload.io/embed-cqohz5bitlbe.html",
     "img": "https://thumb.canalplus.pro/http/unsafe/1824x1026/filters:quality(80)/img-hapi.canalplus.pro:80/ServiceImage/ImageID/93649177",
     "year": 2001,
-    "genre": ["comédie", "Romance"],
+    "genre": ["Comédie", "Romance"],
     "rating": "5"
   },
   {

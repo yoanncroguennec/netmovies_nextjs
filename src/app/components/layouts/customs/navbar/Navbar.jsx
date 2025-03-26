@@ -31,7 +31,7 @@ const dataLogo = [
 ];
 
 export default function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
+  // const [isScrolled, setIsScrolled] = useState(false);
 
   // window.onscroll = () => {
   //   setIsScrolled(window.pageYOffset === 0 ? false : true);
@@ -39,7 +39,8 @@ export default function Navbar() {
   // };
 
   return (
-    <RootNavbar isScrolled={isScrolled}>
+    // <RootNavbar isScrolled={isScrolled}>
+    <RootNavbar>
       <Link
         href='/pages/home'
         style={{

@@ -1,6 +1,7 @@
 // http://localhost:3000/api/movies
 import { NextResponse } from "next/server"; // API NextResponsepermet de renvoyer une réponse JSON dans une API route Next.js.
-import prisma from "@/app/libs/prismadb"
+import prisma from "@/app/libs/prismadb";
+import { NextApiRequest, NextApiResponse } from "next";
 // import { PrismaClient } from "@prisma/client";
 
 // const prisma = new PrismaClient();
@@ -33,9 +34,9 @@ export async function GET(req: Request) {
       const allMovies = await prisma.movie.findMany();
 
       const response = {
-        allMovies
-      }
-      
+        allMovies,
+      };
+
       return NextResponse.json(response, { status: 200, headers });
 
       ////////////////////////////
@@ -102,31 +103,28 @@ export async function GET(req: Request) {
       ////////////////////////////
       // http://localhost:3000/api/movies?type=newAllMovies
     } else if (type === "newAllMovies") {
-    try {
-      const limit = 10;
-      // Fetch the latest 10 movies sorted by ID in descending order
-      const movies = await prisma.movie.findMany({
-        orderBy: {
-          id: "desc",
-        },
-        take: limit,
-      });
+      try {
+        const limit = 10;
+        // Fetch the latest 10 movies sorted by ID in descending order
+        const movies = await prisma.movie.findMany({
+          orderBy: {
+            id: "desc",
+          },
+          take: limit,
+        });
 
-      // Count the total number of movies in the database
-      const total = await prisma.movie.count();
+        // Count the total number of movies in the database
+        const total = await prisma.movie.count();
 
-      const response = {
-        total,
-        movies,
-      };
-      
-      return NextResponse.json(response, { status: 200, headers });
-    } catch (error) {
-     return NextResponse.json(
-       { message: "GET ERROR" },
-       { status: 500 }
-     );
-    }
+        const response = {
+          total,
+          movies,
+        };
+
+        return NextResponse.json(response, { status: 200, headers });
+      } catch (error) {
+        return NextResponse.json({ message: "GET ERROR" }, { status: 500 });
+      }
       ////////////////////////////
       ////////////////////////////
     } else {
@@ -144,45 +142,83 @@ export async function GET(req: Request) {
   }
 }
 
+// {
+//   "name": "String",
+//   "realisators": ["String","String","String"],
+//   "actors": ["String","String","String"],
+//   "desc": "String",
+//   "trailer": "String",
+//   "favorite": false,
+//   "watch": false,
+//   "country": ["String","String","String"],
+//   "productionCompany": "String",
+//   "movieLink": "String",
+//   "img": "String",
+//   "year": 1998,
+//   "genre": ["String","String","String"],
+//   "rating": "String"
+// }
+
 // CREATE ON A MOVIE
-export async function POST(req: Request) {
-  const {
-    name,
-    realisators,
-    actors,
-    desc,
-    trailer,
-    favorite,
-    watch,
-    country,
-    productionCompany,
-    movieLink,
-    img,
-    genre,
-    rating,
-    year,
-  } = await req.json();
+export async function POST(req: NextApiRequest, res: NextApiResponse) {
+  // Manually set CORS headers
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Origin", "*"); // Adjust for production
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
-  const newPost = await prisma.movie.create({
-    data: {
-      name,
-      realisators,
-      actors,
-      desc,
-      trailer,
-      favorite,
-      watch,
-      country,
-      productionCompany,
-      movieLink,
-      img,
-      genre,
-      rating,
-      year,
-    },
-  });
+  // Handle OPTIONS preflight request
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
 
-  return NextResponse.json(newPost);
+  if (req.method === "POST") {
+    try {
+      const {
+        name,
+        realisators,
+        actors,
+        desc,
+        trailer,
+        favorite,
+        watch,
+        country,
+        productionCompany,
+        movieLink,
+        img,
+        genre,
+        rating,
+        year,
+      } = await req.body();
+
+      const newPost = await prisma.movie.create({
+        data: {
+          name,
+          realisators,
+          actors,
+          desc,
+          trailer,
+          favorite,
+          watch,
+          country,
+          productionCompany,
+          movieLink,
+          img,
+          genre,
+          rating,
+          year,
+        },
+      });
+
+      return NextResponse.json(newPost);
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ error: "Failed to create movie", details: error });
+    }
+  }
+
+  return res.status(405).json({ error: "Method Not Allowed" });
 }
 
 // // CREATE MULTILPLE MOVIES
