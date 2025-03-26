@@ -219,45 +219,6 @@ export async function OPTIONS() {
     },
   });
 }
-// export async function POST(req: Request) {
-//   const {
-//     name,
-//     realisators,
-//     actors,
-//     desc,
-//     trailer,
-//     favorite,
-//     watch,
-//     country,
-//     productionCompany,
-//     movieLink,
-//     img,
-//     genre,
-//     rating,
-//     year,
-//   } = await req.json();
-
-//   const newPost = await prisma.movie.create({
-//     data: {
-//       name,
-//       realisators,
-//       actors,
-//       desc,
-//       trailer,
-//       favorite,
-//       watch,
-//       country,
-//       productionCompany,
-//       movieLink,
-//       img,
-//       genre,
-//       rating,
-//       year,
-//     },
-//   });
-
-//   return NextResponse.json(newPost);
-// }
 
 // // CREATE MULTILPLE MOVIES
 // export async function POST(req: Request) {
