@@ -246,247 +246,251 @@ export default function Page() {
             width: "600px",
           }}
         >
-        <TextField
-          label='Nom du film'
-          name='name' // Ajoute "name"
-          onChange={handleInputChange}
-          value={formData.name}
-          variant='outlined'
-        />
-        {formData.realisators.map((realisator, index) => (
-          <Box
-            key={index}
-            sx={{ display: "flex", alignItems: "center", mb: 2 }}
-          >
-            <TextField
-              label={`Realisator ${index + 1}`}
-              value={realisator}
-              onChange={(e) => handleChangeRealisators(index, e.target.value)}
-              fullWidth
-            />
-            <MdDelete
-              color='#F00'
-              onClick={() => handleDeleteFieldRealisators(index)}
-              size={45}
-              style={{ cursor: "pointer", padding: "0 5px" }}
-            />
-            <HiPlus
-              color='#000'
-              onClick={handleAddFieldRealisators}
-              size={45}
-              style={{ cursor: "pointer", padding: "0 5px" }}
-            />
-          </Box>
-        ))}
+          <TextField
+            label='Nom du film'
+            name='name' // Ajoute "name"
+            onChange={handleInputChange}
+            value={formData.name}
+            variant='outlined'
+          />
+          {formData.realisators.map((realisator, index) => (
+            <Box
+              key={index}
+              sx={{ display: "flex", alignItems: "center", mb: 2 }}
+            >
+              <TextField
+                label={`Realisator ${index + 1}`}
+                value={realisator}
+                onChange={(e) => handleChangeRealisators(index, e.target.value)}
+                fullWidth
+              />
+              <MdDelete
+                color='#F00'
+                onClick={() => handleDeleteFieldRealisators(index)}
+                size={45}
+                style={{ cursor: "pointer", padding: "0 5px" }}
+              />
+              <HiPlus
+                color='#000'
+                onClick={handleAddFieldRealisators}
+                size={45}
+                style={{ cursor: "pointer", padding: "0 5px" }}
+              />
+            </Box>
+          ))}
 
-        {formData.actors.map((actor, index) => (
-          <Box
-            key={index}
-            sx={{ display: "flex", alignItems: "center", mb: 2 }}
-          >
-            <TextField
-              label={`Actor ${index + 1}`}
-              value={actor}
-              onChange={(e) => handleChangeActors(index, e.target.value)}
-              fullWidth
-            />
-            <MdDelete
-              color='#F00'
-              onClick={() => handleDeleteFieldActors(index)}
-              size={45}
-              style={{ cursor: "pointer", padding: "0 5px" }}
-            />
-            <HiPlus
-              color='#000'
-              onClick={handleAddFieldActors}
-              size={45}
-              style={{ cursor: "pointer", padding: "0 5px" }}
-            />
-          </Box>
-        ))}
+          {formData.actors.map((actor, index) => (
+            <Box
+              key={index}
+              sx={{ display: "flex", alignItems: "center", mb: 2 }}
+            >
+              <TextField
+                label={`Actor ${index + 1}`}
+                value={actor}
+                onChange={(e) => handleChangeActors(index, e.target.value)}
+                fullWidth
+              />
+              <MdDelete
+                color='#F00'
+                onClick={() => handleDeleteFieldActors(index)}
+                size={45}
+                style={{ cursor: "pointer", padding: "0 5px" }}
+              />
+              <HiPlus
+                color='#000'
+                onClick={handleAddFieldActors}
+                size={45}
+                style={{ cursor: "pointer", padding: "0 5px" }}
+              />
+            </Box>
+          ))}
 
-        <TextField
-          label='Description du film'
-          name='desc'
-          onChange={handleInputChange}
-          type='text'
-          value={formData.desc}
-          variant='outlined'
-        />
+          <TextField
+            label='Description du film'
+            name='desc'
+            onChange={handleInputChange}
+            type='text'
+            value={formData.desc}
+            variant='outlined'
+          />
 
-        <TextField
-          label='Bande-annonce du film'
-          name='trailer'
-          onChange={handleInputChange}
-          type='text'
-          value={formData.trailer}
-          variant='outlined'
-          error={
-            error &&
-            formData.trailer &&
-            !/^(https?:\/\/[^\s]+)$/.test(formData.trailer)
-          }
-          helperText={
-            error &&
-            formData.trailer &&
-            !/^(https?:\/\/[^\s]+)$/.test(formData.trailer)
-              ? "Lien invalide, doit commencer par http:// ou https://"
-              : ""
-          }
-        />
+          <TextField
+            error={
+              error &&
+              formData.trailer &&
+              !/^(https?:\/\/[^\s]+)$/.test(formData.trailer)
+            }
+            helperText={
+              error &&
+              formData.trailer &&
+              !/^(https?:\/\/[^\s]+)$/.test(formData.trailer)
+                ? "Lien invalide, doit commencer par http:// ou https://"
+                : ""
+            }
+            label='Bande-annonce du film'
+            name='trailer'
+            onChange={handleInputChange}
+            type='text'
+            value={formData.trailer}
+            variant='outlined'
+          />
 
-        <FormControl sx={[formControl, { width: "500px" }]}>
-          <InputLabel>Filtrer par pays</InputLabel>
-          <Select
-            label='Filtrer par pays'
-            multiple
-            MenuProps={{
-              PaperProps: {
-                style: {
-                  color: "#000",
-                  maxHeight: 300,
+          <FormControl sx={[formControl, { width: "500px" }]}>
+            <InputLabel>Filtrer par pays</InputLabel>
+            <Select
+              label='Filtrer par pays'
+              multiple
+              MenuProps={{
+                PaperProps: {
+                  style: {
+                    color: "#000",
+                    maxHeight: 300,
+                  },
+                },
+              }}
+              onChange={handleCountryChange}
+              renderValue={(selected) => selected.join(", ")}
+              sx={{
+                color: "#F00",
+                "& .MuiMenuItem-root": {
+                  color: "purple",
+                },
+              }}
+              value={formData.selectedCountry}
+            >
+              {country.map((country_item) => (
+                <MenuItem key={country_item} value={country_item}>
+                  <Checkbox
+                    checked={selectedCountry.indexOf(country_item) > -1}
+                  />
+                  <ListItemText primary={country_item} />
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <TextField
+            label='Nom de la production de compagnie du film'
+            name='productionCompany'
+            onChange={handleInputChange}
+            type='text'
+            value={formData.productionCompany}
+            variant='outlined'
+          />
+
+          <TextField
+            label='Lien du film'
+            name='movieLink'
+            onChange={handleInputChange}
+            type='text'
+            value={formData.movieLink}
+            variant='outlined'
+            error={
+              error &&
+              formData.movieLink &&
+              !/^(https?:\/\/[^\s]+)$/.test(formData.movieLink)
+            }
+            helperText={
+              error &&
+              formData.movieLink &&
+              !/^(https?:\/\/[^\s]+)$/.test(formData.movieLink)
+                ? "Lien invalide, doit commencer par http:// ou https://"
+                : ""
+            }
+          />
+
+          <TextField
+            label='Photo du film'
+            name='img'
+            onChange={handleInputChange}
+            type='text'
+            value={formData.img}
+            variant='outlined'
+            error={
+              error &&
+              formData.img &&
+              !/^(https?:\/\/[^\s]+)$/.test(formData.img)
+            }
+            helperText={
+              error &&
+              formData.img &&
+              !/^(https?:\/\/[^\s]+)$/.test(formData.img)
+                ? "Lien invalide, doit commencer par http:// ou https://"
+                : ""
+            }
+          />
+
+          <TextField
+            label='Année du film'
+            name='year'
+            onChange={handleInputChange}
+            type='number'
+            value={formData.year}
+            variant='outlined'
+            InputProps={{
+              inputProps: { min: 0 }, // Optionnel : Empêche les années négatives
+              sx: {
+                // Supprime les flèches dans Chrome, Edge et Safari.
+                "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
+                  {
+                    display: "none",
+                  },
+                // Supprime les flèches dans Firefox.
+                "& input[type=number]": {
+                  MozAppearance: "textfield",
                 },
               },
             }}
-            onChange={handleCountryChange}
-            renderValue={(selected) => selected.join(", ")}
-            sx={{
-              color: "#F00",
-              "& .MuiMenuItem-root": {
-                color: "purple",
-              },
-            }}
-            value={formData.selectedCountry}
-          >
-            {country.map((country_item) => (
-              <MenuItem key={country_item} value={country_item}>
-                <Checkbox
-                  checked={selectedCountry.indexOf(country_item) > -1}
-                />
-                <ListItemText primary={country_item} />
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+          />
 
-        <TextField
-          label='Nom de la production de compagnie du film'
-          name='productionCompany'
-          onChange={handleInputChange}
-          type='text'
-          value={formData.productionCompany}
-          variant='outlined'
-        />
-
-        <TextField
-          label='Lien du film'
-          name='movieLink'
-          onChange={handleInputChange}
-          type='text'
-          value={formData.movieLink}
-          variant='outlined'
-          error={
-            error &&
-            formData.movieLink &&
-            !/^(https?:\/\/[^\s]+)$/.test(formData.movieLink)
-          }
-          helperText={
-            error &&
-            formData.movieLink &&
-            !/^(https?:\/\/[^\s]+)$/.test(formData.movieLink)
-              ? "Lien invalide, doit commencer par http:// ou https://"
-              : ""
-          }
-        />
-
-        <TextField
-          label='Photo du film'
-          name='img'
-          onChange={handleInputChange}
-          type='text'
-          value={formData.img}
-          variant='outlined'
-          error={
-            error && formData.img && !/^(https?:\/\/[^\s]+)$/.test(formData.img)
-          }
-          helperText={
-            error && formData.img && !/^(https?:\/\/[^\s]+)$/.test(formData.img)
-              ? "Lien invalide, doit commencer par http:// ou https://"
-              : ""
-          }
-        />
-
-        <TextField
-          label='Année du film'
-          name='year'
-          onChange={handleInputChange}
-          type='number'
-          value={formData.year}
-          variant='outlined'
-          InputProps={{
-            inputProps: { min: 0 }, // Optionnel : Empêche les années négatives
-            sx: {
-              // Supprime les flèches dans Chrome, Edge et Safari.
-              "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
-                {
-                  display: "none",
+          <FormControl sx={[formControl, { width: "500px" }]}>
+            <InputLabel>Filtrer par genres</InputLabel>
+            <Select
+              label='Filtrer par genres'
+              multiple
+              MenuProps={{
+                PaperProps: {
+                  style: {
+                    color: "#000",
+                    maxHeight: 300,
+                  },
                 },
-              // Supprime les flèches dans Firefox.
-              "& input[type=number]": {
-                MozAppearance: "textfield",
-              },
-            },
-          }}
-        />
-
-        <FormControl sx={[formControl, { width: "500px" }]}>
-          <InputLabel>Filtrer par genres</InputLabel>
-          <Select
-            label='Filtrer par genres'
-            multiple
-            MenuProps={{
-              PaperProps: {
-                style: {
-                  color: "#000",
-                  maxHeight: 300,
+              }}
+              onChange={handleGenreChange}
+              renderValue={(selected) => selected.join(", ")}
+              sx={{
+                color: "#F00",
+                "& .MuiMenuItem-root": {
+                  color: "purple",
                 },
-              },
-            }}
-            onChange={handleGenreChange}
-            renderValue={(selected) => selected.join(", ")}
-            sx={{
-              color: "#F00",
-              "& .MuiMenuItem-root": {
-                color: "purple",
-              },
-            }}
-            value={formData.selectedGenres}
+              }}
+              value={formData.selectedGenres}
+            >
+              {genres.map((genre) => (
+                <MenuItem key={genre} value={genre}>
+                  <Checkbox checked={selectedGenres.indexOf(genre) > -1} />
+                  <ListItemText primary={genre} />
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <Button
+            type='submit'
+            sx={{ border: "3px solid #F00", borderRadius: "25px" }}
+            variant='text'
           >
-            {genres.map((genre) => (
-              <MenuItem key={genre} value={genre}>
-                <Checkbox checked={selectedGenres.indexOf(genre) > -1} />
-                <ListItemText primary={genre} />
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <Button
-          type='submit'
-          sx={{ border: "3px solid #F00", borderRadius: "25px" }}
-          variant='text'
-        >
-          <Typography
-            sx={{
-              color: "#F00",
-              fontWeight: "bold",
-              padding: "10px 15px",
-              textAlign: "center",
-            }}
-            variant='h6'
-          >
-            Ajoutez film
-          </Typography>
-        </Button>
+            <Typography
+              sx={{
+                color: "#F00",
+                fontWeight: "bold",
+                padding: "10px 15px",
+                textAlign: "center",
+              }}
+              variant='h6'
+            >
+              Ajoutez film
+            </Typography>
+          </Button>
         </Box>
       </form>
     </Box>

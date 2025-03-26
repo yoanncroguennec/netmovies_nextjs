@@ -59,6 +59,23 @@ export const admin_dataDrawerNavAdmin = [
     ],
   },
   {
+    path: "/file-manager",
+    name: "WebRadios",
+    icon: <AiTwotoneFileExclamation />,
+    subRoutes: [
+      {
+        path: "/pages/admin/webRadios",
+        name: "Liste webRadios ",
+        icon: <FaUser />,
+      },
+      {
+        path: "/pages/admin/webRadios/newWebRadio",
+        name: "Nouveau webRadios",
+        icon: <FaLock />,
+      },
+    ],
+  },
+  {
     path: "",
     name: "Statistiques",
     icon: <MdMessage />,
