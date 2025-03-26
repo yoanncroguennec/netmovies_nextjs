@@ -4,10 +4,10 @@ import {
   DashboardWidgets,
 } from "../../../components/common";
 import Container_Admin from "../../../components/layouts/containers/container_Admin/Container_Admin";
-import WebRadioPage from "../webradios/page"
+// import WebRadioPage from "../webradios/page"
 
 export default function DashboardPage() {
-  return <WebRadioPage />
+  // return <WebRadioPage />
   return (
     <Container_Admin>
       <div>
