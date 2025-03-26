@@ -15,7 +15,7 @@ import {
   TextField,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { fetchMovies } from "./api"; // Import the API function
+import { fetchMovies } from "../newMovie/api"; // Import the API function
 import { MdDelete, MdMore } from "react-icons/md";
 import { HiPlus } from "react-icons/hi";
 import axios from "axios";

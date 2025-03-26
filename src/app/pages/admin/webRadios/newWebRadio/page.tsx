@@ -3,11 +3,14 @@
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/navigation";
 import Container_Admin from "@/app/components/layouts/containers/container_Admin/Container_Admin";
 import { Box, TextField, Typography } from "@mui/material";
 import axios from "axios";
 
 export default function NewWebRadioPage() {
+  const router = useRouter(); // Initialize useRouter
+
   const [formData, setFormData] = useState({ name: "", img: "", fluxUrl: "" });
   const [error, setError] = useState({
     img: false,
@@ -56,7 +59,10 @@ export default function NewWebRadioPage() {
 
       if (res.status === 200) {
         toast.success("WebRadio ajouté avec succès !");
-        setFormData({ name: "", img: "", fluxUrl: "" }); // Reset form
+        setFormData({ name: "", img: "", fluxUrl: "" });
+        setTimeout(() => {
+          router.push("/webradios");
+        }, 2000);
       }
     } catch (error) {
       toast.error("Une erreur est survenue lors de l'ajout de la WebRadio.");
@@ -94,7 +100,11 @@ export default function NewWebRadioPage() {
 
           <TextField
             error={error.img}
-            helperText={error.img ? "Lien invalide, doit commencer par http:// ou https://" : ""}
+            helperText={
+              error.img
+                ? "Lien invalide, doit commencer par http:// ou https://"
+                : ""
+            }
             label='Photo URL de la webRadio'
             name='img'
             onChange={handleChange}
@@ -105,7 +115,11 @@ export default function NewWebRadioPage() {
 
           <TextField
             error={error.fluxUrl}
-            helperText={error.fluxUrl ? "Lien invalide, doit commencer par http:// ou https://" : ""}
+            helperText={
+              error.fluxUrl
+                ? "Lien invalide, doit commencer par http:// ou https://"
+                : ""
+            }
             label='Stream URL'
             name='fluxUrl'
             onChange={handleChange}
@@ -116,7 +130,6 @@ export default function NewWebRadioPage() {
 
           <button
             type='submit'
-            className='px-4 py-2 bg-blue-500 text-white rounded'
           >
             Add WebRadio
           </button>

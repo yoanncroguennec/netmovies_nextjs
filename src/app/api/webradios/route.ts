@@ -20,7 +20,9 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   const origin = req.headers.get("origin");
+
   const { name, img, fluxUrl } = await req.json();
+
   const newRadio = await prisma.webRadio.create({
     data: { name, img, fluxUrl },
   });
@@ -33,5 +35,6 @@ export async function POST(req: Request) {
 
 export async function OPTIONS(req: Request) {
   const origin = req.headers.get("origin");
+  
   return new Response(null, { status: 204, headers: getCorsHeaders(origin) });
 }
