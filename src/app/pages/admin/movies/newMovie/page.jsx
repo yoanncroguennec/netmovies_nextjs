@@ -218,7 +218,7 @@ export default function Page() {
       }); // Reset form
     } catch (error) {
       toast.error("Erreur lors de l'ajout du film.");
-      console.error("Error adding movie:", error);
+      console.error("Error adding movie:", error.response || error); // Affiche les détails de l'erreur
     }
   }
 
