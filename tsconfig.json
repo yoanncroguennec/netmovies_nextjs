@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+      "target": "ES2016",
+    "downlevelIteration": true,
+    "lib": ["dom", "dom.iterable", "esnext", "ESNext", "DOM"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
