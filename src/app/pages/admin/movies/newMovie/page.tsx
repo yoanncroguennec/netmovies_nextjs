@@ -159,24 +159,14 @@ export default function AddMoviePage() {
     setSelectedCountry(e.target.value as string[]);
   }
 
-  // function handleGenreChange(e: React.ChangeEvent<{ value: unknown }>) {
-  //   const { value } = e.target;
-  //   setSelectedGenres(value as string[]);
-  // }
-
-  // function handleCountryChange(e: React.ChangeEvent<{ value: unknown }>) {
-  //   const { value } = e.target;
-  //   setSelectedCountry(value as string[]);
-  // }
-
-  const handleChange = (
+  function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  ) {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-  };
+  }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     // // Validate fields
@@ -228,7 +218,7 @@ export default function AddMoviePage() {
       toast.error("Une erreur est survenue lors de l'ajout du Film.");
       console.error("Erreur lors de l'ajout du film :", error);
     }
-  };
+  }
 
   return (
     <Container_Admin>
