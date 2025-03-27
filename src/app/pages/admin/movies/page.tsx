@@ -197,7 +197,7 @@ export default function MoviePageAdmin() {
       ) => (
         <Rating
           name='Note'
-          defaultValue={params.value}
+          defaultValue={params.value ?? 0} // Utilisation de `?? 0` pour éviter undefined/null
           precision={0.5}
           readOnly
         />
