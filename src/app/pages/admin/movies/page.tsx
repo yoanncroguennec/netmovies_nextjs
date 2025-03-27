@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Container_Admin from "../../../components/layouts/containers/container_Admin/Container_Admin";
 import { Box, Button, Paper, Rating, Typography } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridRowClassNameParams } from "@mui/x-data-grid";
 import dayjs from "dayjs"; // "dayjs" pour formater les dates (ou moment.js)
 import { RiDeleteBin2Line } from "react-icons/ri";
 import { LuPenLine } from "react-icons/lu";
@@ -23,7 +23,7 @@ export default function MoviePageAdmin() {
   const paginationModel = { page: 0, pageSize: 20 };
 
   // Fonction pour appliquer un background color alterné
-  const getRowClassName = (params) => {
+  const getRowClassName = (params: GridRowClassNameParams) => {
     return params.indexRelativeToCurrentPage % 2 === 0 ? "even-row" : "odd-row";
   };
 
