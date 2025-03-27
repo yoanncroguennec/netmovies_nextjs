@@ -124,18 +124,12 @@ export default function AddMoviePage() {
         const data = await fetchMovies(); // Fetch movies from the external API
 
         // Extraire et trier les country
-        // const uniqueCountry = [
-        //   ...new Set(data.flatMap((movie) => movie.country)),
-        // ].sort((a, b) => a.localeCompare(b));
         const uniqueCountry = Array.from(
           new Set(data.flatMap((movie: Movie) => movie.country))
         ) as string[];
         setCountry(uniqueCountry);
 
         // Extraire et trier les genres
-        // const uniqueGenres = [
-        //   ...new Set(data.flatMap((movie) => movie.genre)),
-        // ].sort();
         const uniqueGenres = Array.from(
           new Set(data.flatMap((movie: Movie) => movie.genre))
         ) as string[];
@@ -249,7 +243,7 @@ export default function AddMoviePage() {
           style={{
             display: "flex",
             flexDirection: "column",
-            height: "1000px",
+            height: "500px",
             width: "500px",
           }}
         >
