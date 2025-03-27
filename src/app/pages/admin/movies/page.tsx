@@ -192,9 +192,7 @@ export default function MoviePageAdmin() {
     {
       field: "rating",
       headerName: "Note",
-      renderCell: (
-        params: GridRenderCellParams<any, string | null | undefined>
-      ) => (
+      renderCell: (params: GridRenderCellParams<any, number>) => (
         <Rating
           name='Note'
           defaultValue={params.value ?? 0} // Utilisation de `?? 0` pour éviter undefined/null
