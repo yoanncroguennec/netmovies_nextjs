@@ -19,6 +19,7 @@ import {
   ListItemText,
   MenuItem,
   Select,
+  SelectChangeEvent,
   TextField,
   Typography,
 } from "@mui/material";
@@ -150,15 +151,23 @@ export default function AddMoviePage() {
     getMovies();
   }, []);
 
-  function handleGenreChange(e: React.ChangeEvent<{ value: unknown }>) {
-    const { value } = e.target;
-    setSelectedGenres(value as string[]);
+  function handleGenreChange(e: SelectChangeEvent<string[]>) {
+    setSelectedGenres(e.target.value as string[]);
   }
 
-  function handleCountryChange(e: React.ChangeEvent<{ value: unknown }>) {
-    const { value } = e.target;
-    setSelectedCountry(value as string[]);
+  function handleCountryChange(e: SelectChangeEvent<string[]>) {
+    setSelectedCountry(e.target.value as string[]);
   }
+
+  // function handleGenreChange(e: React.ChangeEvent<{ value: unknown }>) {
+  //   const { value } = e.target;
+  //   setSelectedGenres(value as string[]);
+  // }
+
+  // function handleCountryChange(e: React.ChangeEvent<{ value: unknown }>) {
+  //   const { value } = e.target;
+  //   setSelectedCountry(value as string[]);
+  // }
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
