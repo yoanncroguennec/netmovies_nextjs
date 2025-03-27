@@ -236,7 +236,7 @@ export default function MoviePageAdmin() {
           try {
             await axios.delete(`https://www.net-movie.fr/api/movies/${id}`);
             setMovies((prevMovies) =>
-              prevMovies.filter((movie: string) => movie.id !== id)
+              prevMovies.filter((movie) => movie._id !== id)
             );
             toast.success(`Le film a été supprimé avec succès.`);
           } catch (error) {
@@ -266,12 +266,9 @@ export default function MoviePageAdmin() {
               style={{ cursor: "pointer", paddingRight: "15px" }}
               size={45}
             />
-            <Button onClick={() => handleDelete(params.value)} variant='text'>
-              Delete{params.value}
-            </Button>
             <RiDeleteBin2Line
               color='#F00'
-              onClick={() => {}}
+              onClick={() => handleDelete(params.value)}
               size={35}
               style={{ cursor: "pointer" }}
             />
