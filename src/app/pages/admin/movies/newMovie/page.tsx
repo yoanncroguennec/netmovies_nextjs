@@ -128,7 +128,7 @@ export default function AddMoviePage() {
         // ].sort((a, b) => a.localeCompare(b));
         const uniqueCountry = Array.from(
           new Set(data.flatMap((movie: Movie) => movie.country))
-        ).sort((a: string, b: string) => a.localeCompare(b));
+        ).sort((a, b) => (a as string).localeCompare(b as string));
         setCountry(uniqueCountry);
 
         // Extraire et trier les genres
@@ -137,7 +137,7 @@ export default function AddMoviePage() {
         // ].sort();
         const uniqueGenres = Array.from(
           new Set(data.flatMap((movie: Movie) => movie.genre))
-        ).sort();
+        ).sort((a, b) => (a as string).localeCompare(b as string));
         setGenres(uniqueGenres); // Mise à jour de l'état genres
       } catch (err) {
         toast.error(
