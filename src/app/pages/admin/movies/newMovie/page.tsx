@@ -128,7 +128,7 @@ export default function AddMoviePage() {
         // ].sort((a, b) => a.localeCompare(b));
         const uniqueCountry = Array.from(
           new Set(data.flatMap((movie: Movie) => movie.country))
-        ).sort((a, b) => (a as string).localeCompare(b as string));
+        ) as string[];
         setCountry(uniqueCountry);
 
         // Extraire et trier les genres
@@ -137,8 +137,8 @@ export default function AddMoviePage() {
         // ].sort();
         const uniqueGenres = Array.from(
           new Set(data.flatMap((movie: Movie) => movie.genre))
-        ).sort((a, b) => (a as string).localeCompare(b as string));
-        setGenres(uniqueGenres); // Mise à jour de l'état genres
+        ) as string[];
+        setGenres(uniqueGenres);
       } catch (err) {
         toast.error(
           "Impossible de récupérez la listes des pays et des genres de films de la BDD !"
