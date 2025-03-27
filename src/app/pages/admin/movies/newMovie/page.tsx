@@ -23,6 +23,12 @@ import {
   Typography,
 } from "@mui/material";
 
+interface Movie {
+  country: string[];
+  genre: string[];
+  // Add other properties if needed
+}
+
 const formControl = {
   backgroundColor: "#000",
   "& .MuiOutlinedInput-root": {
@@ -57,9 +63,9 @@ export default function AddMoviePage() {
   const [genres, setGenres] = useState<string[]>([]);
   const [selectedCountry, setSelectedCountry] = useState<string[]>([]);
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
-// console.log('====================================');
-// console.log(selectedCountry);
-// console.log('====================================');
+  // console.log('====================================');
+  // console.log(selectedCountry);
+  // console.log('====================================');
   const [formData, setFormData] = useState({
     name: "",
     realisators: [""],
@@ -121,7 +127,7 @@ export default function AddMoviePage() {
         //   ...new Set(data.flatMap((movie) => movie.country)),
         // ].sort((a, b) => a.localeCompare(b));
         const uniqueCountry = Array.from(
-          new Set(data.flatMap((movie) => movie.country))
+          new Set(data.flatMap((movie: Movie) => movie.country))
         ).sort((a, b) => a.localeCompare(b));
         setCountry(uniqueCountry);
 
@@ -130,7 +136,7 @@ export default function AddMoviePage() {
         //   ...new Set(data.flatMap((movie) => movie.genre)),
         // ].sort();
         const uniqueGenres = Array.from(
-          new Set(data.flatMap((movie) => movie.genre))
+          new Set(data.flatMap((movie: Movie) => movie.genre))
         ).sort();
         setGenres(uniqueGenres); // Mise à jour de l'état genres
       } catch (err) {
