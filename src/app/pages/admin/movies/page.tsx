@@ -3,7 +3,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Container_Admin from "../../../components/layouts/containers/container_Admin/Container_Admin";
 import { Box, Button, Paper, Rating, Typography } from "@mui/material";
-import { DataGrid, GridRenderCellParams, GridRowClassNameParams } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridRenderCellParams,
+  GridRowClassNameParams,
+} from "@mui/x-data-grid";
 import dayjs from "dayjs"; // "dayjs" pour formater les dates (ou moment.js)
 import { RiDeleteBin2Line } from "react-icons/ri";
 import { LuPenLine } from "react-icons/lu";
@@ -12,8 +16,24 @@ import "react-toastify/dist/ReactToastify.css";
 import { fetchMovies } from "@/app/utils/api/fetchMovies";
 import axios from "axios";
 
+type Movie = {
+  _id: string;
+  name: string;
+  img?: string;
+  realisators: string[];
+  actors: string[];
+  desc: string;
+  country: string[];
+  movieLink?: string;
+  year: number;
+  genre: string[];
+  rating?: number;
+  createdAt: string;
+  updateAt: string;
+};
+
 export default function MoviePageAdmin() {
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -236,8 +256,12 @@ export default function MoviePageAdmin() {
           try {
             await axios.delete(`https://www.net-movie.fr/api/movies/${id}`);
             setMovies((prevMovies) =>
-              prevMovies.filter((movie) => movie._id !== id)
+              (prevMovies as Movie[]).filter((movie) => movie._id !== id)
             );
+
+            // setMovies((prevMovies) =>
+            //   prevMovies.filter((movie) => movie._id !== id)
+            // );
             toast.success(`Le film a été supprimé avec succès.`);
           } catch (error) {
             console.error("Erreur lors de la suppression :", error);
