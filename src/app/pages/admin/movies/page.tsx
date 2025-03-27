@@ -292,7 +292,16 @@ export default function MoviePageAdmin() {
             />
             <RiDeleteBin2Line
               color='#F00'
-              onClick={() => handleDelete(params.value)}
+              onClick={() => {
+                if (params.value) {
+                  handleDelete(params.value);
+                } else {
+                  console.error("ID manquant pour la suppression");
+                  toast.error(
+                    "Impossible de supprimer ce film, ID introuvable."
+                  );
+                }
+              }}
               size={35}
               style={{ cursor: "pointer" }}
             />
