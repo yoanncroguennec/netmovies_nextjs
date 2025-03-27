@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Container_Admin from "../../../components/layouts/containers/container_Admin/Container_Admin";
 import { Box, Button, Paper, Rating, Typography } from "@mui/material";
-import { DataGrid, GridRowClassNameParams } from "@mui/x-data-grid";
+import { DataGrid, GridRenderCellParams, GridRowClassNameParams } from "@mui/x-data-grid";
 import dayjs from "dayjs"; // "dayjs" pour formater les dates (ou moment.js)
 import { RiDeleteBin2Line } from "react-icons/ri";
 import { LuPenLine } from "react-icons/lu";
@@ -32,7 +32,9 @@ export default function MoviePageAdmin() {
     {
       field: "img",
       headerName: "Image",
-      renderCell: (params) => (
+      renderCell: (
+        params: GridRenderCellParams<any, string | null | undefined>
+      ) => (
         <Box sx={{ alignItems: "center", justifyContent: "center" }}>
           {params.value ? (
             <img
@@ -65,7 +67,9 @@ export default function MoviePageAdmin() {
     {
       field: "realisators",
       headerName: "Réalisateurs",
-      renderCell: (params) => (
+      renderCell: (
+        params: GridRenderCellParams<any, string | null | undefined>
+      ) => (
         <div
           style={{
             alignItems: "center",
@@ -88,7 +92,9 @@ export default function MoviePageAdmin() {
     {
       field: "actors",
       headerName: "Acteurs",
-      renderCell: (params) => (
+      renderCell: (
+        params: GridRenderCellParams<any, string | null | undefined>
+      ) => (
         <div
           style={{
             alignItems: "center",
@@ -111,7 +117,9 @@ export default function MoviePageAdmin() {
     {
       field: "desc",
       headerName: "Description",
-      renderCell: (params) => (
+      renderCell: (
+        params: GridRenderCellParams<any, string | null | undefined>
+      ) => (
         <div
           style={{
             maxHeight: "100px", // Hauteur max avant scroll
@@ -130,7 +138,9 @@ export default function MoviePageAdmin() {
     {
       field: "country",
       headerName: "Pays",
-      renderCell: (params) => (
+      renderCell: (
+        params: GridRenderCellParams<any, string | null | undefined>
+      ) => (
         <div
           style={{
             alignItems: "center",
@@ -157,7 +167,9 @@ export default function MoviePageAdmin() {
     {
       field: "genre",
       headerName: "Genres",
-      renderCell: (params) => (
+      renderCell: (
+        params: GridRenderCellParams<any, string | null | undefined>
+      ) => (
         <Box
           style={{
             alignItems: "center",
@@ -180,7 +192,9 @@ export default function MoviePageAdmin() {
     {
       field: "rating",
       headerName: "Note",
-      renderCell: (params) => (
+      renderCell: (
+        params: GridRenderCellParams<any, string | null | undefined>
+      ) => (
         <Rating
           name='Note'
           defaultValue={params.value}
@@ -193,7 +207,9 @@ export default function MoviePageAdmin() {
     {
       field: "createdAt",
       headerName: "Date de création",
-      renderCell: (params) => {
+      renderCell: (
+        params: GridRenderCellParams<any, string | null | undefined>
+      ) => {
         // Quand onrécupère les dates depuis MongoDB, souvent stockées sous forme de timestamps (ISODate ou Date)
         const formattedDate = dayjs(params.value).format("DD/MM/YYYY HH:mm:ss");
         return formattedDate;
@@ -203,7 +219,9 @@ export default function MoviePageAdmin() {
     {
       field: "updateAt",
       headerName: "Date de dernière mise à jour",
-      renderCell: (params) => {
+      renderCell: (
+        params: GridRenderCellParams<any, string | null | undefined>
+      ) => {
         // Quand onrécupère les dates depuis MongoDB, souvent stockées sous forme de timestamps (ISODate ou Date)
         const formattedDate = dayjs(params.value).format("DD/MM/YYYY HH:mm:ss");
         return formattedDate;
@@ -213,19 +231,21 @@ export default function MoviePageAdmin() {
     {
       field: "id",
       headerName: "Actions",
-      renderCell: (params) => {
-       const handleDelete = useCallback(async (id: string) => {
-         try {
-           await axios.delete(`https://www.net-movie.fr/api/movies/${id}`);
-           setMovies((prevMovies) =>
-             prevMovies.filter((movie: string) => movie.id !== id)
-           );
-           toast.success(`Le film a été supprimé avec succès.`);
-         } catch (error) {
-           console.error("Erreur lors de la suppression :", error);
-           toast.error("Échec de la suppression.");
-         }
-       }, []);
+      renderCell: (
+        params: GridRenderCellParams<any, string | null | undefined>
+      ) => {
+        const handleDelete = useCallback(async (id: string) => {
+          try {
+            await axios.delete(`https://www.net-movie.fr/api/movies/${id}`);
+            setMovies((prevMovies) =>
+              prevMovies.filter((movie: string) => movie.id !== id)
+            );
+            toast.success(`Le film a été supprimé avec succès.`);
+          } catch (error) {
+            console.error("Erreur lors de la suppression :", error);
+            toast.error("Échec de la suppression.");
+          }
+        }, []);
 
         return (
           <Box
