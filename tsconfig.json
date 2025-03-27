@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/components/layouts/customs/loading/Loading.jsx", "src/app/api/movies/route.ts", "src/app/api/movies/[id]/route.js", "src/app/utils/constants/data/components/layouts/admin/admin_dataDrawerNavAdmin.js", "src/app/pages/admin/webRadios/newWebRadio/page.tsx", "src/app/pages/admin/movies/newMovie/page.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/components/layouts/customs/loading/Loading.jsx", "src/app/api/movies/route.ts", "src/app/api/movies/[id]/route.js", "src/app/utils/constants/data/components/layouts/admin/admin_dataDrawerNavAdmin.js", "src/app/pages/admin/webRadios/newWebRadio/page.tsx", "src/app/pages/admin/movies/newMovie/page.tsx"],
   "exclude": ["node_modules"]
 }
