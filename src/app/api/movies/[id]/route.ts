@@ -5,21 +5,21 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 // GET BY ID
-// export async function GET(request, { params }) {
-//   try {
-//     const { id } = params;
+export async function GET(request: Request, { params }: { params: { id: string } }) {
+  try {
+    const { id } = params;
 
-//     const movieID = await prisma.movie.findUnique({ where: { id } });
+    const movieID = await prisma.movie.findUnique({ where: { id } });
 
-//     if (!movieID) {
-//       return NextResponse.json({ message: "Movie not found" }, { status: 400 });
-//     }
+    if (!movieID) {
+      return NextResponse.json({ message: "Movie not found" }, { status: 400 });
+    }
 
-//     return NextResponse.json(movieID, { status: 200 });
-//   } catch (error) {
-//     return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
-//   }
-// }
+    return NextResponse.json(movieID, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
+  }
+}
 
 // // UPDATE
 // export async function PATCH(request, {params}) {
