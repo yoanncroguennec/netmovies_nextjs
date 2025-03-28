@@ -151,9 +151,9 @@ export default function AddMoviePage() {
   }, [items]);
 
   // Filtrage des films directement dans le rendu
-  const filteredMovies = items.filter((movie) =>
-    movie.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // const filteredMovies = items.filter((movie) =>
+  //   movie.name.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
 
   function handleGenreChange(e: SelectChangeEvent<string[]>) {
     setSelectedGenres(e.target.value as string[]);
@@ -544,7 +544,7 @@ export default function AddMoviePage() {
                 width: "400px",
               }}
             >
-              {filteredMovies
+              {/* {filteredMovies
                 // .sort((a, b) => a.name.localeCompare(b.name))
                 .map(({ name }, index) => (
                   <Box
@@ -555,7 +555,7 @@ export default function AddMoviePage() {
                       {name}
                     </Typography>
                   </Box>
-                ))}
+                ))} */}
             </Box>
           </Box>
         </Box>
