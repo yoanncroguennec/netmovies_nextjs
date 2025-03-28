@@ -1,47 +1,19 @@
 import axios from "axios";
 
-// Define TypeScript types for the expected data structure
-interface Movie {
-  id: number;
-  title: string;
-  director: string;
-  actors: string[];
-  description: string;
-  trailer: string;
-  country: string;
-  productionCompany: string;
-  streamingLink: string;
-  image: string;
-  year: number;
-  genre: string;
-}
-
-interface FetchMoviesProps {
-  setAllMovies: React.Dispatch<React.SetStateAction<Movie[]>>;
-  setItems: React.Dispatch<React.SetStateAction<Movie[]>>;
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
 export async function fetchMovies({
   setAllMovies,
-  setItems,
   setLoading,
-}: FetchMoviesProps) {
+}: {
+  setAllMovies: Function;
+  setLoading: Function;
+}) {
   try {
-    setLoading(true); // Start loading when fetching begins
-
-    const url = `https://www.net-movie.fr/api/movies?type=allMovies`;
-    const { data } = await axios.get(url);
-
-    if (data?.allMovies) {
-      setAllMovies(data.allMovies);
-      setItems(data.allMovies);
-    } else {
-      console.error("No movies found in the response.");
-    }
+    setLoading(true);
+    const response = await axios.get("https://www.net-movie.fr/api/movies");
+    setAllMovies(response.data);
   } catch (error) {
-    console.error("Error fetching movies:", error);
+    console.error("Erreur lors de la récupération des films :", error);
   } finally {
-    setLoading(false); // Stop loading when the fetching is complete
+    setLoading(false);
   }
 }
