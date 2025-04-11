@@ -13,7 +13,8 @@ const appRequest = {
   fetch_New_Movies: "?type=newAllMovies",
   fetchUpcoming: "",
   fetchRandomAMovie: "/randomMovie",
-  fetchAllMovies: "/",
+  // fetchAllMovies: "/",
+  fetchAllMovies: "?type=allMovies",
   fetchMovieID: "/",
   //////////
   // FETCH LIST MOVIES BY CATEGORY

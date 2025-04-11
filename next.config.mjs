@@ -13,6 +13,8 @@ const nextConfig = {
       "fr.web.img4.acsta.net",
       "media.ouest-france.fr",
       "media.ouest-france.fr",
+      "www.cineplateforme.cc",
+      "www.tinostream.com",
       // URL IMGS FOR TV PROGRAMMES
       "www.teleboy.ch",
       "focus.telerama.fr",

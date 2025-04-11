@@ -20,6 +20,7 @@ import {
   TypoBtnCloseDialog,
 } from "./StylesWelcomePopupAnnouncingTheLatestfilmsAndSeries.jsx";
 import axios from "axios";
+import Link from "next/link.js";
 
 export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
   // Styles
@@ -27,9 +28,9 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
     border: "4px solid #000",
     boxShadow:
       "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
-    height: "130px",
+    height: "180px",
     marginRight: "50px",
-    width: "230px",
+    width: "180px",
   };
 
   const [selected, setSelected] = useState(null);
@@ -62,8 +63,7 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
       }
     }
 
-    fetchMovies()
-
+    fetchMovies();
   }, []);
 
   const accordionData = [
@@ -74,19 +74,19 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
       answer: newMovies
         // sortByAlphabeticalOrder
         .sort((a, b) => a.name > b.name)
-        .map(({ _id, name, img, actors }) => (
-          <Tooltip title={`Accèdez au film "${name}"`}>
-            <ListItem
-              button
-              // ATTENTION ! Laisser "component='a'", sinon le lien ne marche pas
-              component='a'
-              href={`/pages/movies/${_id}`}
-              sx={{ background: "" }}
-            >
-              <img src={img} alt={name} style={styleImgMovie} />
-              <ListItemText primary={name} secondary={actors} />
-            </ListItem>
-          </Tooltip>
+        .map(({ id, name, img, actors }) => (
+          <Link
+            key={id}
+            href={`/pages/movies/movie/${id}`} // as={`/pages/movies/movie/${_id}`}
+          >
+            <Tooltip title={`Accèdez au film "${name}"`}>
+              <ListItem sx={{ background: "" }}>
+                <img src={img} alt={name} style={styleImgMovie} />
+                <h4>bb{id}</h4> 
+                <ListItemText primary={id} secondary={actors} />
+              </ListItem>
+            </Tooltip>
+          </Link>
         )),
     },
     {
@@ -111,6 +111,7 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
           {"Derniers films & séries ajoutés :"}
         </DialogTitle>
         {accordionData.map((item, i) => (
+
           <Box sx={{ padding: "8px 0" }}>
             <Box onClick={() => toggle(i)}>
               <Box
@@ -126,12 +127,12 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
                   position: "relative",
                 }}
               >
-                <Typography
-                  sx={{ fontWeight: "bold", padding: "0 20px" }}
-                  variant='h4'
-                >
-                  {item.index}
-                </Typography>
+          <Typography
+            sx={{ fontWeight: "bold", padding: "0 20px" }}
+            variant='h4'
+          >
+            {item.index}
+          </Typography>
                 <Typography sx={{ fontWeight: "bold" }} variant='h5'>
                   {item.question}
                 </Typography>
@@ -147,7 +148,6 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
                 </Typography>
               </Box>
             </Box>
-
             <Box className={selected === i ? "content show" : "content"}>
               {item.answer}
             </Box>
