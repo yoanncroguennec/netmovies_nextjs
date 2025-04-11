@@ -17,21 +17,3 @@ export async function fetchMovies({
     setLoading(false);
   }
 }
-
-
-async function fetchApiRequest(url: string) {
-  try {
-    const response = await axios.get(`https://www.net-movie.fr/api/movies`, {
-      headers: {
-        Accept: "application/json",
-        // Authorization: `Bearer ${TOKEN}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    throw error; // Rethrow the error to handle it elsewhere if needed
-  }
-}
-
-export default fetchApiRequest;
