@@ -10,6 +10,8 @@ import {
   ListItemText,
   Tooltip,
   Box,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 // API
 // STYLES
@@ -23,6 +25,9 @@ import axios from "axios";
 import Link from "next/link.js";
 
 export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("sm"));
+
   // Styles
   const styleImgMovie = {
     border: "4px solid #000",
@@ -77,12 +82,18 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
         .map(({ id, name, img, actors }) => (
           <Link
             key={id}
-            href={{ pathname: `/pages/movies/movie/${id}`, query: { id: '123', name: 'John' }}} // as={`/pages/movies/movie/${_id}`}
+            href={{
+              pathname: `/pages/movies/movie/${id}`,
+              query: { id: "123", name: "John" },
+            }}
+            style={{ textDecoration: "none" }}
           >
             <Tooltip title={`Accèdez au film "${name}"`}>
               <ListItem sx={{ background: "" }}>
                 <img src={img} alt={name} style={styleImgMovie} />
-                <ListItemText primary={id} secondary={actors} />
+                {matches ? (
+                  <ListItemText primary={name} secondary={actors} />
+                ) : null}
               </ListItem>
             </Tooltip>
           </Link>
@@ -105,12 +116,11 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
         <DialogTitle
           align='center'
           sx={{ color: "red", fontFamily: "sacramento", fontWeight: "bold" }}
-          variant='h3'
+          variant={matches ? "h3" : "h6"}
         >
           {"Derniers films & séries ajoutés :"}
         </DialogTitle>
         {accordionData.map((item, i) => (
-
           <Box sx={{ padding: "8px 0" }}>
             <Box onClick={() => toggle(i)}>
               <Box
@@ -126,12 +136,12 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
                   position: "relative",
                 }}
               >
-          <Typography
-            sx={{ fontWeight: "bold", padding: "0 20px" }}
-            variant='h4'
-          >
-            {item.index}
-          </Typography>
+                <Typography
+                  sx={{ fontWeight: "bold", padding: "0 20px" }}
+                  variant='h4'
+                >
+                  {item.index}
+                </Typography>
                 <Typography sx={{ fontWeight: "bold" }} variant='h5'>
                   {item.question}
                 </Typography>

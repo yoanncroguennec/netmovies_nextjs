@@ -31,7 +31,7 @@ export default function LoginPage() {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
-  const register = async () => {
+  async function login() {
     const { email, password } = form;
 
     if (!email || !password) {
@@ -42,26 +42,27 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      await axios.post("/api/auth/register", {
-        email,
-        password,
-      });
-
-      await signIn("credentials", {
+      const login = await signIn("credentials", {
         email,
         password,
         redirect: false,
       });
 
-      toast.success("Enregistrement réussi");
-      router.push("/");
+      if (login?.ok) {
+        toast.success("Enregistrement réussi");
+        window.location.assign("/");
+      }
+
+      if (login?.error) {
+        toast.error(login?.error);
+      }
     } catch (error: any) {
       console.error("Erreur : ", error);
       toast.error(error?.response?.data || "Erreur inconnue");
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   const fields = [
     { label: "Email", key: "email" },
@@ -91,7 +92,7 @@ export default function LoginPage() {
             "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
           display: "flex",
           flexDirection: "column",
-          padding: "70px",
+          padding: "20px",
           width: "350px",
         }}
       >
@@ -130,8 +131,8 @@ export default function LoginPage() {
         ))}
 
         <Button
-          onClick={register}
           disabled={loading}
+          onClick={login}
           sx={{
             border: "2px solid red",
             borderRadius: "25px",
