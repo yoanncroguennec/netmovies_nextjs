@@ -1,7 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
-import { Box, Button, IconButton, Tooltip, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  Tooltip,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 // import { UserLocationIP_AddressAndLocalTimeDate } from "../../../utils";
 // import DropdownNavbar from "../dropdown/dropdownNavbar/DropdownNavbar";
 import {
@@ -48,6 +56,9 @@ const dataIcons = [
 ];
 
 export default function Navbar() {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("sm"));
+
   // const [isScrolled, setIsScrolled] = useState(false);
 
   // window.onscroll = () => {
@@ -55,14 +66,12 @@ export default function Navbar() {
   //   return () => (window.onscroll = null);
   // };
 
-    const [hoverStates, setHoverStates] = useState([false, false]);
-      const handleHover = (index, isHovering) => {
-        const newStates = [...hoverStates];
-        newStates[index] = isHovering;
-        setHoverStates(newStates);
-      };
-
-  const [hover, setHover] = useState(false);
+  const [hoverStates, setHoverStates] = useState([false, false]);
+  const handleHover = (index, isHovering) => {
+    const newStates = [...hoverStates];
+    newStates[index] = isHovering;
+    setHoverStates(newStates);
+  };
 
   return (
     // <RootNavbar isScrolled={isScrolled}>
@@ -86,19 +95,21 @@ export default function Navbar() {
         <Typo_EighthLetter_Logo>E</Typo_EighthLetter_Logo>
       </Link>
 
-      <Button
-        href='/pages/televisionProgramme'
-        sx={{
-          border: "2px solid red",
-          borderRadius: "25px",
-          cursor: "pointer",
-          color: "#FFF",
-          padding: "10px 30px",
-        }}
-        variant='text'
-      >
-        <Typography variant='h6'>Programme Télé</Typography>
-      </Button>
+      {matches ? (
+        <Button
+          href='/pages/televisionProgramme'
+          sx={{
+            border: "2px solid red",
+            borderRadius: "25px",
+            cursor: "pointer",
+            color: "#FFF",
+            padding: "10px 30px",
+          }}
+          variant='text'
+        >
+          <Typography variant='h6'>Programme Télé</Typography>
+        </Button>
+      ) : null}
 
       <Box
         sx={{
