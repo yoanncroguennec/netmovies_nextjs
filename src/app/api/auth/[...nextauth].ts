@@ -9,15 +9,11 @@ export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
+      // Réduire les credentials à ceux nécessaires à la connexion
+      // En général, pour le login, seul email et password sont utiles. Tous les autres champs (firstName, lastName, etc.) sont plus utiles à l'inscription.
       credentials: {
-        firstName: { label: "Prénom", type: "text" },
-        lastName: { label: "Nom de famille", type: "text" },
-        phoneNumber: { label: "Numéro de téléphone", type: "text" },
         email: { label: "Email", type: "email" },
-        postalAddress: { label: "Adresse postale", type: "text" },
-        postCode: { label: "Code Postale", type: "text" },
-        city: { label: "Ville", type: "text" },
-        password: { label: "Password", type: "password" },
+        password: { label: "Mot de passe", type: "password" },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
@@ -38,7 +34,7 @@ export const authOptions: AuthOptions = {
         );
 
         if (!isCorrectPassword) {
-          throw new Error("Invalid credentials");
+          throw new Error("Invalid email or password");
         }
 
         return user;
