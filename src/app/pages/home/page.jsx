@@ -3,15 +3,15 @@ import {
   Featured,
   ListSliderCategoryListMovies,
 } from "@/app/components/common";
-import { authOptions } from "../../api/auth/[...nextauth]"
+// import { authOptions } from "../../api/auth/[...nextauth]"
 // LAYOUTS
 import Container_GlobalApp from "@/app/components/layouts/containers/container_GlobalApp/Container_GlobalApp";
 // DTAS
 import data_HorizontalMovieList from "@/app/utils/constants/data/screens/home/data_HorizontalMovieList";
-import { getServerSession } from "next-auth";
+// import { getServerSession } from "next-auth";
 
 export default async function HomePage() {
-  const session = await getServerSession(authOptions);
+  // const session = await getServerSession(authOptions);
 
   return (
     <Container_GlobalApp>

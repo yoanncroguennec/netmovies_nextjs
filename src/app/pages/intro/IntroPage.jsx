@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import { useMediaQuery, useTheme } from "@mui/material";
-import { useRouter } from "next/navigation"; // ✅ Import correct
+import { useRouter } from "next/router";
+// import { useRouter } from "next/navigation"; // ✅ Import correct
 import { WelcomePopupAnnouncingTheLatestfilmsAndSeries } from "../../components/layouts";
 import {
   BoxNetflix,

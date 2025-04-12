@@ -10,8 +10,6 @@ import {
   ListItemText,
   Tooltip,
   Box,
-  useTheme,
-  useMediaQuery,
 } from "@mui/material";
 // API
 // STYLES
@@ -25,9 +23,6 @@ import axios from "axios";
 import Link from "next/link.js";
 
 export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up("sm"));
-
   // Styles
   const styleImgMovie = {
     border: "4px solid #000",
@@ -91,9 +86,7 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
             <Tooltip title={`Accèdez au film "${name}"`}>
               <ListItem sx={{ background: "" }}>
                 <img src={img} alt={name} style={styleImgMovie} />
-                {matches ? (
-                  <ListItemText primary={name} secondary={actors} />
-                ) : null}
+                <ListItemText primary={name} secondary={actors} />
               </ListItem>
             </Tooltip>
           </Link>
@@ -116,7 +109,7 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
         <DialogTitle
           align='center'
           sx={{ color: "red", fontFamily: "sacramento", fontWeight: "bold" }}
-          variant={matches ? "h3" : "h6"}
+          variant='h3'
         >
           {"Derniers films & séries ajoutés :"}
         </DialogTitle>
