@@ -1,50 +1,52 @@
 // http://localhost:3000/api/movies/id
-// /api/movies/[id]/route.ts
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
-const allowedOrigins = ["http://localhost:3000", "https://yourdomain.com"];
+// const allowedOrigins = ["http://localhost:3000", "https://yourdomain.com"];
 
-function getCorsHeaders(origin: string | null) {
-  const isAllowed = origin && allowedOrigins.includes(origin);
-  return {
-    "Access-Control-Allow-Origin": isAllowed ? origin : "null",
-    "Access-Control-Allow-Methods": "GET, POST, OPTIONS, DELETE",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization",
-  };
-}
+// function getCorsHeaders(origin: string | null) {
+//   const isAllowed = origin && allowedOrigins.includes(origin);
+//   return {
+//     "Access-Control-Allow-Origin": isAllowed ? origin : "null", // Allow only listed origins
+//     "Access-Control-Allow-Methods": "GET, POST, OPTIONS, DELETE",
+//     "Access-Control-Allow-Headers": "Content-Type",
+//   };
+// }
 
-// Prisma singleton (important en dev pour éviter les erreurs)
 const prisma = new PrismaClient();
 
+// GET BY ID
 export async function GET(
   request: Request,
   { params }: { params: { id: string } }
 ) {
-  const origin = request.headers.get("origin");
-  const headers = getCorsHeaders(origin);
+  // Set CORS headers
+  // const headers = new Headers({
+  //   "Access-Control-Allow-Origin": "*", // Change "*" to your frontend domain for security
+  //   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+  //   "Access-Control-Allow-Headers": "Content-Type, Authorization",
+  // });
 
   try {
     const { id } = params;
 
-    const movie = await prisma.movie.findUnique({ where: { id } });
+    const movieID = await prisma.movie.findUnique({ where: { id } });
 
-    if (!movie) {
-      return NextResponse.json({ message: "Movie not found" }, {
-        status: 404,
-        headers,
-      });
+    if (!movieID) {
+      return NextResponse.json({ message: "Movie not found" }, { status: 400 });
     }
 
-    return NextResponse.json(movie, {
-      status: 200,
-      headers,
-    });
+    // const response = {
+    //   movieID,
+    // };
+
+    return NextResponse.json(movieID, { status: 200 });
+    // return NextResponse.json(response, {
+    //   status: 200,
+    //   headers: getCorsHeaders(origin),
+    // });
   } catch (error) {
-    return NextResponse.json({ error: "Erreur serveur" }, {
-      status: 500,
-      headers,
-    });
+    return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
   }
 }
 

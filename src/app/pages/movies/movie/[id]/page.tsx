@@ -1,24 +1,59 @@
-import React from 'react'
+// app/movies/[id]/page.tsx
+import React from "react";
 
-export default async function page({params}) {
-  const {id} = await params
-  console.log('====================================');
-  console.log(id);
-  console.log('====================================');
+type MoviePageProps = {
+  params: { id: string },
+};
 
-  const res = await fetch(
-    `https://www.net-movie.fr/api/movies/${id}`
-  );
+export default async function MoviePage({ params }: MoviePageProps) {
+  const { id } = params;
 
-  const movie = await res.json()
-  console.log('====================================');
-  console.log(movie);
-  console.log('====================================');
+  // Appel à l'API pour récupérer le film
+  const res = await fetch(`https://www.net-movie.fr/api/movies/${id}`, {
+    cache: "no-store", // Empêche la mise en cache de la requête
+  });
+
+  if (!res.ok) {
+    // Si la réponse est mauvaise, on affiche un message d'erreur
+    return <div>Erreur lors du chargement du film (code {res.status})</div>;
+  }
+
+  const movie = await res.json(); // On récupère les données du film
+
   return (
-    <div>page{id} // {movie.name}</div>
-  )
+    <div>
+      <h1>Détails du Film</h1>
+      <p>
+        <strong>ID:</strong> {id}
+      </p>
+      <p>
+        <strong>Nom:</strong> {movie.name}
+      </p>
+      {/* Ajouter d'autres champs selon la structure de ton API */}
+    </div>
+  );
 }
 
+// import React from 'react'
+
+// export default async function page({params}) {
+//   const {id} = await params
+//   console.log('====================================');
+//   console.log(id);
+//   console.log('====================================');
+
+//   const res = await fetch(
+//     `https://www.net-movie.fr/api/movies/${id}`
+//   );
+
+//   const movie = await res.json()
+//   console.log('====================================');
+//   console.log(movie);
+//   console.log('====================================');
+//   return (
+//     <div>page{id} // {movie.name}</div>
+//   )
+// }
 
 // "use client"
 
