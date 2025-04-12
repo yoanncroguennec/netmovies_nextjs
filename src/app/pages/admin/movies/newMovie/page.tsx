@@ -81,7 +81,7 @@ export default function AddMoviePage() {
     movieLink: "",
     img: "",
     year: "",
-    country: [""],
+    country: "",
     genre: [""],
   });
 
