@@ -1,10 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { Button, Typography } from "@mui/material";
+import { Box, Button, IconButton, Tooltip, Typography } from "@mui/material";
 // import { UserLocationIP_AddressAndLocalTimeDate } from "../../../utils";
 // import DropdownNavbar from "../dropdown/dropdownNavbar/DropdownNavbar";
-import { GiHamburgerMenu } from "react-icons/gi";
 import {
   RootNavbar,
   Typo_FirstLetter_Logo,
@@ -17,17 +16,35 @@ import {
   Typo_EighthLetter_Logo,
 } from "./StylesNavbar";
 import Link from "next/link";
-import { GlobalBtns } from "../..";
+// ICONS
+import { MdMovieCreation, MdFavorite } from "react-icons/md";
+import { RiUserLine, RiAdminLine } from "react-icons/ri";
 
-const dataLogo = [
-  { component: Typo_FirstLetter_Logo, letter: "N" },
-  { component: Typo_SecondLetter_Logo, letter: "E" },
-  { component: Typo_ThirdLetter_Logo, letter: "T" },
-  { component: Typo_FourthLetter_Logo, letter: "M" },
-  { component: Typo_FifthLetter_Logo, letter: "O" },
-  { component: Typo_SixthLetter_Logo, letter: "V" },
-  { component: Typo_SeventhLetter_Logo, letter: "I" },
-  { component: Typo_EighthLetter_Logo, letter: "E" },
+const dataIcons = [
+  {
+    icon: MdMovieCreation,
+    link: "/pages/movies",
+    tooltip: "Tous les films",
+    color: "#FFF",
+  },
+  {
+    icon: MdFavorite,
+    link: "/",
+    tooltip: "Mes Favoris",
+    color: "#F00",
+  },
+  {
+    icon: RiUserLine,
+    link: "/pages/auth/login",
+    tooltip: "Se Connecter",
+    color: "#F00",
+  },
+  {
+    icon: RiAdminLine,
+    link: "/pages/admin/dashboard",
+    tooltip: "Administrateur",
+    color: "#F00",
+  },
 ];
 
 export default function Navbar() {
@@ -37,6 +54,15 @@ export default function Navbar() {
   //   setIsScrolled(window.pageYOffset === 0 ? false : true);
   //   return () => (window.onscroll = null);
   // };
+
+    const [hoverStates, setHoverStates] = useState([false, false]);
+      const handleHover = (index, isHovering) => {
+        const newStates = [...hoverStates];
+        newStates[index] = isHovering;
+        setHoverStates(newStates);
+      };
+
+  const [hover, setHover] = useState(false);
 
   return (
     // <RootNavbar isScrolled={isScrolled}>
@@ -59,19 +85,6 @@ export default function Navbar() {
         <Typo_SeventhLetter_Logo>I</Typo_SeventhLetter_Logo>
         <Typo_EighthLetter_Logo>E</Typo_EighthLetter_Logo>
       </Link>
-      <Button
-        href='/pages/movies'
-        sx={{
-          border: "2px solid red",
-          borderRadius: "25px",
-          cursor: "pointer",
-          color: "#FFF",
-          padding: "10px 30px",
-        }}
-        variant='text'
-      >
-        <Typography variant='h6'>Tous les films</Typography>
-      </Button>
 
       <Button
         href='/pages/televisionProgramme'
@@ -87,31 +100,45 @@ export default function Navbar() {
         <Typography variant='h6'>Programme Télé</Typography>
       </Button>
 
-      <Button
-        href='/pages/televisionProgramme'
+      <Box
         sx={{
-          border: "2px solid red",
+          alignItems: "center",
+          border: "4px solid #F00",
           borderRadius: "25px",
-          cursor: "pointer",
-          color: "#FFF",
-          padding: "10px 30px",
+          display: "flex",
+          flexWrap: "nowrap",
+          justifyContent: "space-around",
+          width: "250px",
         }}
-        variant='text'
       >
-        <Typography variant='h6'>Mes Favoris</Typography>
-      </Button>
+        {dataIcons.map((item, index) => {
+          const IconComponent = item.icon;
+          return (
+            <Link key={index} href={item.link}>
+              <Tooltip
+                title={<Typography variant='h6'>{item.tooltip}</Typography>}
+              >
+                <IconButton>
+                  <IconComponent
+                    color={item.color}
+                    onMouseEnter={() => handleHover(index, true)}
+                    onMouseLeave={() => handleHover(index, false)}
+                    size={30}
+                    style={{
+                      cursor: "pointer",
+                      transform: hoverStates[index] ? "scale(1.5)" : "scale(1)",
+                      transition: "transform 0.2s ease-in-out",
+                    }}
+                  />
+                </IconButton>
+              </Tooltip>
+            </Link>
+          );
+        })}
+      </Box>
 
       {/* <UserLocationIP_AddressAndLocalTimeDate
         id_Of_ConnectedUser={id_Of_ConnectedUser}
-      /> */}
-
-      <GlobalBtns urlBtn='/pages/admin/dashboard' textBtn='Admin' />
-
-      <GiHamburgerMenu color='red' size={30} />
-      {/* <DropdownNavbar
-        id_Of_ConnectedUser={id_Of_ConnectedUser}
-        token={token}
-        handleTokenAndId={handleTokenAndId}
       /> */}
     </RootNavbar>
   );

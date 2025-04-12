@@ -82,7 +82,6 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
             <Tooltip title={`Accèdez au film "${name}"`}>
               <ListItem sx={{ background: "" }}>
                 <img src={img} alt={name} style={styleImgMovie} />
-                <h4>bb{id}</h4> 
                 <ListItemText primary={id} secondary={actors} />
               </ListItem>
             </Tooltip>
