@@ -3,7 +3,7 @@
 import { getServerSession } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { ReactNode } from "react";
-import { authOptions } from "../api/auth/[...nextauth]";
+//import { authOptions } from "../api/auth/[...nextauth]";
 import { redirect } from "next/navigation";
 
 interface ProtectedRootLayout_PROPS {
@@ -12,7 +12,7 @@ interface ProtectedRootLayout_PROPS {
 
 export default async function ProtectedRootLayout({children} : ProtectedRootLayout_PROPS) {
 
-    const session = await getServerSession(authOptions)
+    //const session = await getServerSession(authOptions)
 
     // if (!session ?.user?.email) {
     //     redirect("/pages/auth/login")
