@@ -18,7 +18,7 @@ export default async function HomePage() {
       <Box sx={{ background: "#000", overflow: "hidden" }}>
         <Featured />
         <Typography sx={{ color: "#FFF", fontWeight: "bold" }} variant='h6'>
-          LOPPPP /// {session?.user?.email} ----
+          {/* LOPPPP /// {session?.user?.email} ---- */}
         </Typography>
         {data_HorizontalMovieList.map(({ titleSection, endPointUrl }) => (
           <ListSliderCategoryListMovies
