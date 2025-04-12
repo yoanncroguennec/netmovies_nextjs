@@ -2,10 +2,31 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
+const allowedOrigins = ["http://localhost:3000", "https://yourdomain.com"];
+
+function getCorsHeaders(origin: string | null) {
+  const isAllowed = origin && allowedOrigins.includes(origin);
+  return {
+    "Access-Control-Allow-Origin": isAllowed ? origin : "null", // Allow only listed origins
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS, DELETE",
+    "Access-Control-Allow-Headers": "Content-Type",
+  };
+}
+
 const prisma = new PrismaClient();
 
 // GET BY ID
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  // Set CORS headers
+  const headers = new Headers({
+    "Access-Control-Allow-Origin": "*", // Change "*" to your frontend domain for security
+    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+  });
+
   try {
     const { id } = params;
 
@@ -15,7 +36,15 @@ export async function GET(request: Request, { params }: { params: { id: string }
       return NextResponse.json({ message: "Movie not found" }, { status: 400 });
     }
 
-    return NextResponse.json(movieID, { status: 200 });
+    const response = {
+      movieID,
+    };
+
+    // return NextResponse.json(movieID, { status: 200 });
+    return NextResponse.json(response, {
+      status: 200,
+      headers: getCorsHeaders(origin),
+    });
   } catch (error) {
     return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
   }

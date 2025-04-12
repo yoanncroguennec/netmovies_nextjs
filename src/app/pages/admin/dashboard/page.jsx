@@ -4,6 +4,7 @@ import {
   DashboardWidgets,
 } from "../../../components/common";
 import Container_Admin from "../../../components/layouts/containers/container_Admin/Container_Admin";
+import GenerateCodeGenerator from "./GenerateCodeGenerator";
 
 export default function DashboardPage() {
   return (
@@ -14,6 +15,7 @@ export default function DashboardPage() {
           <DashboardWidgets type='movies' />
           <DashboardWidgets type='categoryMovies' />
         </div>
+        <GenerateCodeGenerator />
         <div
           style={{
             display: "flex",

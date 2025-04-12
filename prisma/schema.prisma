@@ -15,8 +15,14 @@ datasource db {
 
 model User {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  firstName     String
-  email   String
+  firstName String
+  lastName String
+  phoneNumber String @unique
+  email    String   @unique
+  postalAddress String
+  postCode String
+  city String
+  hashedPassword String 
   createdAt DateTime @default(now())
 }
 

@@ -5,6 +5,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // STYLES
 import "./utils/constants/styles/globals.css";
+import NextAuthSessionProvider from "../../providers/NextAuthSessionProvider";
+import ToastProvider from "../../providers/ToastProvider";
 
 // Les Metadata servent :
 // ✅ Meilleur SEO (meilleur classement Google)
@@ -37,7 +39,8 @@ export default function RootLayout({
       </Head>
       <body>
         <ToastContainer />
-        {children}
+        <ToastProvider />
+        <NextAuthSessionProvider>{children}</NextAuthSessionProvider>
       </body>
     </html>
   );

@@ -1,0 +1,166 @@
+"use client";
+
+import React, { useState } from "react";
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
+import axios from "axios";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import Container_Admin from "@/app/components/layouts/containers/container_Admin/Container_Admin";
+
+export default function Page() {
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    postalAddress: "",
+    postCode: "",
+    city: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const handleChange = (field: string, value: string) => {
+    setForm((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const register = async () => {
+    const {
+      firstName,
+      lastName,
+      phoneNumber,
+      email,
+      password,
+      confirmPassword,
+      postalAddress,
+      postCode,
+      city,
+    } = form;
+
+    if (!firstName || !lastName || !email || !password || !confirmPassword) {
+      toast.error("Veuillez remplir tous les champs obligatoires");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      toast.error("Les mots de passe ne correspondent pas");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      await axios.post("/api/auth/register", {
+        firstName,
+        lastName,
+        phoneNumber,
+        email,
+        password,
+        postalAddress,
+        postCode,
+        city,
+      });
+
+      await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+
+      toast.success("Enregistrement réussi");
+      router.push("/");
+    } catch (error: any) {
+      console.error("Erreur : ", error);
+      toast.error(error?.response?.data || "Erreur inconnue");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fields = [
+    { label: "Prénom", key: "firstName" },
+    { label: "Nom de famille", key: "lastName" },
+    { label: "Numéro de téléphone", key: "phoneNumber" },
+    { label: "Email", key: "email" },
+    { label: "Mot de passe", key: "password", type: "password" },
+    {
+      label: "Confirmez le mot de passe",
+      key: "confirmPassword",
+      type: "password",
+    },
+    { label: "Adresse postale", key: "postalAddress" },
+    { label: "Code postal", key: "postCode" },
+    { label: "Ville", key: "city" },
+  ];
+
+  return (
+    <Container_Admin>
+      <Box
+        sx={{
+          alignItems: "center",
+          background: "rgba(255, 255, 255, 0.9)",
+          border: "5px solid #000",
+          borderRadius: "20px",
+          boxShadow:
+            "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
+          display: "flex",
+          flexDirection: "column",
+          padding: "70px",
+        }}
+      >
+        <Typography
+          align='center'
+          gutterBottom
+          sx={{ color: "#000" }}
+          variant='h4'
+        >
+          Nouvel Utilisateur (Inscription Admin)
+        </Typography>
+
+        {fields.map((field) => (
+          <TextField
+            disabled={loading}
+            key={field.key}
+            fullWidth
+            label={field.label}
+            onChange={(e) => handleChange(field.key, e.target.value)}
+            style={{ padding: "10px 0" }}
+            type={field.type || "text"}
+            value={form[field.key as keyof typeof form]}
+            variant='outlined'
+          />
+        ))}
+
+        <Button
+          onClick={register}
+          disabled={loading}
+          sx={{
+            border: "2px solid red",
+            borderRadius: "25px",
+            boxShadow:
+              "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
+            mt: 2,
+            width: "250px",
+          }}
+          variant='text'
+        >
+          {loading ? (
+            <CircularProgress size={24} sx={{ color: "#fff" }} />
+          ) : (
+            <Typography sx={{ color: "#000", fontWeight: "bold" }} variant='h5'>Inscription</Typography>
+          )}
+        </Button>
+      </Box>
+    </Container_Admin>
+  );
+}

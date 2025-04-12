@@ -77,11 +77,11 @@ export default function AddMoviePage() {
     actors: "",
     desc: "",
     trailer: "",
-    country: "",
     productionCompany: "",
     movieLink: "",
     img: "",
     year: "",
+    country: [""],
     genre: [""],
   });
 

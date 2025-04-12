@@ -15,17 +15,17 @@ export const admin_dataDrawerNavAdmin = [
     icon: <FaUser />,
     subRoutes: [
       {
-        path: "/pages/admin/listUsers",
+        path: "/pages/admin/users",
         name: "Liste Utilisateurs ",
         icon: <FaUser />,
       },
       {
-        path: "/pages/admin/newUser",
+        path: "/pages/admin/users/newUser",
         name: "Nouvel utilisateur",
         icon: <FaUser />,
       },
       {
-        path: "/pages/admin/userLocation_And_IP_Address",
+        path: "/pages/admin/users/userLocation_And_IP_Address",
         name: "Localisation users avec adresse IP",
         icon: <FaUser />,
       },

@@ -77,7 +77,7 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
         .map(({ id, name, img, actors }) => (
           <Link
             key={id}
-            href={`/pages/movies/movie/${id}`} // as={`/pages/movies/movie/${_id}`}
+            href={{ pathname: `/pages/movies/movie/${id}`, query: { id: '123', name: 'John' }}} // as={`/pages/movies/movie/${_id}`}
           >
             <Tooltip title={`Accèdez au film "${name}"`}>
               <ListItem sx={{ background: "" }}>
