@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useMediaQuery, useTheme } from "@mui/material";
-import { useRouter } from "next/router";
+import { Button, useMediaQuery, useTheme } from "@mui/material";
 // import { useRouter } from "next/navigation"; // ✅ Import correct
 import { WelcomePopupAnnouncingTheLatestfilmsAndSeries } from "../../components/layouts";
 import {
@@ -15,7 +14,7 @@ import {
 export default function IntroPage() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
-  const router = useRouter();
+  // const router = useRouter();
 
   const [hasInteracted, setHasInteracted] = useState(false);
   const [openModal, setOpenModal] = useState(false);
@@ -57,19 +56,15 @@ export default function IntroPage() {
     return () => clearTimeout(timer);
   }, []);
 
-  // 📱 Redirige mobile après 5s
-useEffect(() => {
-  try {
-    if (!matches) {
-      const redirectTimer = setTimeout(() => {
-        router.push("/pages/home");
-      }, 5000);
-      return () => clearTimeout(redirectTimer);
-    }
-  } catch (err) {
-    console.error("Erreur lors de la redirection :", err);
-  }
-}, [matches, router]);
+  // // 📱 Redirige mobile après 5s
+  // useEffect(() => {
+  //   if (!matches) {
+  //     const redirectTimer = setTimeout(() => {
+  //       router.push("/pages/home");
+  //     }, 5000);
+  //     return () => clearTimeout(redirectTimer);
+  //   }
+  // }, [matches, router]);
 
   return (
     <>
@@ -118,7 +113,11 @@ useEffect(() => {
 
         {matches && openModal ? (
           <WelcomePopupAnnouncingTheLatestfilmsAndSeries />
-        ) : null}
+        ) : (
+          <Button href={`/pages/home`}>
+            <h1>FILMS</h1>
+          </Button>
+        )}
       </RootHome>
     </>
   );
