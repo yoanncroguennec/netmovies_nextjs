@@ -57,14 +57,18 @@ export default function IntroPage() {
   }, []);
 
   // 📱 Redirige mobile après 5s
-  useEffect(() => {
+useEffect(() => {
+  try {
     if (!matches) {
       const redirectTimer = setTimeout(() => {
         router.push("/pages/home");
       }, 5000);
       return () => clearTimeout(redirectTimer);
     }
-  }, [matches, router]);
+  } catch (err) {
+    console.error("Erreur lors de la redirection :", err);
+  }
+}, [matches, router]);
 
   return (
     <>
