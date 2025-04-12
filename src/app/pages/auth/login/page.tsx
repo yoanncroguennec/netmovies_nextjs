@@ -92,7 +92,7 @@ export default function LoginPage() {
           display: "flex",
           flexDirection: "column",
           padding: "70px",
-          width: "600px",
+          width: "350px",
         }}
       >
         <Box
