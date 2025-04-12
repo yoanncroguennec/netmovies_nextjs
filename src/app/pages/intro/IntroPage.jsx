@@ -8,8 +8,12 @@ import {
   ThreeBoxNetflixSpan,
   TypoTitleHome,
 } from "./StylesIntroPage";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 export default function IntroPage({}) {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("sm"));
+
   const [hasInteracted, setHasInteracted] = useState(false);
 
   useEffect(() => {
@@ -47,7 +51,7 @@ export default function IntroPage({}) {
       window.removeEventListener("keydown", enableSoundOnInteraction);
     };
   }, [hasInteracted]);
-  
+
   const [openModal, setOpenModal] = useState(false);
   const delay = 5;
 
@@ -105,7 +109,11 @@ export default function IntroPage({}) {
           <ThreeBoxNetflixSpan component='span' className='StylesSpanRight' />
         </BoxNetflix>
         <TypoTitleHome variant='h2'>Net Movie</TypoTitleHome> */
-        {openModal ? <WelcomePopupAnnouncingTheLatestfilmsAndSeries /> : null}
+        {openModal ? (
+          matches ? (
+            <WelcomePopupAnnouncingTheLatestfilmsAndSeries />
+          ) : null
+        ) : null}
       </RootHome>
     </>
   );
