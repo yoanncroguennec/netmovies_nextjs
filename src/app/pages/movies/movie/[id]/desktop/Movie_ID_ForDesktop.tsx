@@ -1,37 +1,102 @@
-import React from "react";
+"use client";
 
-type MoviePageProps = {
-  params: { id: string },
+import { useEffect, useState } from "react";
+
+type Movie_ID_ForCellular_Props = {
+  params: { id: string };
 };
 
-export default async function Movie_ID_ForDesktop({ params }: MoviePageProps) {
+type Movie = {
+  name: string;
+  // Ajoute ici les autres propriétés de ton film selon ton API
+};
+
+export default function Movie_ID_ForDesktop({ params }: Movie_ID_ForCellular_Props) {
   const { id } = params;
+  const [movie, setMovie] = useState<Movie | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  // Appel à l'API pour récupérer le film
-  const res = await fetch(`https://www.net-movie.fr/api/movies/${id}`, {
-    cache: "no-store", // Empêche la mise en cache de la requête
-  });
+  useEffect(() => {
+    const fetchMovie = async () => {
+      try {
+        const res = await fetch(`https://www.net-movie.fr/api/movies/${id}`, {
+          cache: "no-store",
+        });
 
-  if (!res.ok) {
-    // Si la réponse est mauvaise, on affiche un message d'erreur
-    return <div>Erreur lors du chargement du film (code {res.status})</div>;
+        if (!res.ok) {
+          throw new Error(
+            `Erreur lors du chargement du film (code ${res.status})`
+          );
+        }
+
+        const data = await res.json();
+        setMovie(data);
+      } catch (err: any) {
+        setError(err.message || "Erreur inconnue");
+      }
+    };
+
+    fetchMovie();
+  }, [id]);
+
+  if (error) {
+    return <div>{error}</div>;
   }
 
-  const movie = await res.json(); // On récupère les données du film
+  if (!movie) {
+    return <div>Chargement du film...</div>;
+  }
 
   return (
-    <div>
-      <h1>Détails du Film</h1>
+    <div style={{ padding: "1rem", fontSize: "1.1rem" }}>
+      <h1 style={{ fontSize: "1.5rem", marginBottom: "1rem" }}>
+        Détails du Film (Mobile)
+      </h1>
       <p>
         <strong>ID:</strong> {id}
       </p>
       <p>
-        <strong>Nom:</strong> {movie.name}
+        <strong>Nom:</strong> {movie.name || "Non disponible"}
       </p>
-      {/* Ajouter d'autres champs selon la structure de ton API */}
+      {/* Ajoute ici d'autres champs si disponibles */}
     </div>
   );
 }
+
+// import React from "react";
+
+// type Movie_ID_ForDesktop_Props = {
+//   params: { id: string };
+// };
+
+// export default async function Movie_ID_ForDesktop({ params }: Movie_ID_ForDesktop_Props) {
+//   const { id } = params;
+
+//   // Appel à l'API pour récupérer le film
+//   const res = await fetch(`https://www.net-movie.fr/api/movies/${id}`, {
+//     cache: "no-store", // Empêche la mise en cache de la requête
+//   });
+
+//   if (!res.ok) {
+//     // Si la réponse est mauvaise, on affiche un message d'erreur
+//     return <div>Erreur lors du chargement du film (code {res.status})</div>;
+//   }
+
+//   const movie = await res.json(); // On récupère les données du film
+
+//   return (
+//     <div>
+//       <h1>Détails du Film</h1>
+//       <p>
+//         <strong>ID:</strong> {id}
+//       </p>
+//       <p>
+//         <strong>Nom:</strong> {movie.name}
+//       </p>
+//       {/* Ajouter d'autres champs selon la structure de ton API */}
+//     </div>
+//   );
+// }
 
 // import React from 'react'
 
