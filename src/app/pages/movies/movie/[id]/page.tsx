@@ -8,7 +8,7 @@ import Movie_ID_ForDesktop from "./desktop/Movie_ID_ForDesktop";
 export default function Page() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
-  const params = useParams();
+  const params = useParams() as { id: string }; // ✅ Ajout du typage
 
   return matches ? (
     <Movie_ID_ForDesktop params={params} />
