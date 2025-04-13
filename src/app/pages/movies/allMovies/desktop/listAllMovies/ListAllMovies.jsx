@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Box, Tooltip, Typography } from "@mui/material";
+import { Box, Tooltip } from "@mui/material";
+import Typography from "@mui/material/Typography";
+
 import Image from "next/image";
 // ICONS
 import { LiaEye, LiaEyeSlash } from "react-icons/lia";
