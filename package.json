@@ -37,7 +37,7 @@
     "react-iframe": "^1.8.5",
     "react-player": "^2.16.0",
     "react-qr-code": "^2.0.15",
-    "react-scroll-to-top": "^3.0.0",
+    "react-scroll-to-top": "^3.1.0",
     "react-spinners": "^0.15.0",
     "react-toastify": "^11.0.5"
   },

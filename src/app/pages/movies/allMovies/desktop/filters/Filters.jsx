@@ -39,6 +39,7 @@ import {
   IconButton,
   Chip,
 } from "@mui/material";
+// ICONS
 import { MdExpandMore } from "react-icons/md";
 // STYLES
 import { formControl } from "./StylesFilters";
