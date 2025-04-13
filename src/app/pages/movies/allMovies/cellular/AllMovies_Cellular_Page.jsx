@@ -326,8 +326,8 @@ function MovieCard({ movie }) {
             height={500}
             src={movie.img}
             style={{
-              height: "130px",
-              width: "130px",
+              height: "110px",
+              width: "110px",
             }}
             width={500}
           />
