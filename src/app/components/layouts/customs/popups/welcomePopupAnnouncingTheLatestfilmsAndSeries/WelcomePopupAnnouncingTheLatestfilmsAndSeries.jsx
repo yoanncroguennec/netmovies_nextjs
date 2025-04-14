@@ -52,7 +52,8 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
 useEffect(() => {
   if (!matches) {
     const timeout = setTimeout(() => {
-      router.push("/pages/home");
+      // router.push("/pages/home");
+      window.location.href = "/pages/home";
     }, 10000); // 10 secondes
 
     return () => clearTimeout(timeout); // nettoyage si le composant démonte avant les 10s
