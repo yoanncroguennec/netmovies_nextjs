@@ -52,35 +52,35 @@ export default function Featured_Dektop() {
   const [selected, setSelected] = useState<string>("");
   const [isActive, setIsActive] = useState<boolean>(false);
 
-const [randomMovie, setRandomMovie] = useState<Movie>({
-  name: "",
-  desc: "",
-  img: "",
-  trailer: "",
-  movieLink: "",
-});
+  const [randomMovie, setRandomMovie] = useState<Movie>({
+    name: "",
+    desc: "",
+    img: "",
+    trailer: "",
+    movieLink: "",
+  });
   const [loading, setLoading] = useState<boolean>(false);
 
-useEffect(() => {
-  async function fetchMovies() {
-    setLoading(true); // Set loading to true
-    try {
-      const url = `https://www.net-movie.fr/api/movies?type=randomMovie`;
-      const res = await axios.get(url);
-      if (res.data && res.data.randomMovie) {
-        setRandomMovie(res.data.randomMovie);
-      } else {
-        console.error("No random movie data found");
+  useEffect(() => {
+    async function fetchMovies() {
+      setLoading(true); // Set loading to true
+      try {
+        const url = `https://www.net-movie.fr/api/movies?type=randomMovie`;
+        const res = await axios.get(url);
+        if (res.data && res.data.randomMovie) {
+          setRandomMovie(res.data.randomMovie);
+        } else {
+          console.error("No random movie data found");
+        }
+      } catch (error) {
+        console.error("Error fetching movies:", error);
+      } finally {
+        setLoading(false); // Set loading to false once the API call completes
       }
-    } catch (error) {
-      console.error("Error fetching movies:", error);
-    } finally {
-      setLoading(false); // Set loading to false once the API call completes
     }
-  }
 
-  fetchMovies();
-}, []);
+    fetchMovies();
+  }, []);
 
   const { img, name, desc } = randomMovie;
 
@@ -89,8 +89,8 @@ useEffect(() => {
   }
 
   // OPEN MODAL PLAYER TRAILER
-const [openModalTrailer, setOpenModalTrailer] = useState<boolean>(false);
-const [showPlayerTrailer, setShowPlayerTrailer] = useState<boolean>(false);
+  const [openModalTrailer, setOpenModalTrailer] = useState<boolean>(false);
+  const [showPlayerTrailer, setShowPlayerTrailer] = useState<boolean>(false);
 
   function OpenModalTrailer() {
     setOpenModalTrailer(true);

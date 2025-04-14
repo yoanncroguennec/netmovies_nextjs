@@ -1,9 +1,24 @@
-import { Modal, Typography } from "@mui/material";
+import { Box, Modal, Typography } from "@mui/material";
 import ReactPlayer from "react-player";
 // STYLES
 import { BoxModalPlayerTrailer } from "./StylesModalPlayerTrailer";
 // ICONS
-import { AiOutlineClose } from "../../../../../../utils/constants/icons/index";
+import { AiOutlineClose } from "@/app/utils/constants/icons/index";
+
+const CloseIconWrapper = {
+  cursor: "pointer",
+  transition: "color 0.2s",
+  ":hover": {
+    color: "blue",
+  },
+};
+
+type ModalPlayerTrailerProps = {
+  openModalTrailer: boolean;
+  showPlayerTrailer: boolean;
+  trailer: string;
+  CloseModalTrailer: () => void;
+};
 
 export default function ModalPlayerTrailer({
   // Props
@@ -12,24 +27,20 @@ export default function ModalPlayerTrailer({
   trailer,
   // Functions
   CloseModalTrailer,
-}) {
+}: ModalPlayerTrailerProps) {
   return (
     <Modal open={openModalTrailer} onClose={CloseModalTrailer}>
       <BoxModalPlayerTrailer>
         <Typography align='center' variant='h4'>
           Bande-Annonce
         </Typography>
-        <AiOutlineClose
-          color='#FF0000'
-          onClick={CloseModalTrailer}
-          size={35}
-          style={{
-            cursor: "pointer",
-            "&:hover": {
-              color: "blue",
-            },
-          }}
-        />
+        <Box sx={CloseIconWrapper}>
+          <AiOutlineClose
+            onClick={CloseModalTrailer}
+            color='#FF0000'
+            size={35}
+          />
+        </Box>
         <div style={{ height: "85%" }}>
           <ReactPlayer
             url={trailer}

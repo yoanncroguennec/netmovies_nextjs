@@ -11,15 +11,21 @@ import {
 } from "./StylesModalInfosMovie";
 const sizeIcon = 35;
 
+type ModalInfosMovieProps = {
+  openModalInfosMovie: boolean;
+  OpenModalTrailer: () => void;
+  name: string;
+  desc: string;
+  CloseModalInfosMovie: () => void;
+};
+
 export default function ModalInfosMovie({
-  // Props
   openModalInfosMovie,
   OpenModalTrailer,
   name,
   desc,
-  // Functions
   CloseModalInfosMovie,
-}) {
+}: ModalInfosMovieProps) {
   return (
     <Modal open={openModalInfosMovie} onClose={CloseModalInfosMovie}>
       <BoxModalPlayerTrailer>
@@ -32,25 +38,20 @@ export default function ModalInfosMovie({
           size={35}
           style={{
             cursor: "pointer",
-            "&:hover": {
-              color: "blue",
-            },
           }}
         />
         <TypoMovie variant='h2'>{name}</TypoMovie>
         <div
           dangerouslySetInnerHTML={{
-            __html: `${desc}`,
+            __html: desc,
           }}
           style={StylesTypoDesc}
         />
         <div>
-          <div>
-            <Button variant='contained' onClick={OpenModalTrailer}>
-              <BsFillPlayFill size={sizeIcon} />
-              <Typography>Lecture</Typography>
-            </Button>
-          </div>
+          <Button variant='contained' onClick={OpenModalTrailer}>
+            <BsFillPlayFill size={sizeIcon} />
+            <Typography>Lecture</Typography>
+          </Button>
         </div>
       </BoxModalPlayerTrailer>
     </Modal>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 // LAYOUTS
 import {
   ModalPlayerTrailer,
@@ -17,19 +17,12 @@ interface Movie {
 
 interface GlobalModauxFeaturedProps {
   randomMovie: Movie;
-
-  // Trailer
-  openModalTrailer: boolean;
+  openModalTrailer: boolean; // Use the correct case for prop names
   showPlayerTrailer: boolean;
   CloseModalTrailer: () => void;
-
-  // Infos
   openModalInfosMovie: boolean;
-  setOpenModalInfosMovie: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenModalInfosMovie: Dispatch<SetStateAction<boolean>>;
   CloseModalInfosMovie: () => void;
-  OpenModalTrailer: () => void;
-
-  // Whole Movie
   modalTheWholeMovie: boolean;
   CloseModalTheWholeMovie: () => void;
 }
@@ -42,7 +35,6 @@ export default function GlobalModauxFeatured({
   openModalInfosMovie,
   setOpenModalInfosMovie,
   CloseModalInfosMovie,
-  OpenModalTrailer,
   modalTheWholeMovie,
   CloseModalTheWholeMovie,
 }: GlobalModauxFeaturedProps) {
@@ -65,7 +57,7 @@ export default function GlobalModauxFeatured({
         openModalInfosMovie={openModalInfosMovie}
         setOpenModalInfosMovie={setOpenModalInfosMovie}
         CloseModalInfosMovie={CloseModalInfosMovie}
-        OpenModalTrailer={OpenModalTrailer}
+        OpenModalTrailer={openModalTrailer}
       />
 
       {/* MODAL THE WHOLE FILM */}

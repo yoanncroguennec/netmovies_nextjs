@@ -3,8 +3,7 @@ import Iframe from "react-iframe";
 // ICONS
 import { AiOutlineClose } from "../../../../../../utils/constants/icons/index";
 
-//////////////////// STYLES MODAL PLAYER ////////////////////
-const BoxModalPlayerTrailer = styled(Box)(({ theme }) => ({
+const BoxModalPlayerTrailer = styled(Box)(() => ({
   background: "rgba(0, 0, 0, 0.8)",
   border: "2px solid #000",
   borderRadius: "25px",
@@ -12,25 +11,24 @@ const BoxModalPlayerTrailer = styled(Box)(({ theme }) => ({
   color: "#FFF",
   left: "50%",
   height: 500,
-  p: 4,
+  padding: "32px",
   position: "absolute",
   top: "50%",
   transform: "translate(-50%, -50%)",
   width: 1000,
-  [theme.breakpoints.down("sm")]: {
-    width: 350,
-  },
 }));
 
-//////////////////// EXPORT FUNCTION ////////////////////
+type ModalTheWholeFilmProps = {
+  modalTheWholeMovie: boolean;
+  movieLink: string;
+  CloseModalTheWholeMovie: () => void;
+};
+
 export default function ModalTheWholeFilm({
-  // Props
   modalTheWholeMovie,
-  ///////////
   movieLink,
-  // Functions
   CloseModalTheWholeMovie,
-}) {
+}: ModalTheWholeFilmProps) {
   return (
     <Modal
       open={modalTheWholeMovie}
@@ -48,9 +46,6 @@ export default function ModalTheWholeFilm({
           size={35}
           style={{
             cursor: "pointer",
-            "&:hover": {
-              color: "blue",
-            },
           }}
         />
         <div style={{ height: "85%" }}>

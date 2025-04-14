@@ -1,3 +1,4 @@
+import { CSSProperties } from "react";
 import { Box, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 
@@ -33,7 +34,7 @@ export const BoxNoDescription = styled(Box)(({ theme }) => ({
   margin: "25px",
 }));
 
-export const StylesTypoDesc = {
+export const StylesTypoDesc: CSSProperties = {
   color: "#FFF",
   margin: "35px",
   textAlign: "justify",
