@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { useMediaQuery, useTheme } from "@mui/material";
 import Featured_Desktop from "./desktop/Featured_Dektop";
-import Featured_Cellular from "./cellular/Featured_Cellular";
 import axios from "axios";
 
 interface Movie {
@@ -49,9 +48,6 @@ export default function Featured() {
     fetchMovies();
   }, []);
 
-  return matches ? (
-    <Featured_Desktop randomMovie={randomMovie} loading={loading} />
-  ) : (
-    <Featured_Cellular randomMovie={randomMovie} loading={loading} />
-  );
+
+  return <Featured_Desktop randomMovie={randomMovie} loading={loading} />;
 }

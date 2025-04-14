@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { Typography, Box } from "@mui/material";
 import Link from "next/link";
-import axios from "axios";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Typography, Box, useTheme, useMediaQuery } from "@mui/material";
 // LAYOUTS
 import { GlobalModauxFeatured } from "@/app/components/layouts";
 // UTILS ASSETS DATAS
@@ -49,6 +48,9 @@ export default function Featured_Desktop({
   randomMovie,
   loading,
 }: FeaturedDesktopProps) {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("sm"));
+
   // DROPDOWN CATEGORIES
   const type: "movie" | "series" = "movie";
   const [selected, setSelected] = useState<string>("");
@@ -142,6 +144,7 @@ export default function Featured_Desktop({
                             (e.target as HTMLElement).textContent || ""
                           )
                         }
+                        style={{ color: "#F00", textDecoration: "none" }}
                       >
                         <DropdownItem>
                           <Typography>{textCategory}</Typography>
@@ -159,11 +162,13 @@ export default function Featured_Desktop({
             background: "rgba(0, 0, 0, 0.4)",
             borderRadius: "25px",
             marginLeft: "45px",
-            padding: "50px",
-            width: "700px",
+            padding: matches ? "50px" : "20px",
+            width: matches ? "700px" : "80vw",
           }}
         >
-          <TypoNameMovieRandom variant='h4'>{name}</TypoNameMovieRandom>
+          <TypoNameMovieRandom variant={matches ? "h4" : "h6"}>
+            {name}
+          </TypoNameMovieRandom>
 
           <Typography>{truncateDesc(`${desc}`)}</Typography>
 
@@ -176,8 +181,8 @@ export default function Featured_Desktop({
                   onClick={onClickAction}
                   style={StylesThreeBtns}
                 >
-                  <BoxIconBtn>{icon}</BoxIconBtn>
-                  <Typography variant='body2'>{title}</Typography>
+                  {matches ? <BoxIconBtn>{icon}</BoxIconBtn> : null}
+                  <Typography sx={{ textAlign: "center" }} variant='body2'>{title}</Typography>
                 </motion.div>
               </>
             ))}

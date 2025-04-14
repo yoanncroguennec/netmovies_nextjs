@@ -16,7 +16,7 @@ import {
 } from "./StylesListSliderCategoryListMovies";
 // ICONS
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
-import { Box } from "@mui/material";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { Custom_Loading } from "@/app/components/layouts";
 
 export default function ListSliderCategoryListMovies({
@@ -24,6 +24,9 @@ export default function ListSliderCategoryListMovies({
 }: {
   titleSection: String;
 }) {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("sm"));
+
   const [isMoved, setIsMoved] = useState(false);
 
   // const rowRef = useRef(null);
@@ -46,22 +49,22 @@ export default function ListSliderCategoryListMovies({
 
   const [movies, setMovies] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
-  const [allMoviesbyGenre, setAllMoviesbyGenre] = useState([])
+  const [allMoviesbyGenre, setAllMoviesbyGenre] = useState([]);
 
-    useEffect(() => {
-      async function fetchMovies() {
-        try {
-          const url = `https://www.net-movie.fr/api/movies?type=allMoviesByGenre&genre=${titleSection}`;
-          const res = await axios.get(url);
-          setAllMoviesbyGenre(res.data.allMoviesbyGenre);
-          setLoading(false);
-        } catch (error) {
-          console.error("Error fetching movies:", error);
-        }
+  useEffect(() => {
+    async function fetchMovies() {
+      try {
+        const url = `https://www.net-movie.fr/api/movies?type=allMoviesByGenre&genre=${titleSection}`;
+        const res = await axios.get(url);
+        setAllMoviesbyGenre(res.data.allMoviesbyGenre);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching movies:", error);
       }
+    }
 
-      fetchMovies();
-    }, []);
+    fetchMovies();
+  }, []);
 
   const display = !isMoved ? "none" : undefined; // or any other value you want when isMoved is true
 
@@ -102,20 +105,23 @@ export default function ListSliderCategoryListMovies({
               //   0,
               //   5
               // )
-              .map(({id, name, img}) => (
-                <Link key={id} href={`/pages/movies/movie/${id}?id=123&name=John`}>
+              .map(({ id, name, img }) => (
+                <Link
+                  key={id}
+                  href={`/pages/movies/movie/${id}?id=123&name=John`}
+                >
                   <RootItemListSliderCategoryListMovies>
                     <Box
-                      sx={{ background: "rgba(0, 0, 0, 0.3)", width: "100%" }}
+                      sx={{ background: "rgba(0, 0, 0, 0.9)", width: "100%" }}
                     >
-                      <NameMovieItem variant='h5'>{name}</NameMovieItem>
+                      <NameMovieItem variant={matches ? "h5" : "body1"}>{name}</NameMovieItem>
                     </Box>
                     <img
                       alt={name}
                       src={img}
                       style={{
-                        height: "200px",
-                        width: "350px",
+                        height: matches ? "200px" : "100px",
+                        width: matches ? "350px" : "200px",
                       }}
                     />
                   </RootItemListSliderCategoryListMovies>

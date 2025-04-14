@@ -16,12 +16,12 @@ export const RootFeatured = styled(Box, {
   height: "100vh",
   width: "100vw",
 }));
-export const BoxFeatured = styled(Box)(({ theme }) => ({
+export const BoxFeatured = styled(Box)(({}) => ({
   position: "absolute",
   zIndex: 1,
 }));
 
-export const Dropdown = styled(Box)(({ theme }) => ({
+export const Dropdown = styled(Box)(({}) => ({
   background: "#000",
   border: "1px solid #FFF",
   height: "30px",
@@ -32,7 +32,7 @@ export const Dropdown = styled(Box)(({ theme }) => ({
   zIndex: "999",
 }));
 
-export const DropdownBtn = styled(Box)(({ theme }) => ({
+export const DropdownBtn = styled(Box)(({}) => ({
   alignItems: "center",
   background: "#000",
   boxShadow: "3px 3px 10px 6px rgba(0, 0, 0, 0.06)",
@@ -44,14 +44,14 @@ export const DropdownBtn = styled(Box)(({ theme }) => ({
   padding: "15px 20px",
 }));
 
-export const BoxActiveDropdown = styled(Box)(({ theme }) => ({
+export const BoxActiveDropdown = styled(Box)(({}) => ({
   border: "1px dotted black",
   height: "350px",
   overflowY: "scroll",
   zIndex: 999,
 }));
 
-export const DropdownItem = styled(Box)(({ theme }) => ({
+export const DropdownItem = styled(Box)(({}) => ({
   background: "#000",
   cursor: "pointer",
   padding: "10px",
@@ -81,9 +81,14 @@ export const BoxThreeBtns = styled(Box)(({ theme }) => ({
   display: "flex",
   flexWrap: "nowrap",
   justifyContent: "space-between",
+  [theme.breakpoints.down("sm")]: {
+    flexDirection: "column",
+    flexWrap: "wrap",
+    gap: theme.spacing(2),
+  },
 }));
 
-export const BoxIconBtn = styled(Box)(({  }) => ({
+export const BoxIconBtn = styled(Box)(({}) => ({
   marginRight: "15px",
 }));
 
