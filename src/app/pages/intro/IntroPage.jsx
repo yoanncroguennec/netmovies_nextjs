@@ -61,7 +61,7 @@ useEffect(() => {
   }, 5000);
 
   return () => clearTimeout(timer);
-}, []);
+}, [matches]);
 
   // // 📱 Redirige mobile après 5s
   // useEffect(() => {
