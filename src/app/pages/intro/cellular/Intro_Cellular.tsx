@@ -1,14 +1,6 @@
 "use client";
 
 import React, { useEffect } from "react";
-// STYLES
-import {
-  BoxNetflix,
-  RootHome,
-  ThreeBoxNetflixSpan,
-  TypoTitleHome,
-} from "../StylesIntroPage";
-import styles from "../stylesIntroPage.module.css";
 import Container_Intro from "@/app/components/layouts/containers/container_Intro/Container_Intro";
 
 export default function Intro_Cellular() {

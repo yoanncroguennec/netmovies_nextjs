@@ -1,3 +1,4 @@
+import React from "react";
 // LAYOUTS
 import {
   ModalPlayerTrailer,
@@ -5,23 +6,47 @@ import {
   ModalTheWholeFilm,
 } from "../../..";
 
+// Typage du film
+interface Movie {
+  name: string;
+  desc: string;
+  trailer: string;
+  movieLink: string;
+  [key: string]: any; // pour d'autres propriétés si besoin
+}
+
+interface GlobalModauxFeaturedProps {
+  randomMovie: Movie;
+
+  // Trailer
+  openModalTrailer: boolean;
+  showPlayerTrailer: boolean;
+  CloseModalTrailer: () => void;
+
+  // Infos
+  openModalInfosMovie: boolean;
+  setOpenModalInfosMovie: React.Dispatch<React.SetStateAction<boolean>>;
+  CloseModalInfosMovie: () => void;
+  OpenModalTrailer: () => void;
+
+  // Whole Movie
+  modalTheWholeMovie: boolean;
+  CloseModalTheWholeMovie: () => void;
+}
+
 export default function GlobalModauxFeatured({
   randomMovie,
-  /// TRAILER
   openModalTrailer,
   showPlayerTrailer,
   CloseModalTrailer,
-  /// INFOS MOVIE
   openModalInfosMovie,
   setOpenModalInfosMovie,
   CloseModalInfosMovie,
   OpenModalTrailer,
-  /// THE WHOLE MOVIE
   modalTheWholeMovie,
   CloseModalTheWholeMovie,
-}) {
+}: GlobalModauxFeaturedProps) {
   const { name, desc, trailer, movieLink } = randomMovie;
-
 
   return (
     <div>
@@ -35,18 +60,15 @@ export default function GlobalModauxFeatured({
 
       {/* MODAL INFOS MOVIES */}
       <ModalInfosMovie
-        openModalTrailer={openModalTrailer}
-        CloseModalTrailer={CloseModalTrailer}
         name={name}
         desc={desc}
         openModalInfosMovie={openModalInfosMovie}
-        // setOpenModalInfosMovie={setOpenModalInfosMovie}
+        setOpenModalInfosMovie={setOpenModalInfosMovie}
         CloseModalInfosMovie={CloseModalInfosMovie}
         OpenModalTrailer={OpenModalTrailer}
       />
 
       {/* MODAL THE WHOLE FILM */}
-      {/* <Typography color='error'>gfffffffffff</Typography> */}
       <ModalTheWholeFilm
         modalTheWholeMovie={modalTheWholeMovie}
         movieLink={movieLink}
