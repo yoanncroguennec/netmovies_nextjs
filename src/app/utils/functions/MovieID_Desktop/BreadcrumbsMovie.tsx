@@ -40,10 +40,10 @@ export default function BreadcrumbsMovie({  }) {
           "5px 0 #f00, -1px 0 #F00, 0 Fpx #F00, 0 -2px #F00, 1px 1px #F00, -1px -1px #F00, 1px -1px #F00, -1px 1px #F00",
       }}
     >
-      {dataBreadcrumbsMovie.map(({ text, url, id }) => (
+      {dataBreadcrumbsMovie.map(({ text, url }) => (
         <Link
           href={url}
-          key={id}
+          key={url}
           style={{
             color: "#000",
             cursor: "pointer",
