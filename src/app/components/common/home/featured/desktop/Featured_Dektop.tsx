@@ -36,7 +36,8 @@ interface Movie {
   name: string;
   desc: string;
   img: string;
-  [key: string]: any;
+  trailer: string;
+  movieLink: string;
 }
 
 interface BtnData {
@@ -55,6 +56,8 @@ const [randomMovie, setRandomMovie] = useState<Movie>({
   name: "",
   desc: "",
   img: "",
+  trailer: "",
+  movieLink: "",
 });
   const [loading, setLoading] = useState<boolean>(false);
 
