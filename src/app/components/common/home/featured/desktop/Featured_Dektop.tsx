@@ -135,7 +135,7 @@ export default function Featured_Dektop() {
 
   // RETURN
   return (
-    <RootFeatured img={img}>
+    <RootFeatured img={img || ""}>
       <BoxFeatured>
         {type && (
           <Dropdown>

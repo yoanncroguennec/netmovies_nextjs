@@ -1,17 +1,12 @@
 import { Typography, Box, styled } from "@mui/material";
 
-// export const BoxCategory = styled(Box)(({ theme }) => ({
-//   alignItems: "center",
-//   color: "#FFF",
-//   display: "flex",
-//   fontSize: "20px",
-//   fontWeight: "500",
-//   left: "50px",
-//   position: "absolute",
-//   top: "80px",
-// }));
+interface RootFeaturedProps {
+  img: string;
+}
 
-export const RootFeatured = styled(Box)(({ img }) => ({
+export const RootFeatured = styled(Box, {
+  shouldForwardProp: (props) => props !== "img",
+})<RootFeaturedProps>(({ img }) => ({
   backgroundImage: `url("${img}")`,
   backgroundPosition: "center center",
   backgroundSize: "cover",
@@ -20,7 +15,6 @@ export const RootFeatured = styled(Box)(({ img }) => ({
   height: "100vh",
   width: "100vw",
 }));
-
 export const BoxFeatured = styled(Box)(({ theme }) => ({
   position: "absolute",
   zIndex: 1,
@@ -67,15 +61,13 @@ export const DropdownItem = styled(Box)(({ theme }) => ({
 }));
 
 /***************************/
-export const BoxBGTitleDescBtnsMovieRandom = styled(Typography)(
-  ({  }) => ({
-    // background: "rgba(0, 0, 0, 0.4)",
-    // borderRadius: "25px",
-    // marginLeft: `${matches ? "5px" : "45px"}`,
-    // padding: `${matches ? "25px" : "50px"}`,
-    // width: `${matches ? "350px" : "700px"}`,
-  })
-);
+export const BoxBGTitleDescBtnsMovieRandom = styled(Typography)(({}) => ({
+  // background: "rgba(0, 0, 0, 0.4)",
+  // borderRadius: "25px",
+  // marginLeft: `${matches ? "5px" : "45px"}`,
+  // padding: `${matches ? "25px" : "50px"}`,
+  // width: `${matches ? "350px" : "700px"}`,
+}));
 
 export const TypoNameMovieRandom = styled(Typography)(({ theme }) => ({
   color: "#FFF",
@@ -90,7 +82,7 @@ export const BoxThreeBtns = styled(Box)(({ theme }) => ({
   justifyContent: "space-between",
 }));
 
-export const BoxIconBtn = styled(Box)(({ matches }) => ({
+export const BoxIconBtn = styled(Box)(({  }) => ({
   marginRight: "15px",
 }));
 
