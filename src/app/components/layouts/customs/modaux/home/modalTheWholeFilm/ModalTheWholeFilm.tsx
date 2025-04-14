@@ -7,7 +7,7 @@ const BoxModalPlayerTrailer = styled(Box)(() => ({
   background: "rgba(0, 0, 0, 0.8)",
   border: "2px solid #000",
   borderRadius: "25px",
-  boxShadow: 24,
+  boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.5)", // <- fixé ici
   color: "#FFF",
   left: "50%",
   height: 500,
@@ -17,6 +17,7 @@ const BoxModalPlayerTrailer = styled(Box)(() => ({
   transform: "translate(-50%, -50%)",
   width: 1000,
 }));
+
 
 type ModalTheWholeFilmProps = {
   modalTheWholeMovie: boolean;

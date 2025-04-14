@@ -1,30 +1,31 @@
 import { CSSProperties } from "react";
-import { Box, Typography } from "@mui/material";
-import { styled } from "@mui/system";
+import { Box, styled, Typography } from "@mui/material";
+
 
 export const BoxModalPlayerTrailer = styled(Box)(() => ({
   background: "rgba(0, 0, 0, 0.8)",
   border: "2px solid #000",
   borderRadius: "25px",
-  boxShadow: 24,
+  boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.5)", // <- fixé ici
   color: "#FFF",
   left: "50%",
   height: 500,
-  padding: "32px", // correction du padding
+  padding: "32px",
   position: "absolute",
   top: "50%",
   transform: "translate(-50%, -50%)",
   width: 1000,
 }));
 
-export const TypoMovie = styled(Typography)(({ theme }) => ({
+
+export const TypoMovie = styled(Typography)(({  }) => ({
   color: "#FFF",
   fontWeight: "bold",
   textAlign: "center",
   textShadow: "1px 1px 1px #000, 3px 3px 5px blue",
 }));
 
-export const BoxNoDescription = styled(Box)(({ theme }) => ({
+export const BoxNoDescription = styled(Box)(({  }) => ({
   alignItems: "center",
   display: "flex",
   justifyContent: "center",
