@@ -26,8 +26,8 @@ export default function Page() {
   const params = useParams() as { id: string }; // ✅ Ajout du typage
 
   const { id } = params;
-  const [movie, setMovie] = useState<Movie | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [movie, setMovie] = useState<Movie | undefined>(undefined);
+const [error, setError] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     const fetchMovie = async () => {
