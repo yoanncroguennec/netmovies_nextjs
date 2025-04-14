@@ -11,7 +11,7 @@ export const RootHome = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {},
 }));
 
-export const BoxNetflix = styled(Box)(({ theme }) => ({
+export const BoxNetflix = styled(Box)(({  }) => ({
   height: "520px",
   left: "50%",
   position: "absolute",
@@ -20,14 +20,14 @@ export const BoxNetflix = styled(Box)(({ theme }) => ({
   width: "360px",
 }));
 
-export const ThreeBoxNetflixSpan = styled(Box)(({ theme }) => ({
+export const ThreeBoxNetflixSpan = styled(Box)(({}) => ({
   background: "#DB0001",
   height: "0",
   position: "absolute",
   width: "100px",
 }));
 
-export const TypoTitleHome = styled(Typography)(({ theme }) => ({
+export const TypoTitleHome = styled(Typography)(({  }) => ({
   bottom: "-155px",
   color: "#FFF",
   fontFamily: "Arial, Helvetica, sans-serif",

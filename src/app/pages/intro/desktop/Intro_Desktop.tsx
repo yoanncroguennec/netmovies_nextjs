@@ -1,24 +1,19 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Button, useMediaQuery, useTheme } from "@mui/material";
-// import { useRouter } from "next/navigation"; // ✅ Import correct
 import { WelcomePopupAnnouncingTheLatestfilmsAndSeries } from "../../../components/layouts";
-import { useRouter } from "next/router";
+// STYLES
 import {
   BoxNetflix,
   RootHome,
   ThreeBoxNetflixSpan,
   TypoTitleHome,
 } from "../StylesIntroPage";
+import styles from "../stylesIntroPage.module.css";
 
 export default function Intro_Desktop() {
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up("sm"));
-  // const router = useRouter();
-
-  const [hasInteracted, setHasInteracted] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState<boolean>(false);
+  const [openModal, setOpenModal] = useState<boolean>(false);
 
   // 🔊 Lecture du son
   useEffect(() => {
@@ -51,27 +46,17 @@ export default function Intro_Desktop() {
     };
   }, [hasInteracted]);
 
-  // ⏳ Affiche popup après 5s
   useEffect(() => {
     const timer = setTimeout(() => {
       setOpenModal(true);
-    }, 5000);
+    }, 5000); // 5000 => 5 secondes
 
     return () => clearTimeout(timer);
   }, []);
-  // // 📱 Redirige mobile après 5s
-  // useEffect(() => {
-  //   if (!matches) {
-  //     const redirectTimer = setTimeout(() => {
-  //       router.push("/pages/home");
-  //     }, 5000);
-  //     return () => clearTimeout(redirectTimer);
-  //   }
-  // }, [matches, router]);
 
   return (
     <>
-      <style>
+      {/* <style>
         {`
           .stylesSpanLeft {
             animation: anim 1s linear forwards;
@@ -104,13 +89,13 @@ export default function Intro_Desktop() {
             }
           }
         `}
-      </style>
+      </style> */}
 
       <RootHome>
         <BoxNetflix>
-          <ThreeBoxNetflixSpan component='span' className='stylesSpanLeft' />
-          <ThreeBoxNetflixSpan component='span' className='StylesSpanCenter' />
-          <ThreeBoxNetflixSpan component='span' className='StylesSpanRight' />
+          <ThreeBoxNetflixSpan as='span' className={styles.spanLeft} />
+          <ThreeBoxNetflixSpan as='span' className={styles.spanCenter} />
+          <ThreeBoxNetflixSpan as='span' className={styles.spanRight} />
         </BoxNetflix>
         <TypoTitleHome variant='h2'>Net Movie</TypoTitleHome>
 
