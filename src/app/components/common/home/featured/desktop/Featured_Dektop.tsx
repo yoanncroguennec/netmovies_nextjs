@@ -216,12 +216,15 @@ export default function Featured_Dektop() {
       {randomMovie.name && randomMovie.desc ? (
         <GlobalModauxFeatured
           randomMovie={randomMovie}
+          //
           openModalTrailer={openModalTrailer}
           showPlayerTrailer={showPlayerTrailer}
           CloseModalTrailer={CloseModalTrailer}
+          //
           openModalInfosMovie={openModalInfosMovie}
           setOpenModalInfosMovie={setOpenModalInfosMovie}
           CloseModalInfosMovie={CloseModalInfosMovie}
+          //
           modalTheWholeMovie={modalTheWholeMovie}
           CloseModalTheWholeMovie={CloseModalTheWholeMovie}
         />

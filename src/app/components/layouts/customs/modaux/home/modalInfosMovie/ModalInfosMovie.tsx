@@ -13,7 +13,7 @@ const sizeIcon = 35;
 
 type ModalInfosMovieProps = {
   openModalInfosMovie: boolean;
-  OpenModalTrailer: () => void;
+  OpenModalTrailer: boolean;
   name: string;
   desc: string;
   CloseModalInfosMovie: () => void;

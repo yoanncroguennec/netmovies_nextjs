@@ -6,25 +6,28 @@ import {
   ModalTheWholeFilm,
 } from "../../..";
 
-// Typage du film
+// Typing for the movie
 interface Movie {
   name: string;
   desc: string;
   trailer: string;
   movieLink: string;
-  [key: string]: any; // pour d'autres propriétés si besoin
+  [key: string]: any;
 }
 
 interface GlobalModauxFeaturedProps {
   randomMovie: Movie;
-  openModalTrailer: boolean; // Use the correct case for prop names
+  // Modal state for trailer
+  openModalTrailer: boolean;
   showPlayerTrailer: boolean;
-  CloseModalTrailer: () => void;
+  CloseModalTrailer: () => void; // Should be a function to close the trailer modal
+  // Modal state for movie information
   openModalInfosMovie: boolean;
   setOpenModalInfosMovie: Dispatch<SetStateAction<boolean>>;
-  CloseModalInfosMovie: () => void;
+  CloseModalInfosMovie: () => void; // Function to close movie info modal
+  // Modal state for full film
   modalTheWholeMovie: boolean;
-  CloseModalTheWholeMovie: () => void;
+  CloseModalTheWholeMovie: () => void; // Function to close full film modal
 }
 
 export default function GlobalModauxFeatured({
@@ -55,9 +58,9 @@ export default function GlobalModauxFeatured({
         name={name}
         desc={desc}
         openModalInfosMovie={openModalInfosMovie}
-        setOpenModalInfosMovie={setOpenModalInfosMovie}
+        // setOpenModalInfosMovie={setOpenModalInfosMovie}
         CloseModalInfosMovie={CloseModalInfosMovie}
-        OpenModalTrailer={openModalTrailer}
+        openModalTrailer={openModalTrailer} // Updated to boolean type
       />
 
       {/* MODAL THE WHOLE FILM */}
