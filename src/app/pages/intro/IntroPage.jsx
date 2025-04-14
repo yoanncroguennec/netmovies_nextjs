@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Button, useMediaQuery, useTheme } from "@mui/material";
 // import { useRouter } from "next/navigation"; // ✅ Import correct
 import { WelcomePopupAnnouncingTheLatestfilmsAndSeries } from "../../components/layouts";
+import { useRouter } from "next/router";
 import {
   BoxNetflix,
   RootHome,
@@ -53,16 +54,16 @@ export default function IntroPage() {
   // ⏳ Affiche popup après 5s
 useEffect(() => {
   const timer = setTimeout(() => {
+    const router = useRouter();
     if (matches) {
-      window.location.href = "/pages/home";
+      router.push("/pages/home");
     } else {
-      window.location.href = "/pages/auth/login";
+      router.push("/pages/auth/login");
     }
   }, 5000);
 
   return () => clearTimeout(timer);
-}, [matches]);
-
+}, []);
   // // 📱 Redirige mobile après 5s
   // useEffect(() => {
   //   if (!matches) {
