@@ -1,13 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react"
+import { useState } from "react";
 import { Box, Typography } from "@mui/material";
-// LAYOUTS
-import Container_GlobalApp from "@/app/components/layouts/containers/container_GlobalApp/Container_GlobalApp";
 
 type Movie_ID_ForCellular_Props = {
-  error?: string
+  error?: string;
   movie?: {
     name: string;
     realisators: string[];
@@ -24,9 +22,10 @@ type Movie_ID_ForCellular_Props = {
 };
 
 export default function Movie_ID_ForCellular({
-  error, movie
+  error,
+  movie,
 }: Movie_ID_ForCellular_Props) {
-  const [expanded, setExpanded] = useState<boolean>(false)
+  const [expanded, setExpanded] = useState<boolean>(false);
 
   if (error) {
     return <div>{error}</div>;
@@ -63,148 +62,147 @@ export default function Movie_ID_ForCellular({
   };
 
   return (
-    <Container_GlobalApp>
+    <div style={{ backgroundImage: `url("${img}")`, backgroundSize: "cover" }}>
       <div
-        style={{ backgroundImage: `url("${img}")`, backgroundSize: "cover" }}
+        style={{
+          background: "rgba(0, 0, 0, 0.6)",
+          color: "#FFF",
+          height: "100vh",
+          padding: "90px 20px 20px 20px",
+          width: "100vw",
+        }}
       >
-        <div
-          style={{
-            background: "rgba(0, 0, 0, 0.6)",
-            color: "#FFF",
-            height: "100vh",
-            padding: "90px 20px 20px 20px",
-            width: "100vw",
+        <Typography
+          sx={{ color: "#F00", fontWeight: "bold", textAlign: "center" }}
+          variant='h5'
+        >
+          {name || "Non disponible"}
+        </Typography>
+        <Typography variant='body1'>
+          <strong>Réalisateurs :</strong>{" "}
+          {realisators.filter(Boolean).join(", ") || "Non disponible"}
+        </Typography>
+        <Typography variant='body1'>
+          <strong>Acteurs :</strong>{" "}
+          {actors.filter(Boolean).join(", ") || "Non disponible"}
+        </Typography>
+        <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+          {country.map((item) => (
+            <Typography
+              sx={{
+                border: "2px solid #F00",
+                borderRadius: "25px",
+                color: "#F00",
+                fontWeight: "bold",
+                margin: "5px",
+                padding: "10px",
+                textAlign: "center",
+                width: "150px",
+              }}
+              variant='body1'
+            >
+              {item}
+            </Typography>
+          ))}
+        </Box>
+
+        <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+          {genre.map((item) => (
+            <Typography
+              sx={{
+                border: "2px solid #F00",
+                borderRadius: "25px",
+                color: "#F00",
+                fontWeight: "bold",
+                margin: "5px",
+                padding: "10px",
+                textAlign: "center",
+                width: "100px",
+              }}
+              variant='body1'
+            >
+              {item}
+            </Typography>
+          ))}
+        </Box>
+
+        <Typography variant='body1'>{displayText()}</Typography>
+        {desc && desc.length > maxLength && (
+          <Box
+            onClick={toggleExpand}
+            style={{
+              border: "2px solid #F00",
+              borderRadius: "25px",
+              margin: "5px",
+              padding: "10px",
+              width: "150px",
+            }}
+          >
+            <Typography
+              sx={{ color: "#F00", fontWeight: "bold", textAlign: "center" }}
+              variant='body1'
+            >
+              {expanded ? "Voir moins" : "Voir plus"}
+            </Typography>
+          </Box>
+        )}
+        <Box
+          sx={{
+            alignItems: "center",
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
           }}
         >
-          <Typography
-            sx={{ color: "#F00", fontWeight: "bold", textAlign: "center" }}
-            variant='h5'
+          <Link
+            style={{
+              textDecoration: "none",
+            }}
+            href=''
           >
-            {name || "Non disponible"}
-          </Typography>
-          <Typography variant='body1'>
-            <strong>Réalisateurs :</strong>{" "}
-            {realisators.filter(Boolean).join(", ") || "Non disponible"}
-          </Typography>
-          <Typography variant='body1'>
-            <strong>Acteurs :</strong>{" "}
-            {actors.filter(Boolean).join(", ") || "Non disponible"}
-          </Typography>
-          <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-            {country.map((item) => (
-              <Typography
-                sx={{
-                  border: "2px solid #F00",
-                  borderRadius: "25px",
-                  color: "#F00",
-                  fontWeight: "bold",
-                  margin: "5px",
-                  padding: "10px",
-                  textAlign: "center",
-                  width: "150px",
-                }}
-                variant='body1'
-              >
-                {item}
-              </Typography>
-            ))}
-          </Box>
-
-          <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-            {genre.map((item) => (
-              <Typography
-                sx={{
-                  border: "2px solid #F00",
-                  borderRadius: "25px",
-                  color: "#F00",
-                  fontWeight: "bold",
-                  margin: "5px",
-                  padding: "10px",
-                  textAlign: "center",
-                  width: "100px",
-                }}
-                variant='body1'
-              >
-                {item}
-              </Typography>
-            ))}
-          </Box>
-
-          <Typography variant='body1'>{displayText()}</Typography>
-          {desc && desc.length > maxLength && (
-            <Box
-              onClick={toggleExpand}
+            <Typography
               style={{
                 border: "2px solid #F00",
                 borderRadius: "25px",
+                color: "#FFF",
                 margin: "5px",
                 padding: "10px",
+                textAlign: "center",
+                textDecoration: "none",
                 width: "150px",
               }}
+              variant='body1'
             >
-              <Typography
-                sx={{ color: "#F00", fontWeight: "bold", textAlign: "center" }}
-                variant='body1'
-              >
-                {expanded ? "Voir moins" : "Voir plus"}
-              </Typography>
-            </Box>
-          )}
-          <Box
-            sx={{
-              alignItems: "center",
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "center",
+              Bande-annonce
+            </Typography>
+          </Link>
+          <Link
+            style={{
+              textDecoration: "none",
+            }}
+            href={{
+              pathname: `/pages/player/${id}`,
+              // query: { id: "123", name: "John" },
             }}
           >
-            <Link
+            <Typography
               style={{
+                border: "2px solid #F00",
+                borderRadius: "25px",
+                color: "#FFF",
+                margin: "5px",
+                padding: "10px",
+                textAlign: "center",
                 textDecoration: "none",
+                width: "150px",
               }}
-              href=''
+              variant='body1'
             >
-              <Typography
-                style={{
-                  border: "2px solid #F00",
-                  borderRadius: "25px",
-                  color: "#FFF",
-                  margin: "5px",
-                  padding: "10px",
-                  textAlign: "center",
-                  textDecoration: "none",
-                  width: "150px",
-                }}
-                variant='body1'
-              >
-                Bande-annonce
-              </Typography>
-            </Link>
-            <Link
-              style={{
-                textDecoration: "none",
-              }}
-              href=''
-            >
-              <Typography
-                style={{
-                  border: "2px solid #F00",
-                  borderRadius: "25px",
-                  color: "#FFF",
-                  margin: "5px",
-                  padding: "10px",
-                  textAlign: "center",
-                  textDecoration: "none",
-                  width: "150px",
-                }}
-                variant='body1'
-              >
-                Voir Film
-              </Typography>
-            </Link>
-          </Box>
-        </div>
+              Voir Film
+            </Typography>
+          </Link>
+        </Box>
       </div>
-    </Container_GlobalApp>
+    </div>
   );
 }

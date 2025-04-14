@@ -1,10 +1,9 @@
 "use client";
 
-import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useMediaQuery, useTheme } from "@mui/material";
-import Movie_ID_ForCellular from "./cellular/Movie_ID_ForCellular";
-import Movie_ID_ForDesktop from "./desktop/Movie_ID_ForDesktop";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
+import { useParams } from "next/navigation";
+import Iframe from "react-iframe";
 
 type Movie = {
   name: string;
@@ -19,15 +18,14 @@ type Movie = {
   year: string;
   genre: string[];
 };
-
-export default function Page() {
+export default function Player({}) {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
-  
+
   //
   const params = useParams() as { id: string };
   const { id } = params;
-  
+
   //
   const [movie, setMovie] = useState<Movie | undefined>(undefined);
   const [error, setError] = useState<string | undefined>(undefined);
@@ -55,9 +53,25 @@ export default function Page() {
     fetchMovie();
   }, [id]);
 
-  return matches ? (
-    <Movie_ID_ForDesktop error={error} movie={movie} />
-  ) : (
-    <Movie_ID_ForCellular error={error} movie={movie} />
+  if (!movie) {
+    if (error) return <div>{error}</div>;
+    return <div>Chargement...</div>;
+  }
+
+  return (
+    <Box sx={{ height: "100vh", width: "100vw" }}>
+      <Iframe
+        url={movie.movieLink}
+        width='100%'
+        height='100%'
+        display='block'
+        position='relative'
+        styles={{
+          margin: "0 auto",
+          transform: matches ? 0 : "rotate(90deg)",
+          transformOrigin: matches ? "" : "center center",
+        }}
+      />
+    </Box>
   );
 }
