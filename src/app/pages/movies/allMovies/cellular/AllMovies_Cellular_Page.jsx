@@ -189,7 +189,7 @@ export default function AllMovies_Cellular_Page() {
       <Box
         sx={{
           alignItems: "center",
-          background: "#333",
+          background: "#000",
           display: "flex",
           justifyContent: "space-evenly",
           flexWrap: "wrap",
@@ -354,8 +354,8 @@ function MovieCard({ movie }) {
     >
       <Box
         sx={{
-          height: "90px",
-          width: "90px",
+          height: "120px",
+          width: "105px",
           display: "flex",
           flexDirection: "column",
           justifyContent: "flex-end",
