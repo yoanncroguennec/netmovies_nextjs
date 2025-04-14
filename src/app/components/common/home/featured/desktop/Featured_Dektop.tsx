@@ -40,47 +40,19 @@ interface Movie {
   movieLink: string;
 }
 
-interface BtnData {
-  onClickAction: () => void;
-  icon: React.ReactNode;
-  title: string;
+interface FeaturedDesktopProps {
+  randomMovie: Movie;
+  loading: boolean;
 }
 
-export default function Featured_Dektop() {
+export default function Featured_Desktop({
+  randomMovie,
+  loading,
+}: FeaturedDesktopProps) {
   // DROPDOWN CATEGORIES
   const type: "movie" | "series" = "movie";
   const [selected, setSelected] = useState<string>("");
   const [isActive, setIsActive] = useState<boolean>(false);
-
-  const [randomMovie, setRandomMovie] = useState<Movie>({
-    name: "",
-    desc: "",
-    img: "",
-    trailer: "",
-    movieLink: "",
-  });
-  const [loading, setLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    async function fetchMovies() {
-      setLoading(true); // Set loading to true
-      try {
-        const url = `https://www.net-movie.fr/api/movies?type=randomMovie`;
-        const res = await axios.get(url);
-        if (res.data && res.data.randomMovie) {
-          setRandomMovie(res.data.randomMovie);
-        } else {
-          console.error("No random movie data found");
-        }
-      } catch (error) {
-        console.error("Error fetching movies:", error);
-      } finally {
-        setLoading(false); // Set loading to false once the API call completes
-      }
-    }
-
-    fetchMovies();
-  }, []);
 
   const { img, name, desc } = randomMovie;
 
@@ -193,7 +165,7 @@ export default function Featured_Dektop() {
         >
           <TypoNameMovieRandom variant='h4'>{name}</TypoNameMovieRandom>
 
-          <Typography>{truncateDesc(`${randomMovie.desc}`)}</Typography>
+          <Typography>{truncateDesc(`${desc}`)}</Typography>
 
           <BoxThreeBtns>
             {dataThreeBtns.map(({ onClickAction, icon, title }) => (
