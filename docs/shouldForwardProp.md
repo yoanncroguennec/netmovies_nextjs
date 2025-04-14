@@ -1,0 +1,3 @@
+## **shouldForwardProp (MUI Styled)**
+
+<table><tbody><tr><td>📌 Ce que fait shouldForwardProp</td><td>✅ Pourquoi c’est utile</td></tr><tr><td>Filtre les props personnalisées</td><td>Évite les erreurs React et le DOM invalide</td></tr><tr><td>Les empêche d’atteindre le DOM</td><td>Garde le HTML propre</td></tr><tr><td>Utilise la prop uniquement pour les styles</td><td>Respecte les bonnes pratiques React + MUI</td></tr></tbody></table>

@@ -20,17 +20,31 @@ import ScrollToTop from "react-scroll-to-top";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose, IoSearchSharp } from "react-icons/io5";
 import { MdExpandMore } from "react-icons/md";
+//
+import { Root } from "./StylesAllMovies_Cellular_Page"
+
+interface Movie {
+  _id: string;
+  id: string;
+  name: string;
+  year: number;
+  actors: string[];
+  country: string[];
+  genre: string[];
+  img: string;
+}
 
 export default function AllMovies_Cellular_Page() {
-  const [toggle_Search_Filters, setToggle_Search_Filters] = useState(false);
-  const [toggleSearch, setToggleSearch] = useState(false);
-  const [toggleFilters, setToggleFilters] = useState(false);
+const [toggle_Search_Filters, setToggle_Search_Filters] =
+  useState<boolean>(false);
+const [toggleSearch, setToggleSearch] = useState<boolean>(false);
+const [toggleFilters, setToggleFilters] = useState<boolean>(false);
 
-  const [allMovies, setAllMovies] = useState([]);
-  const [loading, setLoading] = useState(false);
+const [allMovies, setAllMovies] = useState<Movie[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [items, setItems] = useState([]);
+const [items, setItems] = useState<Movie[]>([]);
   //
   const [actors, setActors] = useState([]);
   const [selectedActors, setSelectedActors] = useState([]);
@@ -173,8 +187,8 @@ export default function AllMovies_Cellular_Page() {
   // Gérer la sélection du critère de tri
   function handleSortChange(event) {
     setSortOption(event.target.value);
-    setToggleFilters(!toggleFilters);
-    setToggle_Search_Filters(!toggle_Search_Filters);
+    // setToggleFilters(!toggleFilters);
+    // setToggle_Search_Filters(!toggle_Search_Filters);
   }
 
   return (
@@ -186,17 +200,7 @@ export default function AllMovies_Cellular_Page() {
         }
       `}</style>
 
-      <Box
-        sx={{
-          alignItems: "center",
-          background: "#000",
-          display: "flex",
-          justifyContent: "space-evenly",
-          flexWrap: "wrap",
-          paddingTop: toggle_Search_Filters ? "180px" : "80px",
-          width: "100vw",
-        }}
-      >
+      <Root>
         {toggle_Search_Filters ? (
           <Box
             sx={{
@@ -321,7 +325,7 @@ export default function AllMovies_Cellular_Page() {
           <MovieCard key={movie._id || index} movie={movie} />
         ))}
         <ScrollToTop smooth />
-      </Box>
+      </Root>
     </Container_GlobalApp>
   );
 }
@@ -330,6 +334,7 @@ function MovieCard({ movie }) {
   const containerRef = useRef(null);
   const textRef = useRef(null);
   const [shouldScroll, setShouldScroll] = useState(false);
+  const [clickedOnce, setClickedOnce] = useState(false);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -342,72 +347,77 @@ function MovieCard({ movie }) {
       setShouldScroll(textWidth > containerWidth);
     }
   }, [movie.name]);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+
+    if (!clickedOnce) {
+      setClickedOnce(true);
+      // Réinitialisation si le 2e clic ne vient pas
+      setTimeout(() => setClickedOnce(false), 3000);
+    } else {
+      // Navigation manuelle si second clic
+      window.location.href = `/pages/movies/movie/${movie.id}?id=123&name=John`;
+    }
+  };
+
   const { id } = movie;
 
   return (
-    <Link
-      key={id}
-      href={{
-        pathname: `/pages/movies/movie/${id}`,
-        query: { id: "123", name: "John" },
+    <Box
+      onClick={handleClick}
+      sx={{
+        height: "140px",
+        width: "105px",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-end",
+        position: "relative",
       }}
     >
+      <Box style={{ position: "absolute", zIndex: 1 }}>
+        <Image
+          alt=''
+          height={500}
+          src={movie.img}
+          style={{
+            height: "140px",
+            width: "105px",
+          }}
+          width={500}
+        />
+      </Box>
       <Box
+        ref={containerRef}
         sx={{
-          height: "120px",
+          background: "rgba(0, 0, 0, 0.5)",
+          height: "30px",
           width: "105px",
+          overflow: "hidden",
+          top: 0, // Keeps it at the top of its container
+          position: "absolute", // Ensures the box is positioned absolutely within its relative parent
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-end",
-          position: "relative",
+          justifyContent: "center", // Keeps text centered horizontally
+          zIndex: 2,
         }}
       >
-        <Box style={{ position: "absolute", zIndex: 1 }}>
-          <Image
-            alt=''
-            height={500}
-            src={movie.img}
-            style={{
-              height: "110px",
-              width: "110px",
-            }}
-            width={500}
-          />
-        </Box>
-        <Box
-          ref={containerRef}
+        <Typography
+          ref={textRef}
+          variant='body1'
           sx={{
-            background: "rgba(0, 0, 0, 0.5)",
-            height: "30px",
-            width: "90px",
-            overflow: "hidden",
-            top: 0, // Keeps it at the top of its container
-            position: "absolute", // Ensures the box is positioned absolutely within its relative parent
-            display: "flex",
-            justifyContent: "center", // Keeps text centered horizontally
-            zIndex: 2,
+            color: "#F00",
+            fontWeight: "bold",
+            whiteSpace: "nowrap",
+            display: "inline-block",
+            width: "max-content",
+            position: "absolute",
+            animation: shouldScroll ? "defilement 10s linear infinite" : "none",
+            textAlign: shouldScroll ? "left" : "center", // Center text if no scroll
           }}
         >
-          <Typography
-            ref={textRef}
-            variant='body1'
-            sx={{
-              color: "#F00",
-              fontWeight: "bold",
-              whiteSpace: "nowrap",
-              display: "inline-block",
-              width: "max-content",
-              position: "absolute",
-              animation: shouldScroll
-                ? "defilement 10s linear infinite"
-                : "none",
-              textAlign: shouldScroll ? "left" : "center", // Center text if no scroll
-            }}
-          >
-            {movie.name}
-          </Typography>
-        </Box>
+          {movie.name}
+        </Typography>
       </Box>
-    </Link>
+    </Box>
   );
 }

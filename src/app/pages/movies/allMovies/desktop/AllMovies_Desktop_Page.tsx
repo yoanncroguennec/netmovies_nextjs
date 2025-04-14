@@ -9,61 +9,82 @@ import ListAllMovies from "./listAllMovies/ListAllMovies";
 import Container_GlobalApp from "@/app/components/layouts/containers/container_GlobalApp/Container_GlobalApp";
 import { fetchMovies } from "@/app/utils/api/fetchMovies";
 
+interface Movie {
+  _id: string;
+  id: string;
+  name: string;
+  year: number;
+  actors: string[];
+  country: string[];
+  genre: string[];
+  img: string;
+}
+
+interface AllMoviesResponse {
+  allMovies: Movie[];
+}
+
 export default function AllMovies_Desktop_Page() {
-  const [allMovies, setAllMovies] = useState([]);
-  const [loading, setLoading] = useState(false);
+  // Films
+  const [allMovies, setAllMovies] = useState<Movie[]>([]);
+  const [items, setItems] = useState<Movie[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  // Recherche & Filtres
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [selectedYear, setSelectedYear] = useState<string>("");
+  const [sortOption, setSortOption] = useState<string>("nameAsc");
+  // Acteurs
+  const [actors, setActors] = useState<string[]>([]);
+  const [selectedActors, setSelectedActors] = useState<string[]>([]);
+  // Pays
+  const [country, setCountry] = useState<string[]>([]);
+  const [selectedCountry, setSelectedCountry] = useState<string[]>([]);
+  // Genres
+  const [genres, setGenres] = useState<string[]>([]);
+  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+  // Erreurs
+  const [error, setError] = useState<string>("");
 
-  const [searchTerm, setSearchTerm] = useState("");
-  const [items, setItems] = useState([]);
-  //
-  const [actors, setActors] = useState([]);
-  const [selectedActors, setSelectedActors] = useState([]);
-  //
-  const [country, setCountry] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState([]);
-  const [error, setError] = useState("");
-  const [selectedYear, setSelectedYear] = useState(""); // Nouvel état pour l'année sélectionnée
-  const [sortOption, setSortOption] = useState("nameAsc"); // Nouvel état pour l'option de tri
-  const [selectedGenres, setSelectedGenres] = useState([]); // Nouvel état pour les genres sélectionnés
-  const [genres, setGenres] = useState([]); // Ajout de l'état genres
+useEffect(() => {
+  async function getAllMovies() {
+    setLoading(true);
+    try {
+      const url = `https://www.net-movie.fr/api/movies?type=allMovies`;
+      const { data }: { data: AllMoviesResponse } = await axios.get(url);
 
-  useEffect(() => {
-    async function getAllMovies() {
-      setLoading(true);
-      try {
-        const url = `https://www.net-movie.fr/api/movies?type=allMovies`;
-        const { data } = await axios.get(url);
-        setAllMovies(data.allMovies);
-        setItems(data.allMovies);
-        setLoading(false);
+      setAllMovies(data.allMovies); // Stockage original
+      setItems(data.allMovies); // Stockage filtré
 
-        // Extraire et trier les acteurs
-        const uniqueActors = [
-          ...new Set(data.allMovies.flatMap((movie) => movie.actors)),
-        ].sort((a, b) => a.localeCompare(b));
-        setActors(uniqueActors);
+      // Acteurs
+      const uniqueActors: string[] = [
+        ...new Set(data.allMovies.flatMap((movie) => movie.actors)),
+      ].sort((a, b) => a.localeCompare(b));
+      setActors(uniqueActors);
 
-        // Extraire et trier les country
-        const uniqueCountry = [
-          ...new Set(data.allMovies.flatMap((movie) => movie.country)),
-        ].sort((a, b) => a.localeCompare(b));
-        setCountry(uniqueCountry);
+      // Pays
+      const uniqueCountry: string[] = [
+        ...new Set(data.allMovies.flatMap((movie) => movie.country)),
+      ].sort((a, b) => a.localeCompare(b));
+      setCountry(uniqueCountry);
 
-        // Extraire et trier les genres
-        const uniqueGenres = [
-          ...new Set(data.allMovies.flatMap((movie) => movie.genre)),
-        ].sort();
-        setGenres(uniqueGenres); // Mise à jour de l'état genres
-      } catch (err) {
-        setError(
-          "Impossible de récupérer les films. Veuillez réessayer plus tard."
-        );
-        console.error(err);
-      }
+      // Genres
+      const uniqueGenres: string[] = [
+        ...new Set(data.allMovies.flatMap((movie) => movie.genre)),
+      ].sort();
+      setGenres(uniqueGenres);
+    } catch (err) {
+      setError(
+        "Impossible de récupérer les films. Veuillez réessayer plus tard."
+      );
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
+  }
 
-    getAllMovies();
-  }, []);
+  getAllMovies();
+}, []);
+
 
   // Filtrage et tri combinés
   useEffect(() => {

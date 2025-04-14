@@ -1,49 +1,56 @@
-import NextAuth, { AuthOptions } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import prisma from "@/app/libs/prismadb";
-// import bcrypt from "bcryptjs";
-import bcrypt from "bcrypt";
+import NextAuth from "next-auth";
+import { authOptions } from "@/app/libs/authOptions";
 
-export const authOptions: AuthOptions = {
-  providers: [
-    CredentialsProvider({
-      name: "Credentials",
-      // Réduire les credentials à ceux nécessaires à la connexion
-      // En général, pour le login, seul email et password sont utiles. Tous les autres champs (firstName, lastName, etc.) sont plus utiles à l'inscription.
-      credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Mot de passe", type: "password" },
-      },
-      async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
-          throw new Error("Missing credentials");
-        }
+const handler = NextAuth(authOptions);
 
-        const user = await prisma.user.findFirst({
-          where: { email: credentials.email },
-        });
+export { handler as GET, handler as POST };
 
-        if (!user || !user.id || !user.hashedPassword) {
-          throw new Error("Invalid credentials");
-        }
+// import NextAuth, { AuthOptions } from "next-auth";
+// import CredentialsProvider from "next-auth/providers/credentials";
+// import { PrismaAdapter } from "@next-auth/prisma-adapter";
+// import prisma from "@/app/libs/prismadb";
+// // import bcrypt from "bcryptjs";
+// import bcrypt from "bcrypt";
 
-        const isCorrectPassword = await bcrypt.compare(
-          credentials.password,
-          user.hashedPassword
-        );
+// export const authOptions: AuthOptions = {
+//   providers: [
+//     CredentialsProvider({
+//       name: "Credentials",
+//       // Réduire les credentials à ceux nécessaires à la connexion
+//       // En général, pour le login, seul email et password sont utiles. Tous les autres champs (firstName, lastName, etc.) sont plus utiles à l'inscription.
+//       credentials: {
+//         email: { label: "Email", type: "email" },
+//         password: { label: "Mot de passe", type: "password" },
+//       },
+//       async authorize(credentials) {
+//         if (!credentials?.email || !credentials?.password) {
+//           throw new Error("Missing credentials");
+//         }
 
-        if (!isCorrectPassword) {
-          throw new Error("Invalid email or password");
-        }
+//         const user = await prisma.user.findFirst({
+//           where: { email: credentials.email },
+//         });
 
-        return user;
-      },
-    }),
-  ],
-  secret: process.env.NEXTAUTH_SECRET,
-  session: {
-    strategy: "jwt",
-  },
-  debug: process.env.NODE_ENV !== "production",
-};
+//         if (!user || !user.id || !user.hashedPassword) {
+//           throw new Error("Invalid credentials");
+//         }
+
+//         const isCorrectPassword = await bcrypt.compare(
+//           credentials.password,
+//           user.hashedPassword
+//         );
+
+//         if (!isCorrectPassword) {
+//           throw new Error("Invalid email or password");
+//         }
+
+//         return user;
+//       },
+//     }),
+//   ],
+//   secret: process.env.NEXTAUTH_SECRET,
+//   session: {
+//     strategy: "jwt",
+//   },
+//   debug: process.env.NODE_ENV !== "production",
+// };

@@ -102,8 +102,8 @@ export default function ListSliderCategoryListMovies({
               //   0,
               //   5
               // )
-              .map(({_id, name, img}) => (
-                <Link key={_id} href={`/pages/movies/${_id}`}>
+              .map(({id, name, img}) => (
+                <Link key={id} href={`/pages/movies/movie/${id}?id=123&name=John`}>
                   <RootItemListSliderCategoryListMovies>
                     <Box
                       sx={{ background: "rgba(0, 0, 0, 0.3)", width: "100%" }}

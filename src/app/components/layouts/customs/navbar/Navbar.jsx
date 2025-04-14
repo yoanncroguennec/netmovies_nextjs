@@ -27,6 +27,7 @@ import Link from "next/link";
 // ICONS
 import { MdMovieCreation, MdFavorite } from "react-icons/md";
 import { RiUserLine, RiAdminLine } from "react-icons/ri";
+// import InfosUser from "./InfosUser";
 
 const dataIcons = [
   {
@@ -147,6 +148,7 @@ export default function Navbar() {
           );
         })}
       </Box>
+      {/* <InfosUser /> */}
 
       {/* <UserLocationIP_AddressAndLocalTimeDate
         id_Of_ConnectedUser={id_Of_ConnectedUser}
