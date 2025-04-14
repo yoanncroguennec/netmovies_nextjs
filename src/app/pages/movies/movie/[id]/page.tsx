@@ -7,6 +7,7 @@ import Movie_ID_ForCellular from "./cellular/Movie_ID_ForCellular";
 import Movie_ID_ForDesktop from "./desktop/Movie_ID_ForDesktop";
 
 type Movie = {
+  id: string;
   name: string;
   realisators: string[];
   actors: string[];

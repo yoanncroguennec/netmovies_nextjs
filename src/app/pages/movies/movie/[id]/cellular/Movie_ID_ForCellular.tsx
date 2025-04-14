@@ -7,6 +7,7 @@ import { Box, Typography } from "@mui/material";
 type Movie_ID_ForCellular_Props = {
   error?: string;
   movie?: {
+    id: string;
     name: string;
     realisators: string[];
     actors: string[];
@@ -36,6 +37,7 @@ export default function Movie_ID_ForCellular({
   }
 
   const {
+    id,
     name,
     realisators,
     actors,
