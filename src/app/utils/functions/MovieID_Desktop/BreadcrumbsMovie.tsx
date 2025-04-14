@@ -8,7 +8,7 @@ import {
 // ICONS
 import { MdOutlineNavigateNext } from "react-icons/md";
 
-export default function BreadcrumbsMovie({ id, name }) {
+export default function BreadcrumbsMovie({  }) {
   /// RESPONSIVE
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
@@ -54,13 +54,13 @@ export default function BreadcrumbsMovie({ id, name }) {
           <Typography variant='h5'>{text}</Typography>
         </Link>
       ))}
-      {name ? (
+      {/* {name ? (
         <Link href={`${id}`} style={{ color: "#000", cursor: "pointer" }}>
           <Typography variant='h3'>Film : {name}</Typography>
         </Link>
       ) : (
         ""
-      )}
+      )} */}
     </Breadcrumbs>
   );
 }
