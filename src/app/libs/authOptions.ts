@@ -1,12 +1,14 @@
-import { NextAuthOptions } from "next-auth";
+import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "@/app/libs/prismadb";
 import bcrypt from "bcrypt";
 
-export const authOptions: NextAuthOptions = {
+export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
+      // Réduire les credentials à ceux nécessaires à la connexion
+      // En général, pour le login, seul email et password sont utiles. Tous les autres champs (firstName, lastName, etc.) sont plus utiles à l'inscription.
       credentials: {
         email: { label: "Email", type: "email" },
         password: { label: "Mot de passe", type: "password" },
@@ -20,7 +22,7 @@ export const authOptions: NextAuthOptions = {
           where: { email: credentials.email },
         });
 
-        if (!user || !user.hashedPassword) {
+        if (!user || !user.id || !user.hashedPassword) {
           throw new Error("Invalid credentials");
         }
 
@@ -33,33 +35,13 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Invalid email or password");
         }
 
-        // Supprimer le hashedPassword avant de retourner l'utilisateur
-        const { hashedPassword, ...safeUser } = user;
-        return safeUser;
+        return user;
       },
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",
-  },
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.id = user.id;
-        token.email = user.email;
-        token.name = user.name;
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      if (session.user && token) {
-        session.user.id = token.id as string;
-        session.user.email = token.email as string;
-        session.user.name = token.name as string;
-      }
-      return session;
-    },
   },
   debug: process.env.NODE_ENV !== "production",
 };
