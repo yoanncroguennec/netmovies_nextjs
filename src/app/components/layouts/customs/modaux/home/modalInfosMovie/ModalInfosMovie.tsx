@@ -9,22 +9,24 @@ import {
   StylesTypoDesc,
   TypoMovie,
 } from "./StylesModalInfosMovie";
+import { Dispatch, SetStateAction } from "react";
 const sizeIcon = 35;
 
-type ModalInfosMovieProps = {
-  openModalInfosMovie: boolean;
-  OpenModalTrailer: boolean;
+interface ModalInfosMovieProps {
   name: string;
   desc: string;
+  openModalInfosMovie: boolean;
   CloseModalInfosMovie: () => void;
-};
+  openModalTrailer: boolean;
+  setOpenModalInfosMovie?: Dispatch<SetStateAction<boolean>>; // Optional
+}
 
 export default function ModalInfosMovie({
-  openModalInfosMovie,
-  OpenModalTrailer,
   name,
   desc,
+  openModalInfosMovie,
   CloseModalInfosMovie,
+  setOpenModalInfosMovie,
 }: ModalInfosMovieProps) {
   return (
     <Modal open={openModalInfosMovie} onClose={CloseModalInfosMovie}>
@@ -48,7 +50,7 @@ export default function ModalInfosMovie({
           style={StylesTypoDesc}
         />
         <div>
-          <Button variant='contained' onClick={OpenModalTrailer}>
+          <Button variant='contained' onClick={() => {}}>
             <BsFillPlayFill size={sizeIcon} />
             <Typography>Lecture</Typography>
           </Button>
