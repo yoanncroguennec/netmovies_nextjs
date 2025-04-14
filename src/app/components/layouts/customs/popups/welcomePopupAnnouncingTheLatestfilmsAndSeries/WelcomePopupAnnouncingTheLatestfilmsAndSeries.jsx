@@ -10,9 +10,9 @@ import {
   ListItemText,
   Tooltip,
   Box,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
-// API
-// STYLES
 import {
   RootDialog,
   DialogActionsBtnCloseDialog,
@@ -21,9 +21,21 @@ import {
 } from "./StylesWelcomePopupAnnouncingTheLatestfilmsAndSeries.jsx";
 import axios from "axios";
 import Link from "next/link.js";
+import { useRouter } from "next/navigation";
+
+const Transition = forwardRef(function Transition(props, ref) {
+  return <Slide direction='up' ref={ref} {...props} timeout={1500} />;
+});
 
 export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
-  // Styles
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("sm"));
+  const router = useRouter();
+
+  const [open, setOpen] = useState(true);
+  const [selected, setSelected] = useState(null);
+  const [newMovies, setNewMovies] = useState([]);
+
   const styleImgMovie = {
     border: "4px solid #000",
     boxShadow:
@@ -33,23 +45,19 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
     width: "180px",
   };
 
-  const [selected, setSelected] = useState(null);
-
   function toggle(i) {
-    if (selected === i) {
-      return setSelected(null);
-    }
-
-    setSelected(i);
+    setSelected(selected === i ? null : i);
   }
 
-  // EFFECT TRANSITION DISPLAY DIALOG
-  const Transition = forwardRef(function Transition(props, ref) {
-    return <Slide direction='up' ref={ref} {...props} timeout={1500} />;
-  });
+useEffect(() => {
+  if (!matches) {
+    const timeout = setTimeout(() => {
+      router.push("/pages/home");
+    }, 10000); // 10 secondes
 
-  // GET API Display Latest Movies In BDD
-  const [newMovies, setNewMovies] = useState([]);
+    return () => clearTimeout(timeout); // nettoyage si le composant démonte avant les 10s
+  }
+}, [matches, router]);
 
   useEffect(() => {
     async function fetchMovies() {
@@ -57,7 +65,6 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
         const url = `https://www.net-movie.fr/api/movies?type=newAllMovies`;
         const res = await axios.get(url);
         setNewMovies(res.data.movies);
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching movies:", error);
       }
@@ -72,8 +79,7 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
       bgColorIndex: "#3C8CE7, #00EAFF",
       question: "Derniers Films",
       answer: newMovies
-        // sortByAlphabeticalOrder
-        .sort((a, b) => a.name > b.name)
+        .sort((a, b) => a.name.localeCompare(b.name))
         .map(({ id, name, img, actors }) => (
           <Link
             key={id}
@@ -84,7 +90,7 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
             style={{ textDecoration: "none" }}
           >
             <Tooltip title={`Accèdez au film "${name}"`}>
-              <ListItem sx={{ background: "" }}>
+              <ListItem>
                 <img src={img} alt={name} style={styleImgMovie} />
                 <ListItemText primary={name} secondary={actors} />
               </ListItem>
@@ -101,11 +107,8 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
   ];
 
   return (
-    <RootDialog open={open}>
-      {/* // <RootDialog open={open} TransitionComponent={Transition} keepMounted> */}
-      <DialogContent
-      // sx={{ overflowY: "hidden"}}
-      >
+    <RootDialog open={open} TransitionComponent={Transition} keepMounted>
+      <DialogContent>
         <DialogTitle
           align='center'
           sx={{ color: "red", fontFamily: "sacramento", fontWeight: "bold" }}
@@ -113,8 +116,9 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
         >
           {"Derniers films & séries ajoutés :"}
         </DialogTitle>
+
         {accordionData.map((item, i) => (
-          <Box sx={{ padding: "8px 0" }}>
+          <Box key={i} sx={{ padding: "8px 0" }}>
             <Box onClick={() => toggle(i)}>
               <Box
                 style={{
@@ -156,7 +160,7 @@ export default function WelcomePopupAnnouncingTheLatestfilmsAndSeries() {
           </Box>
         ))}
 
-        <DialogActionsBtnCloseDialog align='center' sx={{}}>
+        <DialogActionsBtnCloseDialog align='center'>
           <BtnCloseDialog href={`/pages/home`} variant='contained'>
             <TypoBtnCloseDialog>Accèdez aux films</TypoBtnCloseDialog>
           </BtnCloseDialog>
