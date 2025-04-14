@@ -2,6 +2,14 @@
 
 import { Box } from "@mui/material";
 import { ReactNode, useEffect, useState } from "react";
+// STYLES
+import {
+  BoxNetflix,
+  RootHome,
+  ThreeBoxNetflixSpan,
+  TypoTitleHome,
+} from "./StylesContainer_Intro";
+import styles from "./Container_Intro.module.css";
 
 interface Container_Intro_Props {
   children: ReactNode;
@@ -41,5 +49,17 @@ export default function Container_Intro({ children }: Container_Intro_Props) {
     };
   }, [hasInteracted]);
 
-  return <Box>{children}</Box>;
+  return (
+    <Box>
+      <RootHome>
+        <BoxNetflix>
+          <ThreeBoxNetflixSpan as='span' className={styles.spanLeft} />
+          <ThreeBoxNetflixSpan as='span' className={styles.spanCenter} />
+          <ThreeBoxNetflixSpan as='span' className={styles.spanRight} />
+        </BoxNetflix>
+        <TypoTitleHome variant='h2'>Net Movie</TypoTitleHome>
+        {children}
+      </RootHome>
+    </Box>
+  );
 }

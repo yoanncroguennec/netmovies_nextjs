@@ -22,14 +22,7 @@ export default function Intro_Cellular() {
 
   return (
     <Container_Intro>
-      <RootHome>
-        <BoxNetflix>
-          <ThreeBoxNetflixSpan as='span' className={styles.spanLeft} />
-          <ThreeBoxNetflixSpan as='span' className={styles.spanCenter} />
-          <ThreeBoxNetflixSpan as='span' className={styles.spanRight} />
-        </BoxNetflix>
-        <TypoTitleHome variant='h2'>Net Movie</TypoTitleHome>
-      </RootHome>
+      <></>
     </Container_Intro>
   );
 }
