@@ -1,3 +1,5 @@
+"use client";
+
 import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/system";
 import Intro_Desktop from "./desktop/Intro_Desktop";
@@ -7,6 +9,5 @@ export default function IntroPage() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
 
-    return <IntroPage />
-  // return matches ? <Intro_Desktop /> : <Intro_Cellular />
+  return matches ? <Intro_Desktop /> : <Intro_Cellular />;
 }
