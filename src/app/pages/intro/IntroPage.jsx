@@ -7,6 +7,6 @@ export default function IntroPage() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
 
-    return <div>IntroPage</div>;
+    return <IntroPage />
   // return matches ? <Intro_Desktop /> : <Intro_Cellular />
 }
