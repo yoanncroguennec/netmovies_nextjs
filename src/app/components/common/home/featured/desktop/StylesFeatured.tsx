@@ -1,4 +1,5 @@
 import { Typography, Box, styled } from "@mui/material";
+import { MotionStyle } from "framer-motion";
 
 interface RootFeaturedProps {
   img: string;
@@ -86,7 +87,7 @@ export const BoxIconBtn = styled(Box)(({  }) => ({
   marginRight: "15px",
 }));
 
-export const StylesThreeBtns = {
+export const StylesThreeBtns: MotionStyle = {
   alignItems: "center",
   border: "2px solid red",
   borderRadius: "25px",

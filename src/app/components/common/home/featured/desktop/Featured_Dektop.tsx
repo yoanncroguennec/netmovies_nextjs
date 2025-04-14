@@ -51,27 +51,33 @@ export default function Featured_Dektop() {
   const [selected, setSelected] = useState<string>("");
   const [isActive, setIsActive] = useState<boolean>(false);
 
-  const [randomMovie, setRandomMovie] = useState<Movie>({
-    name: "",
-    desc: "",
-    img: "",
-  });
+const [randomMovie, setRandomMovie] = useState<Movie>({
+  name: "",
+  desc: "",
+  img: "",
+});
   const [loading, setLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    async function fetchMovies() {
-      try {
-        const url = `https://www.net-movie.fr/api/movies?type=randomMovie`;
-        const res = await axios.get(url);
+useEffect(() => {
+  async function fetchMovies() {
+    setLoading(true); // Set loading to true
+    try {
+      const url = `https://www.net-movie.fr/api/movies?type=randomMovie`;
+      const res = await axios.get(url);
+      if (res.data && res.data.randomMovie) {
         setRandomMovie(res.data.randomMovie);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching movies:", error);
+      } else {
+        console.error("No random movie data found");
       }
+    } catch (error) {
+      console.error("Error fetching movies:", error);
+    } finally {
+      setLoading(false); // Set loading to false once the API call completes
     }
+  }
 
-    fetchMovies();
-  }, []);
+  fetchMovies();
+}, []);
 
   const { img, name, desc } = randomMovie;
 
@@ -204,20 +210,21 @@ export default function Featured_Dektop() {
         </Box>
       </BoxFeatured>
 
-      <GlobalModauxFeatured
-        randomMovie={randomMovie}
-        /// TRAILER
-        openModalTrailer={openModalTrailer}
-        showPlayerTrailer={showPlayerTrailer}
-        CloseModalTrailer={CloseModalTrailer}
-        /// INFOS
-        openModalInfosMovie={openModalInfosMovie}
-        setOpenModalInfosMovie={setOpenModalInfosMovie}
-        CloseModalInfosMovie={CloseModalInfosMovie}
-        /// THE WHOLE MOVIE
-        modalTheWholeMovie={modalTheWholeMovie}
-        CloseModalTheWholeMovie={CloseModalTheWholeMovie}
-      />
+      {randomMovie.name && randomMovie.desc ? (
+        <GlobalModauxFeatured
+          randomMovie={randomMovie}
+          openModalTrailer={openModalTrailer}
+          showPlayerTrailer={showPlayerTrailer}
+          CloseModalTrailer={CloseModalTrailer}
+          openModalInfosMovie={openModalInfosMovie}
+          setOpenModalInfosMovie={setOpenModalInfosMovie}
+          CloseModalInfosMovie={CloseModalInfosMovie}
+          modalTheWholeMovie={modalTheWholeMovie}
+          CloseModalTheWholeMovie={CloseModalTheWholeMovie}
+        />
+      ) : (
+        <Typography>Loading...</Typography> // Display a loading message if randomMovie is not available
+      )}
     </RootFeatured>
   );
 }
