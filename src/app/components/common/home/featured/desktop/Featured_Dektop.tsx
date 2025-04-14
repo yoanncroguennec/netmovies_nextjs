@@ -89,8 +89,8 @@ useEffect(() => {
   }
 
   // OPEN MODAL PLAYER TRAILER
-  const [openModalTrailer, setOpenModalTrailer] = useState(false);
-  const [showPlayerTrailer, setShowPlayerTrailer] = useState(false);
+const [openModalTrailer, setOpenModalTrailer] = useState<boolean>(false);
+const [showPlayerTrailer, setShowPlayerTrailer] = useState<boolean>(false);
 
   function OpenModalTrailer() {
     setOpenModalTrailer(true);
