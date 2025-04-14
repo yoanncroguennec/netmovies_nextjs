@@ -51,10 +51,17 @@ export default function IntroPage() {
   }, [hasInteracted]);
 
   // ⏳ Affiche popup après 5s
-  useEffect(() => {
-    const timer = setTimeout(() => setOpenModal(true), 5000);
-    return () => clearTimeout(timer);
-  }, []);
+useEffect(() => {
+  const timer = setTimeout(() => {
+    if (matches) {
+      window.location.href = "/pages/home";
+    } else {
+      window.location.href = "/pages/auth/login";
+    }
+  }, 5000);
+
+  return () => clearTimeout(timer);
+}, []);
 
   // // 📱 Redirige mobile après 5s
   // useEffect(() => {
@@ -111,13 +118,13 @@ export default function IntroPage() {
         </BoxNetflix>
         <TypoTitleHome variant='h2'>Net Movie</TypoTitleHome>
 
-        {matches && openModal ? (
+        {/* {matches && openModal ? (
           <WelcomePopupAnnouncingTheLatestfilmsAndSeries />
         ) : (
           <Button href={`/pages/home`}>
             <h1>FILMS</h1>
           </Button>
-        )}
+        )} */}
       </RootHome>
     </>
   );
