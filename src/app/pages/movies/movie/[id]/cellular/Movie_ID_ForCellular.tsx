@@ -13,7 +13,16 @@ type Movie_ID_ForCellular_Props = {
 
 type Movie = {
   name: string;
-  // Ajoute ici les autres propriétés de ton film selon ton API
+  realisators: string[];
+  actors: string[];
+  desc: string;
+  trailer: string;
+  country: string[];
+  productionCompany: string;
+  movieLink: string;
+  img: string;
+  year: string;
+  genre: string[];
 };
 
 export default function Movie_ID_ForCellular({
