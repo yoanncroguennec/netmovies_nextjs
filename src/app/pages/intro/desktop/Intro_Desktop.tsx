@@ -55,52 +55,15 @@ export default function Intro_Desktop() {
   }, []);
 
   return (
-    <>
-      {/* <style>
-        {`
-          .stylesSpanLeft {
-            animation: anim 1s linear forwards;
-            animation-delay: 1s;
-            bottom: 0;
-            left: 0;
-          }
+    <RootHome>
+      <BoxNetflix>
+        <ThreeBoxNetflixSpan as='span' className={styles.spanLeft} />
+        <ThreeBoxNetflixSpan as='span' className={styles.spanCenter} />
+        <ThreeBoxNetflixSpan as='span' className={styles.spanRight} />
+      </BoxNetflix>
+      <TypoTitleHome variant='h2'>Net Movie</TypoTitleHome>
 
-          .StylesSpanCenter {
-            animation: anim 1s linear forwards;
-            animation-delay: 2s;
-            box-shadow: 0 0 50px #000;
-            left: 0;
-            transform: skewX(26.5deg);
-            transform-origin: top left;
-            top: 0;
-            z-index: 2;
-          }
-
-          .StylesSpanRight {
-            animation: anim 1s linear forwards;
-            animation-delay: 3s;
-            bottom: 0;
-            right: 0;
-          }
-
-          @keyframes anim {
-            100% {
-              height: 100%;
-            }
-          }
-        `}
-      </style> */}
-
-      <RootHome>
-        <BoxNetflix>
-          <ThreeBoxNetflixSpan as='span' className={styles.spanLeft} />
-          <ThreeBoxNetflixSpan as='span' className={styles.spanCenter} />
-          <ThreeBoxNetflixSpan as='span' className={styles.spanRight} />
-        </BoxNetflix>
-        <TypoTitleHome variant='h2'>Net Movie</TypoTitleHome>
-
-        {openModal ? <WelcomePopupAnnouncingTheLatestfilmsAndSeries /> : null}
-      </RootHome>
-    </>
+      {openModal ? <WelcomePopupAnnouncingTheLatestfilmsAndSeries /> : null}
+    </RootHome>
   );
 }
