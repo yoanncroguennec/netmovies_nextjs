@@ -354,8 +354,8 @@ function MovieCard({ movie }) {
     >
       <Box
         sx={{
-          height: "130px",
-          width: "130px",
+          height: "90px",
+          width: "90px",
           display: "flex",
           flexDirection: "column",
           justifyContent: "flex-end",
@@ -379,7 +379,7 @@ function MovieCard({ movie }) {
           sx={{
             background: "rgba(0, 0, 0, 0.5)",
             height: "30px",
-            width: "110px",
+            width: "90px",
             overflow: "hidden",
             top: 0, // Keeps it at the top of its container
             position: "absolute", // Ensures the box is positioned absolutely within its relative parent
