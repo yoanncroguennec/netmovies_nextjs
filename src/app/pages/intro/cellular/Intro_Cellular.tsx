@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 // STYLES
 import {
   BoxNetflix,
@@ -9,41 +9,9 @@ import {
   TypoTitleHome,
 } from "../StylesIntroPage";
 import styles from "../stylesIntroPage.module.css";
+import Container_Intro from "@/app/components/layouts/containers/container_Intro/Container_Intro";
 
 export default function Intro_Cellular() {
-  const [hasInteracted, setHasInteracted] = useState<boolean>(false);
-
-  // 🔊 Lecture du son
-  useEffect(() => {
-    const playSound = () => {
-      const audio = new Audio("/audios/Netflix.mp3");
-      audio.volume = 0.5;
-      const playPromise = audio.play();
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => console.log("Son joué avec succès"))
-          .catch((err) => console.log("Lecture bloquée :", err));
-      }
-    };
-
-    playSound();
-
-    const enableSoundOnInteraction = () => {
-      if (!hasInteracted) {
-        playSound();
-        setHasInteracted(true);
-      }
-    };
-
-    window.addEventListener("click", enableSoundOnInteraction);
-    window.addEventListener("keydown", enableSoundOnInteraction);
-
-    return () => {
-      window.removeEventListener("click", enableSoundOnInteraction);
-      window.removeEventListener("keydown", enableSoundOnInteraction);
-    };
-  }, [hasInteracted]);
-
   useEffect(() => {
     const timer = setTimeout(() => {
       window.location.href = "/pages/home";
@@ -53,13 +21,15 @@ export default function Intro_Cellular() {
   }, []);
 
   return (
-    <RootHome>
-      <BoxNetflix>
-        <ThreeBoxNetflixSpan as='span' className={styles.spanLeft} />
-        <ThreeBoxNetflixSpan as='span' className={styles.spanCenter} />
-        <ThreeBoxNetflixSpan as='span' className={styles.spanRight} />
-      </BoxNetflix>
-      <TypoTitleHome variant='h2'>Net Movie</TypoTitleHome>
-    </RootHome>
+    <Container_Intro>
+      <RootHome>
+        <BoxNetflix>
+          <ThreeBoxNetflixSpan as='span' className={styles.spanLeft} />
+          <ThreeBoxNetflixSpan as='span' className={styles.spanCenter} />
+          <ThreeBoxNetflixSpan as='span' className={styles.spanRight} />
+        </BoxNetflix>
+        <TypoTitleHome variant='h2'>Net Movie</TypoTitleHome>
+      </RootHome>
+    </Container_Intro>
   );
 }
