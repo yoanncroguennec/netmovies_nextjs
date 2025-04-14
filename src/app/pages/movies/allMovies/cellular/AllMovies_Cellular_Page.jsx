@@ -18,9 +18,11 @@ import Link from "next/link";
 import ScrollToTop from "react-scroll-to-top";
 // ICONS
 import { GiHamburgerMenu } from "react-icons/gi";
+import { IoClose, IoSearchSharp } from "react-icons/io5";
 import { MdExpandMore } from "react-icons/md";
 
 export default function AllMovies_Cellular_Page() {
+  const [toggle_Search_Filters, setToggle_Search_Filters] = useState(false);
   const [toggleSearch, setToggleSearch] = useState(false);
   const [toggleFilters, setToggleFilters] = useState(false);
 
@@ -171,6 +173,8 @@ export default function AllMovies_Cellular_Page() {
   // Gérer la sélection du critère de tri
   function handleSortChange(event) {
     setSortOption(event.target.value);
+    setToggleFilters(!toggleFilters);
+    setToggle_Search_Filters(!toggle_Search_Filters);
   }
 
   return (
@@ -189,17 +193,19 @@ export default function AllMovies_Cellular_Page() {
           display: "flex",
           justifyContent: "space-evenly",
           flexWrap: "wrap",
-          paddingTop: "80px",
+          paddingTop: toggle_Search_Filters ? "180px" : "80px",
           width: "100vw",
         }}
       >
-        {toggleFilters ? (
+        {toggle_Search_Filters ? (
           <Box
             sx={{
-              background: "#000",
-              border: "4px solid #000",
-              borderRadius: "99% 1% 100% 0% / 55% 75% 25% 45% ",
+              alignItems: "center",
+              background: "rgba(0, 0, 0, 0.6)",
               cursor: "pointer",
+              display: "flex",
+              justifyContent: "center",
+              flexWrap: "nowrap",
               padding: "10px",
               position: "fixed",
               right: "0",
@@ -207,61 +213,97 @@ export default function AllMovies_Cellular_Page() {
               zIndex: 999,
             }}
           >
-            {/* Champ de recherche */}
-            <TextField
-              label='Rechercher un film'
-              sx={formControl}
-              variant='outlined'
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+            {toggleSearch || toggleFilters ? null : (
+              <IoSearchSharp
+                color='#F00'
+                onClick={() => setToggleSearch(!toggleSearch)}
+                size={25}
+                style={{ margin: "5px" }}
+              />
+            )}
+            {toggleSearch ? (
+              <TextField
+                label='Rechercher un film'
+                sx={formControl}
+                variant='outlined'
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            ) : null}
+
+            {toggleSearch || toggleFilters ? null : (
+              <GiHamburgerMenu
+                color='#F00'
+                onClick={() => setToggleFilters(!toggleFilters)}
+                size={25}
+                style={{ margin: "5px" }}
+              />
+            )}
+            {toggleFilters ? (
+              <Box sx={{}}>
+                <FormControl sx={formControl}>
+                  <InputLabel sx={{ color: "#F00" }}>Tri</InputLabel>
+                  <Select
+                    label='Tri'
+                    IconComponent={(props) => (
+                      <IconButton {...props} sx={{ background: "" }}>
+                        <MdExpandMore
+                          size={40}
+                          style={{
+                            color: "red",
+                            position: "absolute",
+                            top: "-5px",
+                          }}
+                        />
+                      </IconButton>
+                    )}
+                    MenuProps={{
+                      PaperProps: {
+                        style: {
+                          color: "#000",
+                          maxHeight: 300, // Set the max height of the dropdown
+                        },
+                      },
+                    }}
+                    onChange={handleSortChange}
+                    sx={{
+                      color: "#F00", // Change text color in the select dropdown
+                      "& .MuiMenuItem-root": {
+                        color: "purple", // Change text color in the menu items
+                      },
+                    }}
+                    value={sortOption}
+                  >
+                    <MenuItem value='nameAsc'>Nom (A-Z)</MenuItem>
+                    <MenuItem value='nameDesc'>Nom (Z-A)</MenuItem>
+                    <MenuItem value='yearAsc'>Année (Croissant)</MenuItem>
+                    <MenuItem value='yearDesc'>Année (Décroissant)</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            ) : null}
+
+            <IoClose
+              color='#F00'
+              onClick={() => {
+                if (toggleSearch === true) {
+                  setToggleSearch(!toggleSearch);
+                } else if (toggleFilters === true) {
+                  setToggleFilters(!toggleFilters);
+                } else if (toggle_Search_Filters === true) {
+                  setToggle_Search_Filters(!toggle_Search_Filters);
+                }
+              }}
+              size={30}
+              style={{ margin: "5px" }}
             />
-            {/* Sélecteur du critère de tri */}
-            <FormControl sx={formControl}>
-              <InputLabel sx={{ color: "#F00" }}>Tri</InputLabel>
-              <Select
-                label='Tri'
-                IconComponent={(props) => (
-                  <IconButton {...props} sx={{ background: "" }}>
-                    <MdExpandMore
-                      size={40}
-                      style={{
-                        color: "red",
-                        position: "absolute",
-                        top: "-5px",
-                      }}
-                    />
-                  </IconButton>
-                )}
-                MenuProps={{
-                  PaperProps: {
-                    style: {
-                      color: "#000",
-                      maxHeight: 300, // Set the max height of the dropdown
-                    },
-                  },
-                }}
-                onChange={handleSortChange}
-                sx={{
-                  color: "#F00", // Change text color in the select dropdown
-                  "& .MuiMenuItem-root": {
-                    color: "purple", // Change text color in the menu items
-                  },
-                }}
-                value={sortOption}
-              >
-                <MenuItem value='nameAsc'>Nom (A-Z)</MenuItem>
-                <MenuItem value='nameDesc'>Nom (Z-A)</MenuItem>
-                <MenuItem value='yearAsc'>Année (Croissant)</MenuItem>
-                <MenuItem value='yearDesc'>Année (Décroissant)</MenuItem>
-              </Select>
-            </FormControl>
           </Box>
         ) : (
           <Box
-            onClick={() => setToggleFilters(true)}
+            onClick={() => setToggle_Search_Filters(!toggle_Search_Filters)}
             sx={{
               background: "#FFF",
-              border: "4px solid #000",
+              border: "3px solid #000",
               borderRadius: "99% 1% 100% 0% / 55% 75% 25% 45% ",
               cursor: "pointer",
               padding: "10px",
@@ -271,7 +313,7 @@ export default function AllMovies_Cellular_Page() {
               zIndex: 999,
             }}
           >
-            <GiHamburgerMenu color='#F00' size={35} />
+            <GiHamburgerMenu color='#F00' size={25} />
           </Box>
         )}
 
@@ -337,7 +379,7 @@ function MovieCard({ movie }) {
           sx={{
             background: "rgba(0, 0, 0, 0.5)",
             height: "30px",
-            width: "100%",
+            width: "110px",
             overflow: "hidden",
             top: 0, // Keeps it at the top of its container
             position: "absolute", // Ensures the box is positioned absolutely within its relative parent

@@ -50,7 +50,7 @@ export default function Movie_ID_ForDesktop({ params }: Movie_ID_ForCellular_Pro
   return (
     <div style={{ padding: "1rem", fontSize: "1.1rem" }}>
       <h1 style={{ fontSize: "1.5rem", marginBottom: "1rem" }}>
-        Détails du Film (Mobile)
+        Détails du Film (Desktop)
       </h1>
       <p>
         <strong>ID:</strong> {id}
