@@ -1,3 +1,5 @@
+// app/api/auth/[...nextauth]/authOptions.ts
+
 import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
@@ -7,7 +9,7 @@ import { compare } from "bcryptjs";
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   session: {
-    strategy: "jwt",
+    strategy: "jwt", // Utilisation de la stratégie JWT
   },
   providers: [
     CredentialsProvider({
@@ -37,18 +39,18 @@ export const authOptions: AuthOptions = {
     }),
   ],
   pages: {
-    signIn: "/login",
+    signIn: "/login", // Redirection vers la page de connexion
   },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id;
+        token.id = user.id; // On ajoute l'ID dans le token
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user && token.id) {
-        session.user.id = token.id as string;
+        session.user.id = token.id as string; // On ajoute l'ID dans la session
       }
       return session;
     },
