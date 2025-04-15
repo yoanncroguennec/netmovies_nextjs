@@ -1,5 +1,6 @@
 "use client";
 
+import { signOut, useSession } from "next-auth/react";
 import React, { useState } from "react";
 import {
   Box,
@@ -44,6 +45,12 @@ const dataIcons = [
   },
   {
     icon: RiUserLine,
+    link: "/pages/register",
+    tooltip: "S'inscrire",
+    color: "#F00",
+  },
+  {
+    icon: RiUserLine,
     link: "/pages/auth/login",
     tooltip: "Se Connecter",
     color: "#F00",
@@ -56,9 +63,11 @@ const dataIcons = [
   },
 ];
 
-export default function Navbar({ session }) {
+export default function Navbar({  }) {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
+
+  const { data: session } = useSession();
 
   // const [isScrolled, setIsScrolled] = useState(false);
 
@@ -149,9 +158,25 @@ export default function Navbar({ session }) {
           );
         })}
       </Box>
-      <Typography sx={{ color: "#F0F" }} variant='h6'>
+      {session?.user?.email && (
+        <span style={{ color: "white" }}>({session.user.email})</span>
+      )}
+      <button
+        onClick={() => signOut({ callbackUrl: "/login" })}
+        style={{
+          padding: "8px 16px",
+          backgroundColor: "#d9534f",
+          color: "#fff",
+          border: "none",
+          borderRadius: "4px",
+          cursor: "pointer",
+        }}
+      >
+        Se déconnecter
+      </button>
+      {/* <Typography sx={{ color: "#F0F" }} variant='h6'>
         {session.user.email}
-      </Typography>
+      </Typography> */}
       {/* <InfosUser /> */}
 
       {/* <UserLocationIP_AddressAndLocalTimeDate

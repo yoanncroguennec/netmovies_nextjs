@@ -6,7 +6,6 @@ import Container_GlobalApp from "@/app/components/layouts/containers/container_G
 //
 import Filters from "./filters/Filters";
 import ListAllMovies from "./listAllMovies/ListAllMovies";
-import Container_GlobalAppServer from "@/app/components/layouts/containers/container_GlobalAppServer/Container_GlobalAppServer";
 
 interface Movie {
   id: string;
@@ -145,7 +144,7 @@ export default function AllMovies_Desktop_Page({
   }
 
   return (
-    <Container_GlobalAppServer>
+    <Container_GlobalApp>
       <Box sx={{ marginTop: "250px" }}>
         {loading ? (
           <h1>Chargement....</h1>
@@ -214,6 +213,6 @@ export default function AllMovies_Desktop_Page({
           </>
         )}
       </Box>
-    </Container_GlobalAppServer>
+    </Container_GlobalApp>
   );
 }
