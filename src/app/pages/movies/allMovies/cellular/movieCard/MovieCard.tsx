@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, MouseEvent } from "react";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 interface Movie {
   id: string;
@@ -20,6 +21,8 @@ export function MovieCard({ movie }: MovieCardProps) {
   const [shouldScroll, setShouldScroll] = useState<boolean>(false);
   const [clickedOnce, setClickedOnce] = useState<boolean>(false);
 
+    const router = useRouter();
+
   useEffect(() => {
     const container = containerRef.current;
     const text = textRef.current;
@@ -30,25 +33,30 @@ export function MovieCard({ movie }: MovieCardProps) {
 
       setShouldScroll(textWidth > containerWidth);
     }
-  }, [movie.name]);
-  function handleClick(e: MouseEvent<HTMLDivElement, MouseEvent>) {
-    e.preventDefault();
+  }, [movie.name])
 
-    if (!clickedOnce) {
-      setClickedOnce(true);
-      // Réinitialisation si le 2e clic ne vient pas
-      setTimeout(() => setClickedOnce(false), 3000);
-    } else {
-      // Navigation manuelle si second clic
-window.location.href = `/pages/movies/movie/${movie.id}?id=123&name=John`;
-    }
-  }
+  const handleClick = () => {
+    router.push(`/pages/movies/movie/${movie.id}?`);
+  };
+
+//   function handleClick(e: MouseEvent<HTMLDivElement, MouseEvent>) {
+//     e.preventDefault();
+
+//     if (!clickedOnce) {
+//       setClickedOnce(true);
+//       // Réinitialisation si le 2e clic ne vient pas
+//       setTimeout(() => setClickedOnce(false), 3000);
+//     } else {
+//       // Navigation manuelle si second clic
+// window.location.href = `/pages/movies/movie/${movie.id}?id=123&name=John`;
+//     }
+//   }
 
   const { id } = movie;
 
   return (
     <Box
-      // onClick={handleClick}
+      onClick={handleClick}
       sx={{
         height: "140px",
         width: "105px",
