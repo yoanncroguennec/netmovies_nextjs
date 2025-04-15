@@ -12,7 +12,7 @@ export default async function Container_GlobalAppServer({
 
   return (
     <Container_GlobalApp
-    session={session}
+    // session={session}
     >{children}</Container_GlobalApp>
   );
 }
