@@ -1,5 +1,6 @@
+// app/api/auth/[...nextauth]/route.ts
 import NextAuth from "next-auth";
-import { authOptions } from "./authOptions";
+import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { NextRequest } from "next/server";
 
 const handler = NextAuth(authOptions);
@@ -11,6 +12,7 @@ export function GET(req: NextRequest) {
 export function POST(req: NextRequest) {
   return handler(req);
 }
+
 // import NextAuth from "next-auth";
 // import CredentialsProvider from "next-auth/providers/credentials";
 // import { compare } from "bcryptjs";
