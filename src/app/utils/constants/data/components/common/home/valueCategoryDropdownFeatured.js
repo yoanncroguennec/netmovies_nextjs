@@ -1,4 +1,4 @@
-const urlListMovieByCategory = "movies/ListMovieByCategory";
+const urlListMovieByCategory = "movies/listMovieByGenres";
 
 export const valueCategoryDropdownFeatured = [
   {

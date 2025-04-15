@@ -1,3 +1,4 @@
+// yoann.croguennec@gmail.com
 "use client";
 
 import React, { useState } from "react";
@@ -49,8 +50,8 @@ export default function LoginPage() {
       });
 
       if (login?.ok) {
-        toast.success("Enregistrement réussi");
-        window.location.assign("/");
+        toast.success("Connexion réussi");
+        window.location.assign("/pages/home");
       }
 
       if (login?.error) {

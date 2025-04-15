@@ -1,28 +1,33 @@
 // app/components/Container_GlobalApp.tsx
 "use client";
 
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { ReactNode } from "react";
 import { Session } from "next-auth";
 //
-import Navbar from "@/app/components/layouts/customs/navbar/Navbar"
+import Navbar from "@/app/components/layouts/customs/navbar/Navbar";
 
 interface Container_GlobalApp_Props {
   children: ReactNode;
-  // session: Session | null;
+  session: Session | null;
 }
 
 export default function Container_GlobalApp({
   children,
-  // session,
+  session,
 }: Container_GlobalApp_Props) {
   return (
     <Box>
       <Navbar />
       {/* Exemple d'utilisation de la session */}
-      {/* {session?.user?.email && (
-        <div>Connecté en tant que : {session.user.email}</div>
-      )} */}
+      <Typography sx={{ color: "red" }} variant='h4'>
+        Connecté en tant que :
+      </Typography>
+      <Typography sx={{ color: "red" }} variant='h4'>
+        {session?.user?.email && (
+          <div>Connecté en tant que : {session.user.email}</div>
+        )}
+      </Typography>
       {children}
     </Box>
   );

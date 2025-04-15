@@ -162,6 +162,7 @@ export default function Featured_Desktop({
             background: "rgba(0, 0, 0, 0.4)",
             borderRadius: "25px",
             marginLeft: "45px",
+            maxWidth: matches ? "700px" : "80vw",
             padding: matches ? "50px" : "20px",
             width: matches ? "700px" : "80vw",
           }}
@@ -182,7 +183,9 @@ export default function Featured_Desktop({
                   style={StylesThreeBtns}
                 >
                   {matches ? <BoxIconBtn>{icon}</BoxIconBtn> : null}
-                  <Typography sx={{ textAlign: "center" }} variant='body2'>{title}</Typography>
+                  <Typography sx={{ textAlign: "center" }} variant='body2'>
+                    {title}
+                  </Typography>
                 </motion.div>
               </>
             ))}

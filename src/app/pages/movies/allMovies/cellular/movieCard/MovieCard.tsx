@@ -19,9 +19,8 @@ export function MovieCard({ movie }: MovieCardProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const textRef = useRef<HTMLDivElement | null>(null);
   const [shouldScroll, setShouldScroll] = useState<boolean>(false);
-  const [clickedOnce, setClickedOnce] = useState<boolean>(false);
 
-    const router = useRouter();
+  const router = useRouter();
 
   useEffect(() => {
     const container = containerRef.current;
@@ -33,24 +32,11 @@ export function MovieCard({ movie }: MovieCardProps) {
 
       setShouldScroll(textWidth > containerWidth);
     }
-  }, [movie.name])
+  }, [movie.name]);
 
   const handleClick = () => {
     router.push(`/pages/movies/movie/${movie.id}?`);
   };
-
-//   function handleClick(e: MouseEvent<HTMLDivElement, MouseEvent>) {
-//     e.preventDefault();
-
-//     if (!clickedOnce) {
-//       setClickedOnce(true);
-//       // Réinitialisation si le 2e clic ne vient pas
-//       setTimeout(() => setClickedOnce(false), 3000);
-//     } else {
-//       // Navigation manuelle si second clic
-// window.location.href = `/pages/movies/movie/${movie.id}?id=123&name=John`;
-//     }
-//   }
 
   const { id } = movie;
 
