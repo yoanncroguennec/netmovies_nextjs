@@ -106,9 +106,6 @@ export default function Movie_ID_ForCellular({
               {item}
             </Typography>
           ))}
-        </Box>
-
-        <Box sx={{ display: "flex", flexWrap: "wrap" }}>
           {genre.map((item) => (
             <Typography
               sx={{
