@@ -11,6 +11,8 @@ export default async function Container_GlobalAppServer({
   const session = await getServerSession(authOptions);
 
   return (
-    <Container_GlobalApp session={session}>{children}</Container_GlobalApp>
+    <Container_GlobalApp
+    // session={session}
+    >{children}</Container_GlobalApp>
   );
 }
