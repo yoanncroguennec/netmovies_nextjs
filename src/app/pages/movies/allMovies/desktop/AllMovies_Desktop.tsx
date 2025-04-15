@@ -11,7 +11,9 @@ import ListAllMovies from "./listAllMovies/ListAllMovies";
 interface Movie {
   id: string;
   name: string;
+  desc: string;
   year: number;
+  realisators: string[];
   actors: string[];
   country: string[];
   genre: string[];
@@ -85,7 +87,7 @@ export default function AllMovies_Desktop_Page() {
 
   // Filtrage et tri combinés
   useEffect(() => {
-    let filteredMovies = allMovies;
+    let filteredMovies = [...allMovies];
 
     // Filtrage par nom
     if (searchTerm) {
@@ -152,7 +154,7 @@ export default function AllMovies_Desktop_Page() {
     setSelectedCountry([]);
     setSelectedGenres([]);
     setSortOption("nameAsc");
-  };
+  }
 
   return (
     <Container_GlobalApp>
@@ -199,6 +201,14 @@ export default function AllMovies_Desktop_Page() {
               //
               resetFilters={resetFilters}
             />
+            {items.length === 0 && (
+              <Typography
+                variant='h6'
+                sx={{ textAlign: "center", marginTop: 4 }}
+              >
+                Aucun film ne correspond à vos critères.
+              </Typography>
+            )}
 
             {/* Liste des films filtrés */}
             <Box
@@ -208,8 +218,8 @@ export default function AllMovies_Desktop_Page() {
                 placeItems: "center",
               }}
             >
-              {items.map((movie, index) => (
-                <ListAllMovies movie={movie} />
+              {items.map((movie) => (
+                <ListAllMovies key={movie.id} movie={movie} />
               ))}
             </Box>
           </>

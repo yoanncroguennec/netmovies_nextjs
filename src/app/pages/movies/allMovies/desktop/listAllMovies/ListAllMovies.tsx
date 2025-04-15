@@ -9,15 +9,15 @@ import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 
 interface ListAllMoviesProps {
   movie: {
-    id: string | number;
-    title: string;
-    year: number;
-    img: string;
-    realisators?: string[];
-    actors?: string[];
-    genre: string[];
-    country: string[];
+    id: string;
+    name: string;
     desc: string;
+    year: number;
+    realisators: string[];
+    actors: string[];
+    country: string[];
+    genre: string[];
+    img: string;
   };
 }
 
@@ -71,7 +71,7 @@ export default function ListAllMovies({ movie }: ListAllMoviesProps) {
         >
           <Box sx={{ display: "flex", flexWrap: "nowrap" }}>
             <Image
-              alt={movie.title}
+              alt={movie.name}
               height={1000}
               src={movie.img}
               style={{
@@ -133,7 +133,7 @@ export default function ListAllMovies({ movie }: ListAllMoviesProps) {
                 sx={{ color: "#F00", fontWeight: "bold" }}
                 variant='h5'
               >
-                {movie.title}
+                {movie.name} ({movie.year})
               </Typography>
 
               <Box sx={{ display: "flex", flexWrap: "nowrap" }}>
