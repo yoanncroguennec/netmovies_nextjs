@@ -7,6 +7,7 @@ import ScrollToTop from "react-scroll-to-top";
 import { Root } from "./StylesAllMovies_Cellular_Page";
 import { MovieCard } from "./movieCard/MovieCard";
 import FiltersAllMovies_ForCellular from "./filters/FiltersAllMovies_ForCellular";
+import Container_GlobalAppServer from "@/app/components/layouts/containers/container_GlobalAppServer/Container_GlobalAppServer";
 
 interface Movie {
   id: string;
@@ -138,7 +139,7 @@ export default function AllMovies_Cellular_Page({
   ]);
 
   return (
-    <Container_GlobalApp>
+    <Container_GlobalAppServer>
       <Root toggle_Search_Filters={toggle_Search_Filters}>
         <FiltersAllMovies_ForCellular
           toggle_Search_Filters={toggle_Search_Filters}
@@ -154,6 +155,6 @@ export default function AllMovies_Cellular_Page({
         ))}
         <ScrollToTop smooth />
       </Root>
-    </Container_GlobalApp>
+    </Container_GlobalAppServer>
   );
 }

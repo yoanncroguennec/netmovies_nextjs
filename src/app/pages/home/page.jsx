@@ -9,12 +9,13 @@ import Container_GlobalApp from "@/app/components/layouts/containers/container_G
 // DTAS
 import data_HorizontalMovieList from "@/app/utils/constants/data/screens/home/data_HorizontalMovieList";
 import { getServerSession } from "next-auth";
+import Container_GlobalAppServer from "@/app/components/layouts/containers/container_GlobalAppServer/Container_GlobalAppServer";
 
 export default async function HomePage() {
   const session = await getServerSession(authOptions);
 
   return (
-    <Container_GlobalApp>
+    <Container_GlobalAppServer>
       <Box sx={{ background: "#000", overflow: "hidden" }}>
         <Featured />
         <Typography sx={{ color: "#FFF", fontWeight: "bold" }} variant='h6'>
@@ -27,6 +28,6 @@ export default async function HomePage() {
           />
         ))}
       </Box>
-    </Container_GlobalApp>
+    </Container_GlobalAppServer>
   );
 }

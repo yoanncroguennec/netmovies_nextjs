@@ -27,7 +27,7 @@ import Link from "next/link";
 // ICONS
 import { MdMovieCreation, MdFavorite } from "react-icons/md";
 import { RiUserLine, RiAdminLine } from "react-icons/ri";
-import InfosUser from "./InfosUser";
+// import InfosUser from "./InfosUser";
 
 const dataIcons = [
   {
@@ -56,7 +56,7 @@ const dataIcons = [
   },
 ];
 
-export default function Navbar() {
+export default function Navbar({ session }) {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
 
@@ -149,7 +149,10 @@ export default function Navbar() {
           );
         })}
       </Box>
-      <InfosUser />
+      <Typography sx={{ color: "#F0F" }} variant='h6'>
+        {session.user.email}
+      </Typography>
+      {/* <InfosUser /> */}
 
       {/* <UserLocationIP_AddressAndLocalTimeDate
         id_Of_ConnectedUser={id_Of_ConnectedUser}
