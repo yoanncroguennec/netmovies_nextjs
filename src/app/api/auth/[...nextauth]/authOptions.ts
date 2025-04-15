@@ -6,7 +6,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "@/app/libs/prismadb";
 import { compare } from "bcryptjs";
 
-export const authOptions: AuthOptions = {
+const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   session: {
     strategy: "jwt", // Utilisation de la stratégie JWT
@@ -44,15 +44,17 @@ export const authOptions: AuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id; // On ajoute l'ID dans le token
+        token.id = user.id; // Ajoute l'ID au token
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user && token.id) {
-        session.user.id = token.id as string; // On ajoute l'ID dans la session
+        session.user.id = token.id as string; // Ajoute l'ID à la session
       }
       return session;
     },
   },
 };
+
+export default authOptions; // Remarque l'export par défaut ici

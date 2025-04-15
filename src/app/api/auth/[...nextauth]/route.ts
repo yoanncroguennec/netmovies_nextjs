@@ -1,7 +1,7 @@
 // app/api/auth/[...nextauth]/route.ts
 
 import NextAuth from "next-auth";
-import { authOptions } from "./authOptions"; // Import correct de authOptions
+import authOptions from "./authOptions"; // Utilisation de l'import par défaut
 
 const handler = NextAuth(authOptions);
 
@@ -12,6 +12,7 @@ export function GET(req: Request) {
 export function POST(req: Request) {
   return handler(req);
 }
+
 
 // import NextAuth from "next-auth";
 // import CredentialsProvider from "next-auth/providers/credentials";
