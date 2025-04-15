@@ -209,7 +209,7 @@ export default function AllMovies_Desktop_Page() {
               }}
             >
               {items.map((movie, index) => (
-                <ListAllMovies movie={movie} id={movie.id} />
+                <ListAllMovies movie={movie} />
               ))}
             </Box>
           </>

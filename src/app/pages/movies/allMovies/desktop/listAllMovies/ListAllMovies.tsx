@@ -3,34 +3,30 @@
 import { useState } from "react";
 import { Box, Tooltip } from "@mui/material";
 import Typography from "@mui/material/Typography";
-
 import Image from "next/image";
-// ICONS
 import { LiaEye, LiaEyeSlash } from "react-icons/lia";
-import {
-  MdFavorite,
-  MdFavoriteBorder,
-  MdOutlineFavorite,
-} from "react-icons/md";
-import { FaUniversalAccess } from "react-icons/fa";
+import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 
-export default function ListAllMovies({ movie, id }) {
-  const [flippedIndex, setFlippedIndex] = useState(null);
+interface ListAllMoviesProps {
+  movie: {
+    id: string | number;
+    title: string;
+    year: number;
+    img: string;
+    realisators?: string[];
+    actors?: string[];
+    genre: string[];
+    country: string[];
+    desc: string;
+  };
+}
 
-  //
+export default function ListAllMovies({ movie }: ListAllMoviesProps) {
+  const [isFlipped, setIsFlipped] = useState(false);
   const [movieViewed, setMovieViewed] = useState(false);
   const [favouriteMovie, setFavouriteMovie] = useState(false);
-
   const [isExpanded, setIsExpanded] = useState(false);
   const maxLength = 150;
-
-  function toggleFavorite(_id) {
-    setItems((prevMovies) =>
-      prevMovies.map((movie) =>
-        movie._id === _id ? { ...movie, favorite: !movie.favorite } : movie
-      )
-    );
-  }
 
   return (
     <Box
@@ -43,9 +39,9 @@ export default function ListAllMovies({ movie, id }) {
         padding: "15px",
         cursor: "pointer",
       }}
-      // onMouseEnter={() => setFlippedIndex(index)}
       onMouseLeave={() => {
-        setFlippedIndex(null), setIsExpanded(false);
+        setIsFlipped(false);
+        setIsExpanded(false);
       }}
     >
       <Box
@@ -55,9 +51,10 @@ export default function ListAllMovies({ movie, id }) {
           position: "relative",
           transformStyle: "preserve-3d",
           transition: "transform 0.5s",
-          transform: flippedIndex === id ? "rotateY(180deg)" : "",
+          transform: isFlipped ? "rotateY(180deg)" : "none",
         }}
       >
+        {/* Front */}
         <Box
           style={{
             width: "100%",
@@ -74,7 +71,7 @@ export default function ListAllMovies({ movie, id }) {
         >
           <Box sx={{ display: "flex", flexWrap: "nowrap" }}>
             <Image
-              alt=''
+              alt={movie.title}
               height={1000}
               src={movie.img}
               style={{
@@ -96,7 +93,7 @@ export default function ListAllMovies({ movie, id }) {
               >
                 <Box>
                   {movieViewed ? (
-                    <Tooltip title=''>
+                    <Tooltip title='Vu'>
                       <LiaEye
                         color='#000'
                         onClick={() => setMovieViewed(!movieViewed)}
@@ -113,50 +110,52 @@ export default function ListAllMovies({ movie, id }) {
                     </Tooltip>
                   )}
                   {favouriteMovie ? (
-                    <Tooltip title=''>
+                    <Tooltip title='Retirer des favoris'>
                       <MdFavorite
                         color='#F00'
-                        onClick={() => toggleFavorite(movie._id)}
+                        onClick={() => setFavouriteMovie(!favouriteMovie)}
                         size={35}
                       />
                     </Tooltip>
                   ) : (
-                    <Tooltip title=''>
+                    <Tooltip title='Ajouter aux favoris'>
                       <MdFavoriteBorder
                         color='#F00'
-                        onClick={() => toggleFavorite(movie._id)}
+                        onClick={() => setFavouriteMovie(!favouriteMovie)}
                         size={35}
                       />
                     </Tooltip>
                   )}
                 </Box>
               </Box>
+
               <Typography
                 sx={{ color: "#F00", fontWeight: "bold" }}
                 variant='h5'
               >
-                {movie.name}
+                {movie.title}
               </Typography>
+
               <Box sx={{ display: "flex", flexWrap: "nowrap" }}>
                 <Typography sx={{ fontWeight: "bold" }} variant='h6'>
                   Réalisateurs :&nbsp;
                 </Typography>
-                {movie.realisators && Array.isArray(movie.realisators) ? (
+                {movie.realisators && Array.isArray(movie.realisators) && (
                   <Typography variant='h6'>
                     {movie.realisators.join(", ")}
                   </Typography>
-                ) : null}
+                )}
               </Box>
 
               <Box sx={{ display: "flex", flexWrap: "nowrap" }}>
                 <Typography sx={{ fontWeight: "bold" }} variant='h6'>
                   Acteurs :&nbsp;
                 </Typography>
-                {movie.actors && Array.isArray(movie.actors) ? (
+                {movie.actors && Array.isArray(movie.actors) && (
                   <Typography variant='h6'>
                     {movie.actors.join(", ")}
                   </Typography>
-                ) : null}
+                )}
               </Box>
 
               <Box
@@ -168,6 +167,7 @@ export default function ListAllMovies({ movie, id }) {
               >
                 {movie.genre.map((item) => (
                   <Box
+                    key={item}
                     sx={{
                       border: "2px solid #000",
                       borderRadius: 15,
@@ -190,6 +190,7 @@ export default function ListAllMovies({ movie, id }) {
               >
                 {movie.country.map((item) => (
                   <Box
+                    key={item}
                     sx={{
                       border: "2px solid #000",
                       borderRadius: 15,
@@ -204,7 +205,7 @@ export default function ListAllMovies({ movie, id }) {
               </Box>
 
               <Box
-                onMouseEnter={() => setFlippedIndex(id)}
+                onMouseEnter={() => setIsFlipped(true)}
                 sx={{
                   border: "3px solid #F00",
                   borderRadius: "20px",
@@ -228,7 +229,9 @@ export default function ListAllMovies({ movie, id }) {
             </Box>
           </Box>
         </Box>
-        <div
+
+        {/* Back */}
+        <Box
           style={{
             width: "100%",
             height: "100%",
@@ -245,7 +248,7 @@ export default function ListAllMovies({ movie, id }) {
             transform: "rotateY(180deg)",
           }}
         >
-          <Typography sx={{}} variant='h6'>
+          <Typography variant='h6'>
             {isExpanded
               ? movie.desc
               : movie.desc.slice(0, maxLength) +
@@ -257,6 +260,7 @@ export default function ListAllMovies({ movie, id }) {
               sx={{
                 border: "3px solid #F00",
                 borderRadius: "25px",
+                marginTop: "10px",
               }}
             >
               <Typography
@@ -271,54 +275,7 @@ export default function ListAllMovies({ movie, id }) {
               </Typography>
             </Box>
           )}
-          <Box
-            sx={{
-              bottom: "20px",
-              display: "flex",
-              flexWrap: "nowrap",
-              justifyContent: "space-evenly",
-              position: "absolute",
-              width: "100%",
-            }}
-          >
-            <Box
-              sx={{
-                border: "3px solid #F00",
-                borderRadius: "25px",
-              }}
-            >
-              <Typography
-                sx={{
-                  color: "#F00",
-                  fontWeight: "bold",
-                  padding: "1px 10px",
-                  textAlign: "center",
-                }}
-                variant='h6'
-              >
-                Voir Bande-annonce
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                border: "3px solid #F00",
-                borderRadius: "25px",
-              }}
-            >
-              <Typography
-                sx={{
-                  color: "#F00",
-                  fontWeight: "bold",
-                  padding: "1px 10px",
-                  textAlign: "center",
-                }}
-                variant='h6'
-              >
-                Voir Film
-              </Typography>
-            </Box>
-          </Box>
-        </div>
+        </Box>
       </Box>
     </Box>
   );

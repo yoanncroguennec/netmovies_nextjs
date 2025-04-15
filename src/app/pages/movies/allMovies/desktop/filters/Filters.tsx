@@ -76,7 +76,7 @@ interface Filters_Props {
   selectedCountry: string[];
   setSelectedCountry: (countries: string[]) => void;
 
-  selectedYear: number;
+  selectedYear: number | undefined;
   setSelectedYear: (year: number) => void;
 
   genres: string[];
