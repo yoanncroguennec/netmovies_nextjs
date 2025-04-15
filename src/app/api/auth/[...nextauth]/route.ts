@@ -1,15 +1,15 @@
 // app/api/auth/[...nextauth]/route.ts
+
 import NextAuth from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
-import { NextRequest } from "next/server";
+import { authOptions } from "./authOptions"; // Import correct de authOptions
 
 const handler = NextAuth(authOptions);
 
-export function GET(req: NextRequest) {
+export function GET(req: Request) {
   return handler(req);
 }
 
-export function POST(req: NextRequest) {
+export function POST(req: Request) {
   return handler(req);
 }
 
