@@ -14,7 +14,7 @@ const prisma = new PrismaClient();
 export async function POST(req: Request) {
   try {
     console.log(
-      "\n⚠️ ATTENTION ! Vous allez supprimer toutes les données de la Base de Données"
+      "\n⚠️ ATTENTION ! Vous allez supprimer toutes les données de la BDD"
     );
     console.log(
       "❓ Voulez-vous vraiment continuer ? (Tapez 'OUI' pour confirmer)"
