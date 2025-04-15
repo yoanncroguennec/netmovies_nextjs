@@ -82,6 +82,7 @@ interface Filters_Props {
   genres: string[];
   selectedGenres: string[];
   setSelectedGenres: (genres: string[]) => void;
+  hiddenDropdownGenres: boolean;
 
   sortOption: string;
   setSortOption: (option: string) => void;
@@ -108,7 +109,7 @@ export default function Filters({
   //
   genres,
   selectedGenres,
-  setSelectedGenres,
+  setSelectedGenres,hiddenDropdownGenres,
   //
   sortOption,
   setSortOption,
@@ -271,40 +272,43 @@ function handleYearChange(e: SelectChangeEvent<string | number>) {
         </Select>
       </FormControl>
       {/* Sélecteur de genres */}
-      <FormControl sx={[formControl, { width: "200px" }]}>
-        <InputLabel>Filtrer par genres</InputLabel>
-        <Select
-          label='Filtrer par genres'
-          multiple
-          IconComponent={(props) => (
-            <IconButton {...props} sx={{ background: "" }}>
-              <MdExpandMore
-                size={40}
-                style={{ color: "red", position: "absolute", top: "-5px" }}
-              />
-            </IconButton>
-          )}
-          MenuProps={{
-            PaperProps: {
-              style: {
-                color: "#000",
-                maxHeight: 300, // Set the max height of the dropdown
+      {hiddenDropdownGenres ? (
+        <FormControl sx={[formControl, { width: "200px" }]}>
+          <InputLabel>Filtrer par genres</InputLabel>
+          <Select
+            label='Filtrer par genres'
+            multiple
+            IconComponent={(props) => (
+              <IconButton {...props} sx={{ background: "" }}>
+                <MdExpandMore
+                  size={40}
+                  style={{ color: "red", position: "absolute", top: "-5px" }}
+                />
+              </IconButton>
+            )}
+            MenuProps={{
+              PaperProps: {
+                style: {
+                  color: "#000",
+                  maxHeight: 300, // Set the max height of the dropdown
+                },
               },
-            },
-          }}
-          onChange={handleGenreChange}
-          renderValue={(selected) => selected.join(", ")} // Affiche les genres sélectionnés
-          sx={redSelectStyles}
-          value={selectedGenres}
-        >
-          {genres.map((genre) => (
-            <MenuItem key={genre} value={genre}>
-              <Checkbox checked={selectedGenres.indexOf(genre) > -1} />
-              <ListItemText primary={genre} />
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+            }}
+            onChange={handleGenreChange}
+            renderValue={(selected) => selected.join(", ")} // Affiche les genres sélectionnés
+            sx={redSelectStyles}
+            value={selectedGenres}
+          >
+            {genres.map((genre) => (
+              <MenuItem key={genre} value={genre}>
+                <Checkbox checked={selectedGenres.indexOf(genre) > -1} />
+                <ListItemText primary={genre} />
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      ) : null}
+
       {/* Sélecteur du critère de tri */}
       <FormControl sx={formControl}>
         <InputLabel sx={{ color: "#F00" }}>Tri</InputLabel>

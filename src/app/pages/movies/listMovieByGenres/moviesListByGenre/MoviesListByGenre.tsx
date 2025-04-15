@@ -1,10 +1,10 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useMediaQuery, useTheme } from "@mui/material";
-import AllMovies_Desktop_Page from "./allMovies/desktop/AllMovies_Desktop";
-import AllMovies_Cellular_Page from "./allMovies/cellular/AllMovies_Cellular";
-import React, { useEffect, useState } from "react";
 import axios from "axios";
+import AllMovies_Desktop_Page from "../../allMovies/desktop/AllMovies_Desktop";
 
 interface Movie {
   id: string;
@@ -18,11 +18,11 @@ interface Movie {
   img: string;
 }
 
-interface AllMoviesResponse {
-  allMovies: Movie[];
+interface AllMoviesByGenreResponse {
+  allMoviesbyGenre: Movie[];
 }
 
-export default function Page() {
+export default function MoviesListByGenre() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
 
@@ -30,47 +30,56 @@ export default function Page() {
   const [allMovies, setAllMovies] = useState<Movie[]>([]);
   const [items, setItems] = useState<Movie[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+
   // Recherche & Filtres
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedYear, setSelectedYear] = useState<number>();
   const [sortOption, setSortOption] = useState<string>("nameAsc");
+
   // Acteurs
   const [actors, setActors] = useState<string[]>([]);
   const [selectedActors, setSelectedActors] = useState<string[]>([]);
+
   // Pays
   const [country, setCountry] = useState<string[]>([]);
   const [selectedCountry, setSelectedCountry] = useState<string[]>([]);
+
   // Genres
   const [genres, setGenres] = useState<string[]>([]);
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+
   // Erreurs
   const [error, setError] = useState<string>("");
 
+  const searchParams = useSearchParams();
+  const movieCategory = searchParams.get("movieCategory");
+
   useEffect(() => {
+    if (!movieCategory) return;
+
     async function getAllMovies() {
       setLoading(true);
       try {
-        const url = `https://www.net-movie.fr/api/movies?type=allMovies`;
-        const { data }: { data: AllMoviesResponse } = await axios.get(url);
+        const url = `https://www.net-movie.fr/api/movies?type=allMoviesByGenre&genre=${movieCategory}`;
+        const { data }: { data: AllMoviesByGenreResponse } = await axios.get(
+          url
+        );
 
-        setAllMovies(data.allMovies); // Stockage original
-        setItems(data.allMovies); // Stockage filtré
+        setAllMovies(data.allMoviesbyGenre);
+        setItems(data.allMoviesbyGenre);
 
-        // Acteurs
-        const uniqueActors: string[] = [
-          ...new Set(data.allMovies.flatMap((movie) => movie.actors)),
-        ].sort((a, b) => a.localeCompare(b));
+        const uniqueActors = [
+          ...new Set(data.allMoviesbyGenre.flatMap((movie) => movie.actors)),
+        ].sort();
         setActors(uniqueActors);
 
-        // Pays
-        const uniqueCountry: string[] = [
-          ...new Set(data.allMovies.flatMap((movie) => movie.country)),
-        ].sort((a, b) => a.localeCompare(b));
+        const uniqueCountry = [
+          ...new Set(data.allMoviesbyGenre.flatMap((movie) => movie.country)),
+        ].sort();
         setCountry(uniqueCountry);
 
-        // Genres
-        const uniqueGenres: string[] = [
-          ...new Set(data.allMovies.flatMap((movie) => movie.genre)),
+        const uniqueGenres = [
+          ...new Set(data.allMoviesbyGenre.flatMap((movie) => movie.genre)),
         ].sort();
         setGenres(uniqueGenres);
       } catch (err) {
@@ -84,7 +93,9 @@ export default function Page() {
     }
 
     getAllMovies();
-  }, []);
+  }, [movieCategory]);
+
+  if (!movieCategory) return null;
 
   return (
     <AllMovies_Desktop_Page
@@ -111,11 +122,10 @@ export default function Page() {
       genres={genres}
       selectedGenres={selectedGenres}
       setSelectedGenres={setSelectedGenres}
-      hiddenDropdownGenres='false'
+      hiddenDropdownGenres="true"
       //
       sortOption={sortOption}
       setSortOption={setSortOption}
-      //
     />
   );
 }

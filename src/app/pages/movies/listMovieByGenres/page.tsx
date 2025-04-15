@@ -1,10 +1,10 @@
 import { Suspense } from "react";
-import MovieListByGenre from "./MovieListByGenre";
+import MoviesListByGenre from "./moviesListByGenre/MoviesListByGenre";
 
 export default function Page() {
   return (
     <Suspense fallback={<div>Chargement des films...</div>}>
-      <MovieListByGenre />
+      <MoviesListByGenre />
     </Suspense>
   );
 }

@@ -6,7 +6,7 @@ import { Box, Button, Typography } from "@mui/material";
 import Container_GlobalApp from "@/app/components/layouts/containers/container_GlobalApp/Container_GlobalApp";
 //
 import Filters from "./filters/Filters";
-import ListAllMovies from "./listAllMovies/ListAllMovies"
+import ListAllMovies from "./listAllMovies/ListAllMovies";
 
 interface Movie {
   id: string;
@@ -39,16 +39,17 @@ interface AllMovies_Desktop_Page_Props {
   genres: string[];
   selectedGenres: string[];
   setSelectedGenres: React.Dispatch<React.SetStateAction<string[]>>;
+  hiddenDropdownGenres: boolean;
   sortOption: string;
   setSortOption: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function AllMovies_Desktop_Page({
   allMovies,
-    items,
-      setItems,
-      loading,
-      error,
+  items,
+  setItems,
+  loading,
+  error,
   //
   searchTerm,
   setSearchTerm,
@@ -67,11 +68,11 @@ export default function AllMovies_Desktop_Page({
   genres,
   selectedGenres,
   setSelectedGenres,
+  hiddenDropdownGenres,
   //
   sortOption,
   setSortOption,
 }: AllMovies_Desktop_Page_Props) {
-
   // Filtrage et tri combinés
   useEffect(() => {
     let filteredMovies = [...allMovies];
@@ -182,6 +183,7 @@ export default function AllMovies_Desktop_Page({
               genres={genres}
               selectedGenres={selectedGenres}
               setSelectedGenres={setSelectedGenres}
+              hiddenDropdownGenres={hiddenDropdownGenres}
               //
               sortOption={sortOption}
               setSortOption={setSortOption}
