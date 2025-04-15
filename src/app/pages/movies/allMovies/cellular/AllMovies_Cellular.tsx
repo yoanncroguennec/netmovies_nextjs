@@ -1,8 +1,6 @@
+"use client"; // Indique que ce composant doit être exécuté côté client et permet d'effectuer des opérations comme la gestion de l'état (useState), la récupération de données (useEffect), etc...
 
-"use client";
-
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { Dispatch, SetStateAction, useState, useEffect } from "react";
 import Container_GlobalApp from "@/app/components/layouts/containers/container_GlobalApp/Container_GlobalApp";
 import ScrollToTop from "react-scroll-to-top";
 // STYLES
@@ -22,74 +20,62 @@ interface Movie {
   img: string;
 }
 
-interface AllMoviesResponse {
+interface AllMovies_Cellular_Page_Props {
   allMovies: Movie[];
+  items: Movie[];
+  setItems: Dispatch<SetStateAction<Movie[]>>;
+  loading: boolean;
+  error: string;
+  searchTerm: string;
+  setSearchTerm: Dispatch<SetStateAction<string>>;
+  actors: string[];
+  selectedActors: string[];
+  setSelectedActors: Dispatch<SetStateAction<string[]>>;
+  country: string[];
+  selectedCountry: string[];
+  setSelectedCountry: Dispatch<SetStateAction<string[]>>;
+  selectedYear?: number;
+  setSelectedYear: Dispatch<SetStateAction<number | undefined>>;
+  genres: string[];
+  selectedGenres: string[];
+  setSelectedGenres: Dispatch<SetStateAction<string[]>>;
+  hiddenDropdownGenres: boolean;
+  sortOption: string;
+  setSortOption: Dispatch<SetStateAction<string>>;
 }
 
-export default function AllMovies_Cellular_Page() {
+export default function AllMovies_Cellular_Page({
+  allMovies,
+  items,
+  setItems,
+  loading,
+  error,
+  //
+  searchTerm,
+  setSearchTerm,
+  //
+  actors,
+  selectedActors,
+  setSelectedActors,
+  //
+  country,
+  selectedCountry,
+  setSelectedCountry,
+  //
+  selectedYear,
+  setSelectedYear,
+  //
+  genres,
+  selectedGenres,
+  setSelectedGenres,
+  hiddenDropdownGenres,
+  //
+  sortOption,
+  setSortOption,
+}: AllMovies_Cellular_Page_Props) {
   const [toggle_Search_Filters, setToggle_Search_Filters] =
     useState<boolean>(false);
 
-  // Films
-  const [allMovies, setAllMovies] = useState<Movie[]>([]);
-  const [items, setItems] = useState<Movie[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-  // Recherche & Filtres
-  const [searchTerm, setSearchTerm] = useState<string>("");
-  const [selectedYear, setSelectedYear] = useState<number>();
-  const [sortOption, setSortOption] = useState<string>("nameAsc");
-  // Acteurs
-  const [actors, setActors] = useState<string[]>([]);
-  const [selectedActors, setSelectedActors] = useState<string[]>([]);
-  // Pays
-  const [country, setCountry] = useState<string[]>([]);
-  const [selectedCountry, setSelectedCountry] = useState<string[]>([]);
-  // Genres
-  const [genres, setGenres] = useState<string[]>([]);
-  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
-  // Erreurs
-  const [error, setError] = useState<string>("");
-
- useEffect(() => {
-    async function getAllMovies() {
-      setLoading(true);
-      try {
-        const url = `https://www.net-movie.fr/api/movies?type=allMovies`;
-        const { data }: { data: AllMoviesResponse } = await axios.get(url);
-
-        setAllMovies(data.allMovies); // Stockage original
-        setItems(data.allMovies); // Stockage filtré
-
-        // Acteurs
-        const uniqueActors: string[] = [
-          ...new Set(data.allMovies.flatMap((movie) => movie.actors)),
-        ].sort((a, b) => a.localeCompare(b));
-        setActors(uniqueActors);
-
-        // Pays
-        const uniqueCountry: string[] = [
-          ...new Set(data.allMovies.flatMap((movie) => movie.country)),
-        ].sort((a, b) => a.localeCompare(b));
-        setCountry(uniqueCountry);
-
-        // Genres
-        const uniqueGenres: string[] = [
-          ...new Set(data.allMovies.flatMap((movie) => movie.genre)),
-        ].sort();
-        setGenres(uniqueGenres);
-      } catch (err) {
-        setError(
-          "Impossible de récupérer les films. Veuillez réessayer plus tard."
-        );
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    getAllMovies();
-  }, []);
-  
   // Filtrage et tri combinés
   useEffect(() => {
     let filteredMovies = [...allMovies];

@@ -1,8 +1,7 @@
 "use client"; // Indique que ce composant doit être exécuté côté client et permet d'effectuer des opérations comme la gestion de l'état (useState), la récupération de données (useEffect), etc...
 
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { Box, Button, Typography } from "@mui/material";
+import { Dispatch, SetStateAction, useEffect } from "react";
+import { Box, Typography } from "@mui/material";
 import Container_GlobalApp from "@/app/components/layouts/containers/container_GlobalApp/Container_GlobalApp";
 //
 import Filters from "./filters/Filters";
@@ -23,25 +22,25 @@ interface Movie {
 interface AllMovies_Desktop_Page_Props {
   allMovies: Movie[];
   items: Movie[];
-  setItems: React.Dispatch<React.SetStateAction<Movie[]>>;
+  setItems: Dispatch<SetStateAction<Movie[]>>;
   loading: boolean;
   error: string;
   searchTerm: string;
-  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  setSearchTerm: Dispatch<SetStateAction<string>>;
   actors: string[];
   selectedActors: string[];
-  setSelectedActors: React.Dispatch<React.SetStateAction<string[]>>;
+  setSelectedActors: Dispatch<SetStateAction<string[]>>;
   country: string[];
   selectedCountry: string[];
-  setSelectedCountry: React.Dispatch<React.SetStateAction<string[]>>;
+  setSelectedCountry: Dispatch<SetStateAction<string[]>>;
   selectedYear?: number;
-  setSelectedYear: React.Dispatch<React.SetStateAction<number | undefined>>;
+  setSelectedYear: Dispatch<SetStateAction<number | undefined>>;
   genres: string[];
   selectedGenres: string[];
-  setSelectedGenres: React.Dispatch<React.SetStateAction<string[]>>;
+  setSelectedGenres: Dispatch<SetStateAction<string[]>>;
   hiddenDropdownGenres: boolean;
   sortOption: string;
-  setSortOption: React.Dispatch<React.SetStateAction<string>>;
+  setSortOption: Dispatch<SetStateAction<string>>;
 }
 
 export default function AllMovies_Desktop_Page({

@@ -32,7 +32,7 @@ import { RiUserLine, RiAdminLine } from "react-icons/ri";
 const dataIcons = [
   {
     icon: MdMovieCreation,
-    link: "/pages/movies",
+    link: "/pages/movies/allMovies",
     tooltip: "Tous les films",
     color: "#FFF",
   },
@@ -84,6 +84,7 @@ export default function Navbar() {
           justifyContent: "center",
           display: "flex",
           flexWrap: "nowrap",
+          textDecoration: "none",
         }}
       >
         <Typo_FirstLetter_Logo>N</Typo_FirstLetter_Logo>

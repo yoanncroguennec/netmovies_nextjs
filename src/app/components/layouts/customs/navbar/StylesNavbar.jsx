@@ -1,4 +1,4 @@
-import { Box, styled } from "@mui/material";
+import { Box, styled, Typography } from "@mui/material";
 
 export const RootNavbar = styled(Box)(({ isScrolled, matches }) => ({
   alignItems: "center",
@@ -16,57 +16,75 @@ export const RootNavbar = styled(Box)(({ isScrolled, matches }) => ({
   zIndex: "99",
 }));
 
-export const Typo_FirstLetter_Logo = styled(Box)(({ matches }) => ({
+export const Typo_FirstLetter_Logo = styled(Typography)(({ theme }) => ({
   color: "#F00",
-  fontSize: `${matches ? "27px" : "35px"}`,
+  fontSize: "35px",
   fontWeight: "bold",
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "25px"
+  },
 }));
 
-export const Typo_SecondLetter_Logo = styled(Box)(({ matches }) => ({
+export const Typo_SecondLetter_Logo = styled(Typography)(({ theme }) => ({
   color: "#F00",
-  fontSize: `${matches ? "23px" : "31px"}`,
+  fontSize: "31px",
   fontWeight: "bold",
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "21px",
+  },
 }));
 
-export const Typo_ThirdLetter_Logo = styled(Box)(({ matches }) => ({
+export const Typo_ThirdLetter_Logo = styled(Typography)(({ theme }) => ({
   color: "#F00",
-  fontSize: `${matches ? "19px" : "27px"}`,
+  fontSize: "27px",
   fontWeight: "bold",
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "17px",
+  },
 }));
 
-export const Typo_FourthLetter_Logo = styled(Box)(({ matches }) => ({
+export const Typo_FourthLetter_Logo = styled(Typography)(({ theme }) => ({
   color: "#F00",
-  fontSize: `${matches ? "15px" : "23px"}`,
+  fontSize: "23px",
   fontWeight: "bold",
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "13px",
+  },
 }));
 
-export const Typo_FifthLetter_Logo = styled(Box)(({ matches }) => ({
+export const Typo_FifthLetter_Logo = styled(Typography)(({ theme }) => ({
   color: "#F00",
-  fontSize: `${matches ? "15px" : "23px"}`,
+  fontSize: "23px",
   fontWeight: "bold",
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "13px",
+  },
 }));
 
-export const Typo_SixthLetter_Logo = styled(Box)(({ matches }) => ({
+export const Typo_SixthLetter_Logo = styled(Typography)(({ theme }) => ({
   color: "#F00",
   fontWeight: "bold",
-  fontSize: `${matches ? "19px" : "27px"}`,
+  fontSize: "27px",
   fontWeight: "bold",
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "17px",
+  },
 }));
 
-export const Typo_SeventhLetter_Logo = styled(Box)(({ matches }) => ({
+export const Typo_SeventhLetter_Logo = styled(Typography)(({ theme }) => ({
   color: "#F00",
-  fontSize: `${matches ? "23px" : "31px"}`,
+  fontSize: "31px",
   fontWeight: "bold",
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "21px",
+  },
 }));
 
-export const Typo_EighthLetter_Logo = styled(Box)(({ matches }) => ({
+export const Typo_EighthLetter_Logo = styled(Typography)(({ theme }) => ({
   color: "#F00",
-  fontSize: `${matches ? "27px" : "35px"}`,
+  fontSize: "35px",
   fontWeight: "bold",
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "25px",
+  },
 }));
-
-// export const Typo_NinthLetter_Logo = styled(Box)(({ matches }) => ({
-//   color: "#F00",
-//   fontWeight: "bold",
-//   fontSize: `${matches ? "30px" : "35px"}`,
-// }));

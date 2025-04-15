@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useMediaQuery, useTheme } from "@mui/material";
 import axios from "axios";
 import AllMovies_Desktop_Page from "../../allMovies/desktop/AllMovies_Desktop";
+import AllMovies_Cellular_Page from "../../allMovies/cellular/AllMovies_Cellular";
 
 interface Movie {
   id: string;
@@ -97,7 +98,7 @@ export default function MoviesListByGenre() {
 
   if (!movieCategory) return null;
 
-  return (
+  return matches ? (
     <AllMovies_Desktop_Page
       allMovies={allMovies}
       items={items}
@@ -122,7 +123,37 @@ export default function MoviesListByGenre() {
       genres={genres}
       selectedGenres={selectedGenres}
       setSelectedGenres={setSelectedGenres}
-      hiddenDropdownGenres="true"
+      hiddenDropdownGenres={false}
+      //
+      sortOption={sortOption}
+      setSortOption={setSortOption}
+    />
+  ) : (
+    <AllMovies_Cellular_Page
+      allMovies={allMovies}
+      items={items}
+      setItems={setItems}
+      loading={loading}
+      error={error}
+      //
+      searchTerm={searchTerm}
+      setSearchTerm={setSearchTerm}
+      //
+      actors={actors}
+      selectedActors={selectedActors}
+      setSelectedActors={setSelectedActors}
+      //
+      country={country}
+      selectedCountry={selectedCountry}
+      setSelectedCountry={setSelectedCountry}
+      //
+      selectedYear={selectedYear}
+      setSelectedYear={setSelectedYear}
+      //
+      genres={genres}
+      selectedGenres={selectedGenres}
+      setSelectedGenres={setSelectedGenres}
+      hiddenDropdownGenres={false}
       //
       sortOption={sortOption}
       setSortOption={setSortOption}

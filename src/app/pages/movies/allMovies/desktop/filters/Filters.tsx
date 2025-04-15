@@ -109,7 +109,8 @@ export default function Filters({
   //
   genres,
   selectedGenres,
-  setSelectedGenres,hiddenDropdownGenres,
+  setSelectedGenres,
+  hiddenDropdownGenres,
   //
   sortOption,
   setSortOption,
@@ -131,12 +132,12 @@ export default function Filters({
   }
 
   // Gérer la sélection de l'année
-function handleYearChange(e: SelectChangeEvent<string | number>) {
-  const value = e.target.value;
+  function handleYearChange(e: SelectChangeEvent<string | number>) {
+    const value = e.target.value;
 
-  // Ensure the value is a number (if it's a string, convert it to a number)
-  setSelectedYear(typeof value === "string" ? parseInt(value, 10) : value);
-}
+    // Ensure the value is a number (if it's a string, convert it to a number)
+    setSelectedYear(typeof value === "string" ? parseInt(value, 10) : value);
+  }
   // Gérer la sélection des genres
   const handleGenreChange = (e: SelectChangeEvent<string[]>) => {
     const selected = e.target.value; // e.target.value devrait être un tableau de chaînes (string[])
@@ -272,7 +273,7 @@ function handleYearChange(e: SelectChangeEvent<string | number>) {
         </Select>
       </FormControl>
       {/* Sélecteur de genres */}
-      {hiddenDropdownGenres ? (
+      {hiddenDropdownGenres ? null : (
         <FormControl sx={[formControl, { width: "200px" }]}>
           <InputLabel>Filtrer par genres</InputLabel>
           <Select
@@ -307,7 +308,7 @@ function handleYearChange(e: SelectChangeEvent<string | number>) {
             ))}
           </Select>
         </FormControl>
-      ) : null}
+      )}
 
       {/* Sélecteur du critère de tri */}
       <FormControl sx={formControl}>

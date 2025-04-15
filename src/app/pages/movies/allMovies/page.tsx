@@ -1,8 +1,8 @@
 "use client";
 
 import { useMediaQuery, useTheme } from "@mui/material";
-import AllMovies_Desktop_Page from "./allMovies/desktop/AllMovies_Desktop";
-import AllMovies_Cellular_Page from "./allMovies/cellular/AllMovies_Cellular";
+import AllMovies_Desktop_Page from "./desktop/AllMovies_Desktop";
+import AllMovies_Cellular_Page from "./cellular/AllMovies_Cellular";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -86,7 +86,7 @@ export default function Page() {
     getAllMovies();
   }, []);
 
-  return (
+  return matches ? (
     <AllMovies_Desktop_Page
       allMovies={allMovies}
       items={items}
@@ -111,11 +111,40 @@ export default function Page() {
       genres={genres}
       selectedGenres={selectedGenres}
       setSelectedGenres={setSelectedGenres}
-      hiddenDropdownGenres='false'
+      hiddenDropdownGenres={false}
       //
       sortOption={sortOption}
       setSortOption={setSortOption}
+    />
+  ) : (
+    <AllMovies_Cellular_Page
+      allMovies={allMovies}
+      items={items}
+      setItems={setItems}
+      loading={loading}
+      error={error}
       //
+      searchTerm={searchTerm}
+      setSearchTerm={setSearchTerm}
+      //
+      actors={actors}
+      selectedActors={selectedActors}
+      setSelectedActors={setSelectedActors}
+      //
+      country={country}
+      selectedCountry={selectedCountry}
+      setSelectedCountry={setSelectedCountry}
+      //
+      selectedYear={selectedYear}
+      setSelectedYear={setSelectedYear}
+      //
+      genres={genres}
+      selectedGenres={selectedGenres}
+      setSelectedGenres={setSelectedGenres}
+      hiddenDropdownGenres={false}
+      //
+      sortOption={sortOption}
+      setSortOption={setSortOption}
     />
   );
 }
