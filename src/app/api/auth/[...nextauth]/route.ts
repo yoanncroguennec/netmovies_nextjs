@@ -13,7 +13,6 @@ export function POST(req: Request) {
   return handler(req);
 }
 
-
 // import NextAuth from "next-auth";
 // import CredentialsProvider from "next-auth/providers/credentials";
 // import { compare } from "bcryptjs";
