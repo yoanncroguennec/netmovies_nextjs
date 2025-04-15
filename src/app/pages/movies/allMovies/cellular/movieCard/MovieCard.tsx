@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, MouseEvent } from "react";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 interface Movie {
   id: string;
