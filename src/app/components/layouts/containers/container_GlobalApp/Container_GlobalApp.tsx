@@ -9,12 +9,12 @@ import Navbar from "@/app/components/layouts/customs/navbar/Navbar";
 
 interface Container_GlobalApp_Props {
   children: ReactNode;
-  session: Session | null;
+ // session: Session | null;
 }
 
 export default function Container_GlobalApp({
   children,
-  session,
+//  session,
 }: Container_GlobalApp_Props) {
   return (
     <Box>
@@ -24,9 +24,9 @@ export default function Container_GlobalApp({
         Connecté en tant que :
       </Typography>
       <Typography sx={{ color: "red" }} variant='h4'>
-        {session?.user?.email && (
+        {/* {session?.user?.email && (
           <div>Connecté en tant que : {session.user.email}</div>
-        )}
+        )} */}
       </Typography>
       {children}
     </Box>
