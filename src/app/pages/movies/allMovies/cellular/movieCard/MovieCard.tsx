@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useEffect, useRef, useState, MouseEvent } from "react";
 import { Box, Typography } from "@mui/material";
@@ -15,22 +15,22 @@ interface MovieCardProps {
 }
 
 export function MovieCard({ movie }: MovieCardProps) {
-const containerRef = useRef<HTMLDivElement | null>(null);
-const textRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const textRef = useRef<HTMLDivElement | null>(null);
   const [shouldScroll, setShouldScroll] = useState<boolean>(false);
   const [clickedOnce, setClickedOnce] = useState<boolean>(false);
 
-useEffect(() => {
-  const container = containerRef.current;
-  const text = textRef.current;
+  useEffect(() => {
+    const container = containerRef.current;
+    const text = textRef.current;
 
-  if (container && text) {
-    const containerWidth = container.offsetWidth;
-    const textWidth = text.scrollWidth;
+    if (container && text) {
+      const containerWidth = container.offsetWidth;
+      const textWidth = text.scrollWidth;
 
-    setShouldScroll(textWidth > containerWidth);
-  }
-}, [movie.name]);
+      setShouldScroll(textWidth > containerWidth);
+    }
+  }, [movie.name]);
   function handleClick(e: MouseEvent<HTMLDivElement, MouseEvent>) {
     e.preventDefault();
 
@@ -40,15 +40,15 @@ useEffect(() => {
       setTimeout(() => setClickedOnce(false), 3000);
     } else {
       // Navigation manuelle si second clic
-      window.location.href = `/pages/movies/movie/${movie.id}?id=123&name=John`;
+window.location.href = `/pages/movies/movie/${movie.id}?id=123&name=John`;
     }
-  };
+  }
 
   const { id } = movie;
 
   return (
     <Box
-      onClick={handleClick}
+      // onClick={handleClick}
       sx={{
         height: "140px",
         width: "105px",
