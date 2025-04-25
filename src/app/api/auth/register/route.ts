@@ -1,9 +1,9 @@
 import prisma from "@/app/libs/prismadb";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import uid2 from "uid2"
-import SHA256 from "crypto-js/sha256"
-import encBase64 from "crypto-js/enc-base64"
+import crypto from "crypto";
+import SHA256 from "crypto-js/sha256";
+import encBase64 from "crypto-js/enc-base64";
 
 export async function POST(req: Request) {
   try {
@@ -38,11 +38,9 @@ export async function POST(req: Request) {
 
     const hashedPassword = await bcrypt.hash(password.trim(), 10);
 
-    const token = uid2(64);
-    const salt = uid2(16);
+    const token = crypto.randomBytes(64).toString("hex");
+    const salt = crypto.randomBytes(16).toString("hex");
     const hash = SHA256(password + salt).toString(encBase64);
-    console.log("token", token);
-    console.log("salt", salt);
 
     await prisma.user.create({
       data: {
@@ -51,9 +49,9 @@ export async function POST(req: Request) {
         email: email.trim().toLowerCase(),
         password: hashedPassword,
         dateBirthday: parsedDate,
-        token: token,
-        salt: salt,
-        hash: hash,
+        token,
+        salt,
+        hash,
       },
     });
 
