@@ -1,3 +1,9 @@
+// 1) Ton token actuel suffit si tu fais du simple login/session à la main.
+// 2) Un JWT est plus robuste, surtout pour :
+//     - Auth avec expiration,
+//     - API sécurisées (header Authorization: Bearer ...),
+//     - Ne pas dépendre d'une requête à la base à chaque appel
+
 import prisma from "@/app/libs/prismadb";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";

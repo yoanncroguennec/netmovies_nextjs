@@ -1,5 +1,13 @@
+// 1) Ton token actuel suffit si tu fais du simple login/session à la main.
+// 2) Un JWT est plus robuste, surtout pour :
+//     - Auth avec expiration,
+//     - API sécurisées (header Authorization: Bearer ...),
+//     - Ne pas dépendre d'une requête à la base à chaque appel
+
+
 import { NextResponse } from "next/server";
 import prisma from "@/app/libs/prismadb";
+import bcrypt from "bcryptjs";
 import SHA256 from "crypto-js/sha256";
 import encBase64 from "crypto-js/enc-base64";
 
@@ -12,27 +20,47 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Champs manquants." }, { status: 400 });
     }
 
-    const existingUser = await prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: { email: email.trim().toLowerCase() },
     });
 
-    if (!existingUser) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    if (!user) {
+      return NextResponse.json(
+        { error: "Email ou mot de passe incorrect." },
+        { status: 401 }
+      );
     }
 
-    const newHash = SHA256(password + existingUser.salt).toString(encBase64);
+    let isValid = false;
 
-    if (newHash !== existingUser.hash) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    // 🔐 Vérification via bcrypt
+    if (user.password) {
+      isValid = await bcrypt.compare(password.trim(), user.password);
+    }
+
+    // 🔐 Vérification via SHA256 + salt (compatibilité ancienne version)
+    if (!isValid && user.salt && user.hash) {
+      const newHash = SHA256(password + user.salt).toString(encBase64);
+      isValid = newHash === user.hash;
+    }
+
+    if (!isValid) {
+      return NextResponse.json(
+        { error: "Email ou mot de passe incorrect." },
+        { status: 401 }
+      );
     }
 
     return NextResponse.json(
       {
-        id: existingUser.id,
-        firstName: existingUser.firstName,
-        lastName: existingUser.lastName,
-        dateBirthday: existingUser.dateBirthday,
-        token: existingUser.token,
+        message: "Connexion réussie.",
+        user: {
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          dateBirthday: user.dateBirthday,
+          token: user.token,
+        },
       },
       { status: 200 }
     );

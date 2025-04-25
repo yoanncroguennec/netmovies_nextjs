@@ -1,7 +1,7 @@
 import prisma from "@/app/libs/prismadb";
 import { NextResponse } from "next/server";
 
-const allowedOrigins = ["http://localhost:3000", "https://yourdomain.com"];
+const allowedOrigins = ["http://localhost:3000", "https://www.net-movie.fr/"];
 
 function getCorsHeaders(origin: string | null) {
   const isAllowed = origin && allowedOrigins.includes(origin);
