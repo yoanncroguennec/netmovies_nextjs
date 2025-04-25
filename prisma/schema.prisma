@@ -79,10 +79,9 @@ model Movie {
   country String[]
   productionCompany String?
   movieLink String?
-  img String?
+  imgCover String?
+  imgPoster String?
   year Int
   genre String[]
   rating String?
-  createdAt DateTime @default(now()) // L'horodatage de la création du film (par défaut, l'heure actuelle).
-  updateAt DateTime @updatedAt // Horodatage mis à jour automatiquement pour la dernière fois que l'enregistrement du film a été modifié.
 }
