@@ -79,6 +79,7 @@ model Movie {
   country String[]
   productionCompany String?
   movieLink String?
+  img       String?  // ← ici : image optionnelle (ou `String` si obligatoire)
   imgCover String?
   imgPoster String?
   year Int
