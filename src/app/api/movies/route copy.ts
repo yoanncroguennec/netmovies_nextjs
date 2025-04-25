@@ -1,6 +1,6 @@
 // http://localhost:3000/api/movies
 import { NextResponse } from "next/server"; // API NextResponsepermet de renvoyer une réponse JSON dans une API route Next.js.
-import prisma from "@/app/libs/prismadb"
+import prisma from "@/app/libs/prismadb";
 // import { PrismaClient } from "@prisma/client";
 
 // const prisma = new PrismaClient();
@@ -33,9 +33,9 @@ export async function GET(req: Request) {
       const allMovies = await prisma.movie.findMany();
 
       const response = {
-        allMovies
-      }
-      
+        allMovies,
+      };
+
       return NextResponse.json(response, { status: 200, headers });
 
       ////////////////////////////
@@ -102,31 +102,28 @@ export async function GET(req: Request) {
       ////////////////////////////
       // http://localhost:3000/api/movies?type=newAllMovies
     } else if (type === "newAllMovies") {
-    try {
-      const limit = 10;
-      // Fetch the latest 10 movies sorted by ID in descending order
-      const movies = await prisma.movie.findMany({
-        orderBy: {
-          id: "desc",
-        },
-        take: limit,
-      });
+      try {
+        const limit = 10;
+        // Fetch the latest 10 movies sorted by ID in descending order
+        const movies = await prisma.movie.findMany({
+          orderBy: {
+            id: "desc",
+          },
+          take: limit,
+        });
 
-      // Count the total number of movies in the database
-      const total = await prisma.movie.count();
+        // Count the total number of movies in the database
+        const total = await prisma.movie.count();
 
-      const response = {
-        total,
-        movies,
-      };
-      
-      return NextResponse.json(response, { status: 200, headers });
-    } catch (error) {
-     return NextResponse.json(
-       { message: "GET ERROR" },
-       { status: 500 }
-     );
-    }
+        const response = {
+          total,
+          movies,
+        };
+
+        return NextResponse.json(response, { status: 200, headers });
+      } catch (error) {
+        return NextResponse.json({ message: "GET ERROR" }, { status: 500 });
+      }
       ////////////////////////////
       ////////////////////////////
     } else {
@@ -159,7 +156,8 @@ export async function POST(req: Request) {
       country,
       productionCompany,
       movieLink,
-      img,
+      imgCover,
+      imgPoster,
       genre,
       rating,
       year,
@@ -178,7 +176,8 @@ export async function POST(req: Request) {
         country,
         productionCompany,
         movieLink,
-        img,
+        imgCover,
+        imgPoster,
         genre,
         rating,
         year,
